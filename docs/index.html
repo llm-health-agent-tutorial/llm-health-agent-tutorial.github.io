@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tutorial: Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026</title>
+<meta name="description" content="A half-day, hands-on UbiComp/ISWC 2026 tutorial: build a working personal LLM health agent over a synthetic multimodal sensing dataset. From raw sensor streams to actionable, grounded health insights.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#115e59">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://llm-health-agent-tutorial.github.io/">
+<meta property="og:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
+<meta property="og:description" content="A half-day, hands-on tutorial: build a working personal LLM health agent over a synthetic multimodal sensing dataset. From raw sensor streams to actionable, grounded health insights.">
+<meta property="og:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
+<meta name="twitter:description" content="A half-day, hands-on tutorial on building a personal LLM health agent over multimodal sensing data.">
+<meta name="twitter:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --surface: #ffffff;
+    --ink: #1c2b2d;
+    --ink-soft: #4a5b5d;
+    --ink-faint: #5f7274;
+    --line: #e6e3db;
+    --primary: #115e59;       /* deep teal */
+    --primary-ink: #0b3d3a;
+    --accent: #e07a5f;         /* warm coral, echoes the teaser (decorative fills) */
+    --accent-ink: #a8462f;     /* darker coral for text on light/soft bg (WCAG AA) */
+    --accent-soft: #fbeae4;
+    --primary-soft: #e3f0ee;
+    --radius: 14px;
+    --maxw: 1080px;
+    --shadow: 0 1px 2px rgba(20,40,40,.04), 0 8px 24px rgba(20,40,40,.06);
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", sans-serif;
+    --font-display: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--primary); }
+  a:focus-visible, .btn:focus-visible, .avatar-link:focus-visible, .brand:focus-visible {
+    outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+  }
+  h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(251,250,247,.85);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  nav .brand { font-weight: 700; color: var(--primary-ink); text-decoration: none; font-size: 15px; }
+  nav .brand span { color: var(--accent-ink); }
+  nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
+  nav ul a { text-decoration: none; color: var(--ink-soft); font-size: 14px; font-weight: 500; }
+  nav ul a:hover { color: var(--primary); }
+  .nav-links { display: flex; }
+  .nav-burger {
+    display: none; align-items: center; justify-content: center;
+    width: 40px; height: 40px; margin: -8px -8px -8px 0; border-radius: 8px;
+    cursor: pointer; color: var(--primary-ink);
+  }
+  .nav-burger:hover { background: var(--primary-soft); }
+  .nav-burger svg { width: 22px; height: 22px; }
+  @media (max-width: 720px) {
+    .nav-burger { display: inline-flex; }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 0; background: var(--surface);
+      border-bottom: 1px solid var(--line); box-shadow: var(--shadow); padding: 6px 0;
+    }
+    .nav-toggle:checked ~ .nav-links { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 12px 24px; font-size: 15px; }
+    .nav-links a:hover { background: var(--primary-soft); }
+  }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    padding: 64px 0 40px;
+    background:
+      radial-gradient(1200px 400px at 80% -10%, var(--primary-soft), transparent 60%),
+      radial-gradient(900px 360px at 0% 0%, var(--accent-soft), transparent 55%);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--line);
+    color: var(--primary-ink); font-weight: 600; font-size: 13px;
+    padding: 6px 14px; border-radius: 999px; box-shadow: var(--shadow);
+  }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .kicker { color: var(--ink-faint); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; font-size: 12.5px; margin: 22px 0 10px; }
+  header.hero h1 {
+    font-size: clamp(30px, 5vw, 50px);
+    margin: 0 0 16px;
+    color: var(--primary-ink);
+    max-width: 22ch;
+  }
+  header.hero .lede { font-size: clamp(17px, 2.2vw, 20px); color: var(--ink-soft); max-width: 68ch; margin: 0 0 28px; }
+
+  .facts { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 30px; }
+  .fact {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 10px; padding: 10px 16px; font-size: 14px;
+    display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow);
+  }
+  .fact b { color: var(--primary-ink); }
+  .fact svg { width: 16px; height: 16px; color: var(--primary); flex-shrink: 0; }
+
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+    padding: 12px 22px; border-radius: 10px; border: 1px solid transparent;
+    transition: transform .08s ease, box-shadow .15s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--primary); color: #fff; box-shadow: var(--shadow); }
+  .btn-primary:hover { background: var(--primary-ink); }
+  .btn-ghost { background: var(--surface); color: var(--primary-ink); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--primary); }
+  .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+  .btn .tba { font-size: 11px; font-weight: 700; background: var(--accent-soft); color: var(--accent-ink); padding: 2px 7px; border-radius: 6px; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  section h2 { font-size: clamp(24px, 3.4vw, 32px); color: var(--primary-ink); margin: 0 0 8px; }
+  section .sub { color: var(--ink-faint); margin: 0 0 30px; max-width: 60ch; }
+
+  /* Hook / quote */
+  .hook { background: var(--surface); }
+  .quote {
+    font-size: clamp(22px, 3.6vw, 34px); font-weight: 600; color: var(--primary-ink);
+    max-width: 24ch; margin: 0 0 18px; line-height: 1.25;
+  }
+  .quote .q { color: var(--accent); }
+  .hook p { color: var(--ink-soft); max-width: 65ch; font-size: 16.5px; }
+
+  /* Figure */
+  figure.teaser { margin: 34px 0 0; }
+  figure.teaser img {
+    width: 100%; height: auto; border-radius: var(--radius);
+    border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow);
+  }
+  figure.teaser figcaption { color: var(--ink-faint); font-size: 13.5px; margin-top: 12px; text-align: center; }
+
+  /* Two-column cards */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow);
+  }
+  .card h3 { margin: 0 0 14px; font-size: 18px; color: var(--primary-ink); }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .list li { position: relative; padding-left: 28px; margin-bottom: 12px; color: var(--ink-soft); font-size: 15.5px; }
+  .list li::before {
+    content: ""; position: absolute; left: 0; top: 9px;
+    width: 14px; height: 14px; border-radius: 4px;
+    background: var(--primary-soft); border: 2px solid var(--primary);
+  }
+  .list.leave li::before { background: var(--accent-soft); border-color: var(--accent); }
+
+  /* Schedule */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .slot {
+    display: grid; grid-template-columns: 92px 1fr; gap: 18px;
+    padding: 16px 0; border-bottom: 1px dashed var(--line);
+  }
+  .slot:last-child { border-bottom: none; }
+  .slot .time {
+    font-weight: 700; color: var(--primary); font-size: 14px;
+    background: var(--primary-soft); border-radius: 8px; padding: 6px 8px;
+    text-align: center; height: fit-content; white-space: nowrap;
+  }
+  .slot .time.break-t { color: var(--accent-ink); background: var(--accent-soft); }
+  .slot h4 { margin: 0 0 4px; font-size: 16.5px; color: var(--primary-ink); }
+  .slot p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+  .slot.break h4 { color: var(--accent-ink); }
+
+  /* Prereq grid */
+  .prereq { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .prereq { grid-template-columns: 1fr; } }
+
+  /* Organizers */
+  .people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 860px) { .people { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .people { grid-template-columns: 1fr; } }
+  .person {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+  }
+  .person .avatar-link {
+    display: inline-block; line-height: 0; margin-bottom: 14px;
+    border-radius: 50%; transition: transform .12s ease;
+  }
+  .person .avatar-link:hover { transform: translateY(-2px); }
+  .person .avatar {
+    width: 76px; height: 76px; border-radius: 50%;
+    object-fit: cover; object-position: center top;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--line);
+    display: block; transition: box-shadow .15s ease;
+  }
+  .person .avatar-link:hover .avatar {
+    box-shadow: 0 0 0 2px var(--primary), 0 6px 16px rgba(20,40,40,.18);
+  }
+  .person h3 { margin: 0 0 2px; font-size: 16.5px; color: var(--primary-ink); }
+  .person .aff { color: var(--ink-faint); font-size: 13.5px; margin: 0 0 10px; }
+  .person a { font-size: 13px; text-decoration: none; word-break: break-all; }
+  .person a:hover { text-decoration: underline; }
+
+  /* Speakers (keynote & panel) */
+  .group-label {
+    font-size: 13px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--ink-faint); font-weight: 700; margin: 26px 0 16px;
+  }
+  .group-label:first-of-type { margin-top: 4px; }
+  .role-tag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: .03em; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px;
+  }
+  .role-tag.keynote { background: var(--accent-soft); color: var(--accent-ink); }
+  .role-tag.panelist { background: var(--primary-soft); color: var(--primary-ink); }
+  .person.tba { border-style: dashed; background: transparent; box-shadow: none; }
+  .person.tba h3 { color: var(--ink-soft); }
+  .person .avatar-ph {
+    width: 76px; height: 76px; border-radius: 50%; margin-bottom: 14px;
+    background: var(--primary-soft); color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Register / contact */
+  .register { background: var(--surface); }
+  .reg-box {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px;
+  }
+  @media (max-width: 720px) { .reg-box { grid-template-columns: 1fr; } }
+  .reg-item {
+    border: 1px solid var(--line); border-radius: 12px; padding: 20px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .reg-item .lbl { font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-faint); font-weight: 600; }
+  .reg-item .val { font-size: 16px; color: var(--primary-ink); font-weight: 600; }
+
+  /* Footer */
+  footer {
+    padding: 40px 0; border-top: 1px solid var(--line);
+    color: var(--ink-faint); font-size: 13.5px;
+  }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+  /* Dataset */
+  .dataset-note { color: var(--ink-soft); max-width: 66ch; font-size: 16.5px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .tag {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+    padding: 7px 15px; font-size: 14px; color: var(--primary-ink); font-weight: 500;
+    box-shadow: var(--shadow);
+  }
+
+  /* FAQ */
+  .faq { max-width: 780px; }
+  .faq details {
+    border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+    margin-bottom: 12px; box-shadow: var(--shadow);
+  }
+  .faq summary {
+    cursor: pointer; list-style: none; padding: 18px 22px;
+    font-weight: 600; color: var(--primary-ink); font-size: 16.5px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--primary); font-size: 24px; font-weight: 400; line-height: 1; flex-shrink: 0; }
+  .faq details[open] summary::after { content: "\2013"; }
+  .faq summary:hover { color: var(--primary); }
+  .faq .answer { padding: 0 22px 20px; color: var(--ink-soft); font-size: 15.5px; max-width: 70ch; }
+
+  .anchor { scroll-margin-top: 76px; }
+
+  /* Scholarly serif headings (body stays system-sans for speed) */
+  h1, h2, h3, h4, .quote { font-family: var(--font-display); letter-spacing: -0.01em; }
+  header.hero h1 { font-weight: 700; }
+  .group-label { font-family: var(--font); letter-spacing: .07em; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">LLM Health Agent <span>· UbiComp/ISWC '26</span></a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+    <label for="nav-toggle" class="nav-burger" aria-label="Toggle navigation menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </label>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#speakers">Speakers</a></li>
+      <li><a href="#prereq">Prerequisites</a></li>
+      <li><a href="#organizers">Organizers</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#register">Register</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="badge"><span class="dot"></span> UbiComp/ISWC 2026 · Half-day Tutorial · Shanghai, China</span>
+    <p class="kicker">From Multimodal Sensing Data to Actionable Health Insights</p>
+    <h1>Prototyping Your Personal LLM Health Agent</h1>
+    <p class="lede">A hands-on tutorial. Build a working personal LLM health agent from a minimal scaffold, over a synthetic, curated multimodal sensing dataset — and turn raw sensor streams into grounded, personalized answers.</p>
+
+    <div class="facts">
+      <div class="fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span><b>Oct 11–15, 2026</b></span></div>
+      <div class="fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Shanghai, China</span></div>
+      <div class="fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span>Half-day (3.5h), hands-on</span></div>
+      <div class="fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>
+        <span>Bring a laptop · Python ≥ 3.10</span></div>
+    </div>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="#register">Registration <span class="tba">TBA</span></a>
+      <a class="btn btn-ghost" href="#register">Starter repository <span class="tba">TBA</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- HOOK -->
+<section class="hook anchor" id="about">
+  <div class="wrap">
+    <p class="quote"><span class="q">“</span>Why have I been sleeping poorly this week?<span class="q">”</span></p>
+    <p>Most consumer wearables and health dashboards can show you the data behind that question, but they cannot answer it. LLM agents — language models that call functions, run analyses, and visualize results — offer a path to turn raw multimodal sensing streams into grounded, personalized answers. In this half-day, hands-on tutorial, you will build a working personal LLM health agent from a minimal scaffold, over a synthetic, curated multimodal sensing dataset (sleep, heart rate, activity, GPS, screen time, EMA).</p>
+
+    <figure class="teaser">
+      <img src="teaser.png" alt="The personal LLM health agent stack participants build during the tutorial, across six modules from introduction to wrap-up.">
+      <figcaption>The personal LLM health agent stack you build across the tutorial's six modules.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL DO / LEAVE WITH -->
+<section class="anchor">
+  <div class="wrap">
+    <h2>What you'll do — and leave with</h2>
+    <p class="sub">No prior LLM or agent experience required. We open with a concise primer, then build, wire, and stress-test an agent together.</p>
+    <div class="cols">
+      <div class="card">
+        <h3>What you will do</h3>
+        <ul class="list">
+          <li>Build health-specific tools (data retrieval, analysis, visualization) and register them with an LLM agent.</li>
+          <li>Wire up an agent loop and iterate it on real questions over wearable, smartphone, and self-report data.</li>
+          <li>Examine evaluation, safety, and ethical considerations in a moderated panel with invited guests.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What you will leave with</h3>
+        <ul class="list leave">
+          <li>A working LLM health agent running locally on the provided dataset.</li>
+          <li>A runnable codebase and design template you can adapt to your own research.</li>
+          <li>A practical checklist for evaluating LLM agents on faithfulness, safety, and user-alignment.</li>
+          <li>A roadmap for extending the scaffold in your own work.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="anchor" id="schedule">
+  <div class="wrap">
+    <h2>Schedule</h2>
+    <p class="sub">A half-day session of 3.5 hours, alternating short conceptual lectures, guided coding, and a moderated panel. Every module ships with a starter notebook, reference solution, and an optional advanced exercise.</p>
+    <ul class="timeline">
+      <li class="slot">
+        <span class="time">30 min</span>
+        <div><h4>Module 1 · Introduction</h4><p>The sensemaking gap; the anatomy of an LLM agent vs. prompt-only LLM use and classical ML pipelines; recurring design tensions.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">20 min</span>
+        <div><h4>Module 2 · Setting Up</h4><p>Verify your API and/or local-model setup, load the sample dataset, and run a minimal tool-using LLM call.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">45 min</span>
+        <div><h4>Module 3 · Designing Health Tools</h4><p>Implement and register data-retrieval, analysis, and visualization tools the agent can compose at runtime.</p></div>
+      </li>
+      <li class="slot break">
+        <span class="time break-t">30 min</span>
+        <div><h4>Break</h4><p>Coffee & networking.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">45 min</span>
+        <div><h4>Module 4 · Wiring Up the Agent</h4><p>Planning, tool selection, execution, observation, response. Run the agent against open-ended questions.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">30 min</span>
+        <div><h4>Module 5 · Panel on Evaluation & Safety</h4><p>What makes a “good” answer, failure modes (hallucination, unsafe advice, longitudinal drift), and ethics — with invited guests.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">10 min</span>
+        <div><h4>Module 6 · Wrap-up</h4><p>Synthesis, a roadmap of open challenges, and community Q&amp;A.</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- KEYNOTE & PANEL -->
+<section class="anchor" id="speakers">
+  <div class="wrap">
+    <h2>Keynote &amp; Panel</h2>
+    <p class="sub">Module 5 features a moderated panel on evaluation and safety, joined by invited guests. Keynote and panel speakers will be announced here as they are confirmed.</p>
+
+    <h3 class="group-label">Keynote</h3>
+    <div class="people">
+      <div class="person tba">
+        <div class="avatar-ph" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/></svg>
+        </div>
+        <span class="role-tag keynote">Keynote</span>
+        <h3>To be announced</h3>
+        <p class="aff">Keynote speaker</p>
+      </div>
+    </div>
+
+    <h3 class="group-label">Panel on Evaluation &amp; Safety</h3>
+    <div class="people">
+      <div class="person tba">
+        <div class="avatar-ph" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span class="role-tag panelist">Panelists</span>
+        <h3>To be announced</h3>
+        <p class="aff">Invited guests from evaluation, safety, and clinical AI</p>
+      </div>
+    </div>
+
+    <!-- TEMPLATE — copy a card below and fill in name / affiliation / role / photo.
+         Drop a square photo in img/ and set src; or keep .avatar-ph for an icon placeholder.
+    <div class="person">
+      <a class="avatar-link" href="HTTPS://HOMEPAGE" target="_blank" rel="noopener" title="NAME — homepage">
+        <img class="avatar" src="img/FILENAME.jpg" alt="NAME" loading="lazy"></a>
+      <span class="role-tag keynote">Keynote</span>      // or  panelist
+      <h3>NAME</h3>
+      <p class="aff">AFFILIATION</p>
+    </div>
+    -->
+  </div>
+</section>
+
+<!-- PREREQUISITES -->
+<section class="anchor" id="prereq">
+  <div class="wrap">
+    <h2>Prerequisites & what to bring</h2>
+    <p class="sub">The tutorial is built to be accessible to participants from non-LLM backgrounds while staying meaningful for those with prior experience.</p>
+    <div class="prereq">
+      <div class="card">
+        <h3>Prerequisites</h3>
+        <ul class="list">
+          <li>Intermediate Python: comfortable reading and modifying a Jupyter notebook, installing packages, and debugging API calls.</li>
+          <li>No prior LLM or agent experience required — we open with a concise primer.</li>
+          <li>Familiarity with wearable or behavioral data is helpful but not required; cleaned sample datasets are provided.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What to bring</h3>
+        <ul class="list leave">
+          <li>A laptop with Python ≥ 3.10 and Jupyter installed.</li>
+          <li>Either (a) an API key for one of the supported providers (a small free-tier credit option will be available), or (b) the ability to run a small open-weights model locally (e.g., via Ollama).</li>
+          <li>Detailed setup instructions, including a one-command install script, are sent two weeks before the tutorial.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATASET -->
+<section class="anchor" id="dataset">
+  <div class="wrap">
+    <h2>The dataset</h2>
+    <p class="dataset-note">You'll work with a <b>synthetic, de-identified</b> teaching dataset whose schema and feature types are inspired by the GLOBEM behavioral dataset, paired with additional synthetic records covering modalities not represented in GLOBEM. No credentialed data access is required during the tutorial, and we provide a data-privacy checklist you can adapt for your own studies.</p>
+    <div class="tag-row">
+      <span class="tag">Sleep</span>
+      <span class="tag">Heart rate</span>
+      <span class="tag">Physical activity</span>
+      <span class="tag">GPS / location</span>
+      <span class="tag">Screen time</span>
+      <span class="tag">EMA self-reports</span>
+      <span class="tag">Context</span>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZERS -->
+<section class="anchor" id="organizers">
+  <div class="wrap">
+    <h2>Organizers</h2>
+    <p class="sub">A team spanning multimodal wearable sensing, LLM-based health intervention, conversational agents and clinical workflow evaluation, and human-centered AI for healthcare.</p>
+    <div class="people">
+      <div class="person">
+        <a class="avatar-link" href="https://zhihanjiang.com/" target="_blank" rel="noopener" title="Zhihan Jiang — homepage">
+          <img class="avatar" src="img/zhihan-jiang.jpg" alt="Zhihan Jiang" loading="lazy"></a>
+        <h3>Zhihan Jiang</h3>
+        <p class="aff">Columbia University</p>
+        <a href="mailto:zj2445@cumc.columbia.edu">zj2445@cumc.columbia.edu</a>
+      </div>
+      <div class="person">
+        <a class="avatar-link" href="https://sea-lab.space/author/will-ke-wang/" target="_blank" rel="noopener" title="Will Ke Wang — homepage">
+          <img class="avatar" src="img/will-wang.jpg" alt="Will Ke Wang" loading="lazy"></a>
+        <h3>Will Ke Wang</h3>
+        <p class="aff">Columbia University</p>
+        <a href="mailto:kw3215@cumc.columbia.edu">kw3215@cumc.columbia.edu</a>
+      </div>
+      <div class="person">
+        <a class="avatar-link" href="https://bluelin.me/" target="_blank" rel="noopener" title="Blue (Georgianna) Lin — homepage">
+          <img class="avatar" src="img/blue-lin.jpg" alt="Blue (Georgianna) Lin" loading="lazy"></a>
+        <h3>Blue (Georgianna) Lin</h3>
+        <p class="aff">Columbia University</p>
+        <a href="mailto:gl2981@cumc.columbia.edu">gl2981@cumc.columbia.edu</a>
+      </div>
+      <div class="person">
+        <a class="avatar-link" href="https://brennal.github.io/" target="_blank" rel="noopener" title="Brenna Li — homepage">
+          <img class="avatar" src="img/brenna-li.jpg" alt="Brenna Li" loading="lazy"></a>
+        <h3>Brenna Li</h3>
+        <p class="aff">Stanford University</p>
+        <a href="mailto:brennali@stanford.edu">brennali@stanford.edu</a>
+      </div>
+      <div class="person">
+        <a class="avatar-link" href="https://orsonxu.com/" target="_blank" rel="noopener" title="Xuhai “Orson” Xu — homepage">
+          <img class="avatar" src="img/orson-xu.jpg" alt="Xuhai “Orson” Xu" loading="lazy"></a>
+        <h3>Xuhai “Orson” Xu</h3>
+        <p class="aff">Columbia University</p>
+        <a href="mailto:xx2489@columbia.edu">xx2489@columbia.edu</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="anchor" id="faq">
+  <div class="wrap">
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details>
+        <summary>Do I need prior LLM or agent experience?</summary>
+        <div class="answer">No. We open with a concise primer, and every module ships a starter notebook with fill-in-the-blanks plus a reference solution. Intermediate Python is the only real prerequisite.</div>
+      </details>
+      <details>
+        <summary>Do I need an API key? Will it cost money?</summary>
+        <div class="answer">Either bring an API key for one of the providers we support (a small free-tier credit option will be available for participants without one), or run a small open-weights model locally via Ollama. Both paths work for the full tutorial.</div>
+      </details>
+      <details>
+        <summary>What do I need on my laptop?</summary>
+        <div class="answer">Python ≥ 3.10 and Jupyter. We send detailed setup instructions, including a one-command install script, two weeks before the tutorial.</div>
+      </details>
+      <details>
+        <summary>Do I get to keep the code and data?</summary>
+        <div class="answer">Yes. The full stack is released as an open-source repository under the MIT License, together with the synthetic teaching dataset, so you can adapt both for your own research.</div>
+      </details>
+      <details>
+        <summary>Is this clinical or medical training?</summary>
+        <div class="answer">No. The tutorial builds research prototypes for sensor-data sensemaking. Outputs are exploratory, not validated medical guidance, and any deployment on humans (including self, family, or research participants) requires appropriate IRB review.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section class="register anchor" id="register">
+  <div class="wrap">
+    <h2>Registration & resources</h2>
+    <p class="sub">Links go live closer to the conference. Check back, or email us to be notified.</p>
+    <div class="reg-box">
+      <div class="reg-item">
+        <span class="lbl">Registration</span>
+        <span class="val">To be announced on the conference website</span>
+      </div>
+      <div class="reg-item">
+        <span class="lbl">Starter repository</span>
+        <span class="val">To be announced</span>
+      </div>
+      <div class="reg-item">
+        <span class="lbl">Conference</span>
+        <span class="val">UbiComp/ISWC 2026 · Oct 11–15 · Shanghai</span>
+      </div>
+      <div class="reg-item">
+        <span class="lbl">Contact</span>
+        <span class="val"><a href="mailto:zj2445@cumc.columbia.edu">zj2445@cumc.columbia.edu</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Tutorial organizers · UbiComp/ISWC 2026, Shanghai</span>
+    <span>From Multimodal Sensing Data to Actionable Health Insights</span>
+  </div>
+</footer>
+
+<script>
+  // Close the mobile menu after tapping a nav link
+  document.querySelectorAll('.nav-links a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var t = document.getElementById('nav-toggle');
+      if (t) t.checked = false;
+    });
+  });
+</script>
+
+</body>
+</html>

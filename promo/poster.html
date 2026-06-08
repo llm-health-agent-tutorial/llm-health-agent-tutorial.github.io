@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --teal: #115e59; --teal-dark: #0b3d3a; --coral: #e07a5f; --coral-ink: #a8462f;
+    --ink: #1c2b2d; --ink-soft: #4a5b5d; --line: #e6e3db; --bg: #fbfaf7;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  html, body { width: 1600px; height: 2263px; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); }
+
+  /* ---- TOP BAND ---- */
+  .top {
+    position: relative; overflow: hidden; color: #fff;
+    padding: 92px 110px 72px;
+    background:
+      radial-gradient(1100px 700px at 90% -10%, #1a7a72, transparent 60%),
+      linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
+  }
+  .pulse { position: absolute; right: -40px; top: 360px; width: 980px; opacity: .14; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 16px;
+    background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.24);
+    color: #eafaf7; font-size: 30px; font-weight: 600;
+    padding: 14px 30px; border-radius: 999px;
+  }
+  .badge .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--coral); }
+  .toplabel { color: #9fd6cf; font-size: 30px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin: 46px 0 22px; }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: 122px; line-height: 1.02; max-width: 19ch; }
+  .subtitle { font-family: var(--serif); font-weight: 500; font-style: italic; color: #cdeae6; font-size: 44px; margin-top: 22px; max-width: 26ch; line-height: 1.25; }
+
+  /* ---- MIDDLE ---- */
+  .mid { padding: 62px 110px 54px; }
+  .hook {
+    border-left: 8px solid var(--coral); padding-left: 40px; margin-bottom: 46px;
+  }
+  .hook .q { font-family: var(--serif); font-weight: 600; font-size: 60px; color: var(--teal-dark); line-height: 1.12; }
+  .hook p { font-size: 34px; color: var(--ink-soft); margin-top: 22px; line-height: 1.4; max-width: 40ch; }
+
+  .build-h { font-family: var(--serif); font-weight: 700; font-size: 44px; color: var(--teal-dark); margin-bottom: 34px; }
+  .builds { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 50px; }
+  .build { display: flex; gap: 22px; align-items: flex-start; }
+  .build .ck {
+    flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px;
+    background: #e3f0ee; color: var(--teal); display: flex; align-items: center; justify-content: center; margin-top: 3px;
+  }
+  .build .ck svg { width: 26px; height: 26px; }
+  .build span { font-size: 32px; color: var(--ink); line-height: 1.32; }
+
+  /* ---- FACTS STRIP ---- */
+  .facts { display: flex; flex-wrap: wrap; gap: 24px; margin: 50px 0 0; }
+  .fact {
+    display: flex; align-items: center; gap: 16px; background: #fff;
+    border: 2px solid var(--line); border-radius: 16px; padding: 22px 30px; font-size: 31px;
+  }
+  .fact svg { width: 30px; height: 30px; color: var(--teal); flex-shrink: 0; }
+  .fact b { color: var(--teal-dark); }
+
+  /* ---- BOTTOM ---- */
+  .bottom {
+    margin-top: auto; padding: 54px 110px 64px; border-top: 3px solid var(--line);
+    display: flex; align-items: center; gap: 56px;
+  }
+  .qr-card { background: #fff; border: 2px solid var(--line); border-radius: 24px; padding: 26px; flex-shrink: 0; }
+  .qr-card img { width: 300px; height: 300px; display: block; }
+  .bottom-info { flex: 1; }
+  .bottom-info .scan { font-size: 34px; color: var(--ink-soft); margin-bottom: 10px; }
+  .bottom-info .url { font-family: var(--serif); font-weight: 700; font-size: 52px; color: var(--coral-ink); line-height: 1.1; word-break: break-all; }
+  .orgs { margin-top: 34px; font-size: 30px; color: var(--ink); line-height: 1.5; }
+  .orgs b { color: var(--teal-dark); }
+  .orgs .inst { color: var(--ink-soft); font-size: 28px; }
+
+  .frame { display: flex; flex-direction: column; min-height: 2263px; }
+</style></head>
+<body>
+<div class="frame">
+  <div class="top">
+    <svg class="pulse" viewBox="0 0 980 420" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path d="M0 210 H230 L300 60 L420 390 L505 150 L560 250 H980"/></svg>
+    <div class="badge"><span class="dot"></span> UbiComp/ISWC 2026 · Shanghai, China · Oct 11–15</div>
+    <div class="toplabel">Hands-on Tutorial · Half-day</div>
+    <h1>Prototyping Your Personal LLM Health Agent</h1>
+    <div class="subtitle">From Multimodal Sensing Data to Actionable Health Insights</div>
+  </div>
+
+  <div class="mid">
+    <div class="hook">
+      <div class="q">“Why have I been sleeping poorly this week?”</div>
+      <p>Dashboards show the data but can't answer it. Build an LLM agent that turns raw wearable, phone, and self-report streams into grounded, personalized answers.</p>
+    </div>
+
+    <div class="build-h">In one half-day, you'll build &amp; leave with:</div>
+    <div class="builds">
+      <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>Health-specific tools (retrieval, analysis, visualization) registered with an LLM agent</span></div>
+      <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>A runnable agent loop that answers open-ended questions over your data</span></div>
+      <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>An open-source codebase &amp; design template you can adapt to your research</span></div>
+      <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>A checklist for evaluating agents on faithfulness, safety &amp; user-alignment</span></div>
+    </div>
+
+    <div class="facts">
+      <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span><b>Half-day</b>, hands-on</span></div>
+      <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg><span>Bring a laptop · Python ≥ 3.10</span></div>
+      <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 2 1 3.5 2.5 5S10 21 12 21s2.5-1.5 4.5-3.5S19 11 19 9a7 7 0 0 0-7-7Z"/></svg><span>No prior LLM experience needed</span></div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="qr-card"><img src="qr.svg" alt="QR code to tutorial site"></div>
+    <div class="bottom-info">
+      <div class="scan">Scan or visit</div>
+      <div class="url">llm-health-agent-tutorial.github.io</div>
+      <div class="orgs">
+        <b>Zhihan Jiang · Will Ke Wang · Blue (Georgianna) Lin · Brenna Li · Xuhai “Orson” Xu</b><br>
+        <span class="inst">Columbia University · Stanford University</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>
