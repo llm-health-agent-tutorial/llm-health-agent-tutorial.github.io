@@ -11,7 +11,7 @@
     --serif: 'Crimson Pro', Georgia, serif;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
-  html, body { width: 1600px; height: 2263px; }
+  html, body { width: 1600px; }
   body { font-family: var(--sans); background: var(--bg); color: var(--ink); }
 
   /* ---- TOP BAND ---- */
@@ -63,7 +63,7 @@
 
   /* ---- BOTTOM ---- */
   .bottom {
-    margin-top: auto; padding: 54px 110px 64px; border-top: 3px solid var(--line);
+    padding: 48px 110px 60px; border-top: 3px solid var(--line);
     display: flex; align-items: center; gap: 56px;
   }
   .qr-card { background: #fff; border: 2px solid var(--line); border-radius: 24px; padding: 26px; flex-shrink: 0; }
@@ -71,11 +71,16 @@
   .bottom-info { flex: 1; }
   .bottom-info .scan { font-size: 34px; color: var(--ink-soft); margin-bottom: 10px; }
   .bottom-info .url { font-family: var(--serif); font-weight: 700; font-size: 52px; color: var(--coral-ink); line-height: 1.1; word-break: break-all; }
-  .orgs { margin-top: 34px; font-size: 30px; color: var(--ink); line-height: 1.5; }
-  .orgs b { color: var(--teal-dark); }
-  .orgs .inst { color: var(--ink-soft); font-size: 28px; }
+  /* ---- ORGANIZERS ---- */
+  .team { margin-top: auto; padding: 40px 110px 4px; }
+  .team-h { font-family: var(--serif); font-weight: 700; font-size: 40px; color: var(--teal-dark); margin-bottom: 28px; }
+  .people { display: flex; justify-content: space-between; }
+  .person { width: 232px; text-align: center; }
+  .person img { width: 156px; height: 156px; border-radius: 50%; object-fit: cover; border: 5px solid #fff; box-shadow: 0 6px 20px rgba(17,94,89,.18); }
+  .person .name { font-weight: 600; font-size: 28px; color: var(--ink); margin-top: 16px; line-height: 1.18; }
+  .person .inst { font-size: 23px; color: var(--ink-soft); margin-top: 3px; }
 
-  .frame { display: flex; flex-direction: column; min-height: 2263px; }
+  .frame { display: flex; flex-direction: column; min-height: 2380px; }
 </style></head>
 <body>
 <div class="frame">
@@ -97,8 +102,8 @@
     <div class="builds">
       <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>Health-specific tools (retrieval, analysis, visualization) registered with an LLM agent</span></div>
       <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>A runnable agent loop that answers open-ended questions over your data</span></div>
-      <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>An open-source codebase &amp; design template you can adapt to your research</span></div>
-      <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>A checklist for evaluating agents on faithfulness, safety &amp; user-alignment</span></div>
+      <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>Open-source code you can point at <b>your own</b> wearable &amp; phone data afterward</span></div>
+      <div class="build"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>A checklist to evaluate agents on faithfulness &amp; safety — and see where they break</span></div>
     </div>
 
     <div class="facts">
@@ -108,15 +113,22 @@
     </div>
   </div>
 
+  <div class="team">
+    <div class="team-h">Organizers</div>
+    <div class="people">
+      <div class="person"><img src="../docs/img/zhihan-jiang.jpg" alt="Zhihan Jiang"><div class="name">Zhihan Jiang</div><div class="inst">Columbia</div></div>
+      <div class="person"><img src="../docs/img/will-wang.jpg" alt="Will Ke Wang"><div class="name">Will Ke Wang</div><div class="inst">Columbia</div></div>
+      <div class="person"><img src="../docs/img/blue-lin.jpg" alt="Blue (Georgianna) Lin"><div class="name">Blue Lin</div><div class="inst">Columbia</div></div>
+      <div class="person"><img src="../docs/img/brenna-li.jpg" alt="Brenna Li"><div class="name">Brenna Li</div><div class="inst">Stanford</div></div>
+      <div class="person"><img src="../docs/img/orson-xu.jpg" alt="Xuhai Orson Xu"><div class="name">Orson Xu</div><div class="inst">Columbia</div></div>
+    </div>
+  </div>
+
   <div class="bottom">
     <div class="qr-card"><img src="qr.svg" alt="QR code to tutorial site"></div>
     <div class="bottom-info">
       <div class="scan">Scan or visit</div>
       <div class="url">llm-health-agent-tutorial.github.io</div>
-      <div class="orgs">
-        <b>Zhihan Jiang · Will Ke Wang · Blue (Georgianna) Lin · Brenna Li · Xuhai “Orson” Xu</b><br>
-        <span class="inst">Columbia University · Stanford University</span>
-      </div>
     </div>
   </div>
 </div>
