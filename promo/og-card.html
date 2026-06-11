@@ -14,25 +14,28 @@
   body {
     font-family: var(--sans); color: #fff; position: relative; overflow: hidden;
     background:
-      radial-gradient(900px 520px at 88% -8%, #1a7a72, transparent 60%),
+      radial-gradient(900px 520px at 90% -10%, #1a7a72, transparent 60%),
       linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
   }
-  .pulse { position: absolute; right: -30px; top: 300px; width: 760px; opacity: .13; }
-  .wrap { position: relative; padding: 60px 72px; height: 100%; display: flex; flex-direction: column; }
+  .pulse { position: absolute; right: -40px; top: 250px; width: 680px; opacity: .10; }
+  .wrap { position: relative; padding: 50px 60px; height: 100%; display: flex; flex-direction: column; }
   .badge {
-    display: inline-flex; align-items: center; gap: 12px; align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 11px; align-self: flex-start;
     background: rgba(255,255,255,.12); border: 2px solid var(--line); color: #eafaf7;
-    font-size: 22px; font-weight: 600; padding: 10px 22px; border-radius: 999px;
+    font-size: 21px; font-weight: 600; padding: 9px 20px; border-radius: 999px;
   }
-  .badge .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--coral); }
-  h1 { font-family: var(--serif); font-weight: 700; font-size: 72px; line-height: 1.04; margin: 30px 0 0; max-width: 20ch; }
-  .trust { font-family: var(--serif); font-weight: 600; font-style: italic; color: #cdeae6; font-size: 38px; margin-top: 12px; }
-  .taglines { margin-top: auto; display: flex; flex-wrap: wrap; gap: 12px; }
+  .badge .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: 62px; line-height: 1.04; margin: 22px 0 0; max-width: 21ch; }
+  .trust { font-family: var(--serif); font-weight: 600; font-style: italic; color: #cdeae6; font-size: 33px; margin-top: 8px; }
+  .tags { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
   .tag {
-    background: rgba(255,255,255,.10); border: 1.5px solid var(--line); border-radius: 12px;
-    padding: 11px 20px; font-size: 25px; font-weight: 600; color: #eafaf7;
+    background: rgba(255,255,255,.10); border: 1.5px solid var(--line); border-radius: 11px;
+    padding: 9px 17px; font-size: 22px; font-weight: 600; color: #eafaf7;
   }
-  .url { margin-top: 24px; font-family: var(--serif); font-weight: 700; font-size: 30px; color: #ffd9cb; }
+  .bottom { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .url { font-family: var(--serif); font-weight: 700; font-size: 27px; color: #ffd9cb; }
+  .orgs { display: flex; align-items: center; gap: 9px; }
+  .orgs img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,.9); }
 </style></head>
 <body>
   <svg class="pulse" viewBox="0 0 980 420" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path d="M0 210 H230 L300 60 L420 390 L505 150 L560 250 H980"/></svg>
@@ -40,12 +43,21 @@
     <div class="badge"><span class="dot"></span> UbiComp/ISWC 2026 · Shanghai · Hands-on Tutorial</div>
     <h1>Prototyping Your Personal LLM Health Agent</h1>
     <div class="trust">Build one you can trust.</div>
-    <div class="taglines">
+    <div class="tags">
       <span class="tag">Ground every claim</span>
       <span class="tag">Catch confounds</span>
       <span class="tag">Refuse medical advice</span>
       <span class="tag">Runs fully offline</span>
     </div>
-    <div class="url">llm-health-agent-tutorial.github.io</div>
+    <div class="bottom">
+      <div class="url">llm-health-agent-tutorial.github.io</div>
+      <div class="orgs">
+        <img src="../docs/img/zhihan-jiang.jpg" alt="">
+        <img src="../docs/img/will-wang.jpg" alt="">
+        <img src="../docs/img/blue-lin.jpg" alt="">
+        <img src="../docs/img/brenna-li.jpg" alt="">
+        <img src="../docs/img/orson-xu.jpg" alt="">
+      </div>
+    </div>
   </div>
 </body></html>
