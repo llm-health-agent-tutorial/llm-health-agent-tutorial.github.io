@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tutorial: Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026</title>
+<title>Tutorial: Build a Personal LLM Health Agent You Can Trust — UbiComp/ISWC 2026</title>
 <meta name="description" content="A half-day, hands-on UbiComp/ISWC 2026 tutorial: build a personal LLM health agent you can trust over a synthetic multimodal sensing dataset — ground every claim, catch confounds, refuse medical advice, runs fully offline.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#115e59">
@@ -11,13 +11,13 @@
 <!-- Open Graph / social preview -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://llm-health-agent-tutorial.github.io/">
-<meta property="og:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
+<meta property="og:title" content="Build a Personal LLM Health Agent You Can Trust — UbiComp/ISWC 2026 Tutorial">
 <meta property="og:description" content="A half-day, hands-on tutorial: build a personal LLM health agent you can trust over a synthetic multimodal sensing dataset — ground every claim, catch confounds, refuse medical advice, runs fully offline.">
 <meta property="og:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
+<meta name="twitter:title" content="Build a Personal LLM Health Agent You Can Trust — UbiComp/ISWC 2026 Tutorial">
 <meta name="twitter:description" content="Build a personal LLM health agent you can trust — ground every claim, catch confounds, refuse medical advice, runs fully offline.">
 <meta name="twitter:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
 
@@ -118,8 +118,10 @@
     background: var(--surface); border: 1px solid var(--line);
     color: var(--primary-ink); font-weight: 600; font-size: 13px;
     padding: 6px 14px; border-radius: 999px; box-shadow: var(--shadow);
+    max-width: 100%; box-sizing: border-box;
   }
   .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .badge-text { flex: 1 1 auto; min-width: 0; }
   .kicker { color: var(--ink-faint); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; font-size: 12.5px; margin: 22px 0 10px; }
   header.hero h1 {
     font-size: clamp(30px, 5vw, 50px);
@@ -152,6 +154,17 @@
   .btn-ghost:hover { border-color: var(--primary); }
   .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
   .btn .tba { font-size: 11px; font-weight: 700; background: var(--accent-soft); color: var(--accent-ink); padding: 2px 7px; border-radius: 6px; }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 24px; }
+    .badge { align-items: flex-start; border-radius: 12px; line-height: 1.35; width: 100%; }
+    .badge .dot { flex: 0 0 auto; margin-top: 5px; }
+    .badge-text { overflow-wrap: anywhere; }
+    .kicker { overflow-wrap: anywhere; }
+    .facts { display: grid; grid-template-columns: 1fr; }
+    .fact { width: 100%; box-sizing: border-box; }
+    .cta { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+  }
 
   /* ---------- Sections ---------- */
   section { padding: 56px 0; border-top: 1px solid var(--line); }
@@ -338,9 +351,9 @@
 
 <header class="hero" id="top">
   <div class="wrap">
-    <span class="badge"><span class="dot"></span> UbiComp/ISWC 2026 · Half-day Tutorial · Shanghai, China</span>
+    <span class="badge"><span class="dot"></span><span class="badge-text">UbiComp/ISWC 2026 · Half-day Tutorial · Shanghai, China</span></span>
     <p class="kicker">From Multimodal Sensing Data to Actionable Health Insights</p>
-    <h1>Prototyping Your Personal LLM Health Agent</h1>
+    <h1>Build a Personal LLM Health Agent You Can Trust</h1>
     <p class="lede">Build a personal LLM health agent <strong>you can trust</strong> — instrument, evaluate, and safety-gate a working agent over a synthetic multimodal sensing dataset. <strong>Ground every claim. Catch confounds. Refuse medical advice. Runs fully offline.</strong></p>
 
     <div class="facts">
@@ -382,14 +395,14 @@
 <section class="anchor">
   <div class="wrap">
     <h2>What you'll do — and leave with</h2>
-    <p class="sub">No prior LLM or agent experience required. We open with a concise primer, then build, wire, and stress-test an agent together.</p>
+    <p class="sub">No prior LLM or agent experience required. We open with a concise primer, then build, evaluate, and stress-test an agent together.</p>
     <div class="cols">
       <div class="card">
         <h3>What you will do</h3>
         <ul class="list">
           <li>Build health-specific tools (data retrieval, analysis, visualization) and register them with an LLM agent.</li>
           <li>Wire up an agent loop and iterate it on real questions over wearable, smartphone, and self-report data.</li>
-          <li>Examine evaluation, safety, and ethical considerations in a moderated panel with invited guests.</li>
+          <li>Examine grounding, confounds, safety handling, and ethical considerations in a moderated panel with invited guests.</li>
         </ul>
       </div>
       <div class="card">
@@ -433,7 +446,7 @@
       </li>
       <li class="slot">
         <span class="time">30 min</span>
-        <div><h4>Module 5 · Panel on Evaluation & Safety</h4><p>What makes a “good” answer, failure modes (hallucination, unsafe advice, longitudinal drift), and ethics — with invited guests.</p></div>
+        <div><h4>Module 5 · Panel on Evaluation & Safety</h4><p>What makes a “good” answer, failure modes (hallucination, unsafe advice, emergency and crisis handling, longitudinal drift), and ethics — with invited guests.</p></div>
       </li>
       <li class="slot">
         <span class="time">10 min</span>

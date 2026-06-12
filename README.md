@@ -1,13 +1,15 @@
-# Prototyping Your Personal LLM Health Agent
+# Build a Personal LLM Health Agent You Can Trust
 
 **A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 11–15, 2026.**
 
-*From Multimodal Sensing Data to Actionable Health Insights.*
+*From Multimodal Sensing Data to Grounded, Safe Answers.*
 
 Build a working personal LLM health agent from a minimal scaffold, over a synthetic, curated
-multimodal sensing dataset (sleep, heart rate, activity, GPS, screen time, EMA), and turn raw
-sensor streams into grounded, personalized answers to questions like
+multimodal sensing dataset (sleep, heart rate, activity, GPS, screen time, EMA), then evaluate when
+its answers should and should not be trusted. The central question is still:
 *“Why have I been sleeping poorly this week?”*
+
+Ground every claim. Catch confounds. Refuse medical advice. Run fully offline.
 
 🌐 **Tutorial website:** _(GitHub Pages on `/docs` — see "Publishing the website" below)_
 📅 **When:** UbiComp/ISWC 2026, Shanghai · Half-day (3.5h), hands-on
@@ -20,7 +22,7 @@ sensor streams into grounded, personalized answers to questions like
 - Health-specific tools (data retrieval, analysis, visualization) registered with an LLM agent.
 - An agent loop (planning → tool selection → execution → observation → response).
 - A runnable agent that answers open-ended questions over multimodal sensing data.
-- A practical checklist for evaluating LLM agents on faithfulness, safety, and user-alignment.
+- A practical checklist for evaluating LLM agents on minimal faithfulness, confounds, safety handling, and user-alignment.
 
 ## Repository layout
 
@@ -39,8 +41,9 @@ sensor streams into grounded, personalized answers to questions like
 > Detailed setup instructions, including a one-command install script, will be sent to
 > registered participants two weeks before the tutorial.
 
-**Prerequisites:** Python ≥ 3.10, Jupyter, and either (a) an API key for a supported provider
-(a small free-tier credit option will be available) or (b) a local open-weights model (e.g., via Ollama).
+**Prerequisites:** Python ≥ 3.10 and Jupyter. **No API key is required**: the full tutorial runs on a
+deterministic offline scripted backend. OpenAI, Gemini, and local Ollama are optional comparison
+paths after the core tutorial works.
 
 ## Publishing the website (GitHub Pages)
 
