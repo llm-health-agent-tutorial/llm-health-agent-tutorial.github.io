@@ -32,7 +32,13 @@
     background: rgba(255,255,255,.10); border: 1.5px solid var(--line); border-radius: 11px;
     padding: 9px 17px; font-size: 22px; font-weight: 600; color: #eafaf7;
   }
-  .bottom { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .bottom { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+  .site-lockup { display: flex; align-items: center; gap: 18px; }
+  .qr {
+    width: 104px; height: 104px; border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.20);
+  }
+  .url-label { font-size: 18px; font-weight: 700; color: rgba(234,250,247,.80); margin-bottom: 2px; }
   .url { font-family: var(--serif); font-weight: 700; font-size: 27px; color: #ffd9cb; }
   .orgs { display: flex; align-items: center; gap: 12px; }
   .orgs img {
@@ -54,7 +60,13 @@
       <span class="tag">Runs fully offline</span>
     </div>
     <div class="bottom">
-      <div class="url">llm-health-agent-tutorial.github.io</div>
+      <div class="site-lockup">
+        <img class="qr" src="qr.svg" alt="">
+        <div>
+          <div class="url-label">Scan or visit</div>
+          <div class="url">llm-health-agent-tutorial.github.io</div>
+        </div>
+      </div>
       <div class="orgs">
         <img src="../docs/img/zhihan-jiang.jpg" alt="">
         <img src="../docs/img/will-wang.jpg" alt="">
