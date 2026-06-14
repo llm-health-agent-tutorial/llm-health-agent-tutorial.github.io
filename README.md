@@ -1,8 +1,8 @@
-# Build a Personal LLM Health Agent You Can Trust
+# Prototyping Your Personal LLM Health Agent
 
 **A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 11–15, 2026.**
 
-*From Multimodal Sensing Data to Grounded, Safe Answers.*
+*From Multimodal Sensing Data to Actionable Health Insights.*
 
 Build a working personal LLM health agent from a minimal scaffold, over a synthetic, curated
 multimodal sensing dataset (sleep, heart rate, activity, GPS, screen time, EMA), then evaluate when
