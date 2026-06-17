@@ -141,6 +141,10 @@
   .fact svg { width: 16px; height: 16px; color: var(--primary); flex-shrink: 0; }
 
   .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  /* Centered hero (balances the right side) */
+  header.hero .wrap { text-align: center; }
+  header.hero h1, header.hero .lede { margin-left: auto; margin-right: auto; }
+  header.hero .facts, header.hero .cta { justify-content: center; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
     text-decoration: none; font-weight: 600; font-size: 15px;
@@ -227,12 +231,12 @@
   @media (max-width: 720px) { .prereq { grid-template-columns: 1fr; } }
 
   /* Organizers */
-  .people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  @media (max-width: 860px) { .people { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 520px) { .people { grid-template-columns: 1fr; } }
+  .people { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .people { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .people { grid-template-columns: repeat(2, 1fr); } }
   .person {
     background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+    border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow);
   }
   .person .avatar-link {
     display: inline-block; line-height: 0; margin-bottom: 14px;
@@ -354,7 +358,7 @@
     <span class="badge"><span class="dot"></span><span class="badge-text">UbiComp/ISWC 2026 · Half-day Tutorial · Shanghai, China</span></span>
     <p class="kicker">From Multimodal Sensing Data to Actionable Health Insights</p>
     <h1>Prototyping Your Personal LLM Health Agent</h1>
-    <p class="lede">Build a working personal LLM health agent over a synthetic multimodal sensing dataset, turning raw sensor streams into personalized, actionable health insights. <strong>Ground every claim. Catch confounds. Evaluate faithfulness and safety.</strong></p>
+    <p class="lede">Build a working personal LLM health agent over a synthetic multimodal sensing dataset, turning raw sensor streams into personalized, actionable health insights. Then <strong>ground every claim, catch confounds, and evaluate it for faithfulness and safety</strong>.</p>
 
     <div class="facts">
       <div class="fact">
