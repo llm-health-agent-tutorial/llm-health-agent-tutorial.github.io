@@ -231,9 +231,13 @@
   @media (max-width: 720px) { .prereq { grid-template-columns: 1fr; } }
 
   /* Organizers */
-  .people { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-  @media (max-width: 900px) { .people { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 560px) { .people { grid-template-columns: repeat(2, 1fr); } }
+  .people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 860px) { .people { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .people { grid-template-columns: 1fr; } }
+  /* Organizers: all five in one row */
+  #organizers .people { grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  @media (max-width: 900px) { #organizers .people { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { #organizers .people { grid-template-columns: repeat(2, 1fr); } }
   .person {
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow);
