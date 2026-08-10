@@ -528,15 +528,7 @@
   .slot p { margin: 0; color: var(--ink-soft); font-size: 14.8px; line-height: 1.55; }
   .slot.break h4 { color: var(--accent-ink); }
 
-  /* Invited talk and panel */
-  #speakers .group-label {
-    grid-column: 1;
-    margin: 7px 0 0;
-    color: var(--ink-faint);
-    font-family: var(--font);
-    font-size: 13px;
-    font-weight: 800;
-  }
+  /* Invited speakers */
   #speakers .people {
     grid-column: 2;
     display: grid;
@@ -553,8 +545,7 @@
     font-size: 11px;
     font-weight: 800;
   }
-  .role-tag.talk { background: var(--accent-soft); color: var(--accent-ink); }
-  .role-tag.panelist { background: var(--primary-soft); color: var(--primary-ink); }
+  .role-tag.speaker { background: var(--accent-soft); color: var(--accent-ink); }
 
   /* Organizers */
   .people {
@@ -608,6 +599,17 @@
   .person .avatar-link:hover .avatar {
     box-shadow: 0 0 0 2px var(--primary), 0 6px 16px rgba(20,40,40,.18);
   }
+  .person.speaker-card {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    column-gap: 18px;
+    align-items: start;
+  }
+  .person.speaker-card .avatar-link { grid-row: 1 / 5; margin-bottom: 0; }
+  .person.speaker-card .role-tag,
+  .person.speaker-card h3,
+  .person.speaker-card .aff,
+  .person.speaker-card .profile-link { grid-column: 2; }
   .person .avatar-ph {
     width: 76px;
     height: 76px;
@@ -740,7 +742,6 @@
     .prereq,
     .tag-row,
     .reg-box,
-    #speakers .group-label,
     #speakers .people,
     #faq .faq,
     #organizers .people {
@@ -748,7 +749,6 @@
     }
     section .sub,
     .dataset-note { margin-top: 0; }
-    #speakers .group-label { margin-top: 12px; }
     #organizers .people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 720px) {
@@ -955,44 +955,32 @@
   </div>
 </section>
 
-<!-- INVITED TALK & PANEL -->
+<!-- INVITED SPEAKERS -->
 <section class="anchor" id="speakers">
   <div class="wrap">
-    <h2>Invited Talk &amp; Panel</h2>
-    <p class="sub">An invited talk opens the tutorial, and Module 5 features a moderated panel on evaluation and safety with invited guests. Speakers will be announced here as they are confirmed.</p>
+    <h2>Invited Speakers</h2>
+    <p class="sub">Invited speakers will contribute to the tutorial talks and our moderated Module 5 panel on evaluation and safety. Additional speakers will be announced here as they are confirmed.</p>
 
-    <h3 class="group-label">Invited Talk</h3>
     <div class="people">
-      <div class="person tba">
-        <div class="avatar-ph" aria-hidden="true">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/></svg>
-        </div>
-        <span class="role-tag talk">Invited Talk</span>
-        <h3>To be announced</h3>
-        <p class="aff">Invited speaker</p>
-      </div>
-    </div>
-
-    <h3 class="group-label">Panel on Evaluation &amp; Safety</h3>
-    <div class="people">
-      <div class="person tba">
-        <div class="avatar-ph" aria-hidden="true">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <span class="role-tag panelist">Panelists</span>
-        <h3>To be announced</h3>
-        <p class="aff">Invited guests from evaluation, safety, and clinical AI</p>
+      <div class="person speaker-card">
+        <a class="avatar-link" href="https://research.google/people/108533/" target="_blank" rel="noopener" title="Xin Liu — Google Research profile">
+          <img class="avatar" src="img/xin-liu.jpg" alt="Xin Liu" loading="lazy"></a>
+        <span class="role-tag speaker">Invited speaker</span>
+        <h3>Xin Liu</h3>
+        <p class="aff">Google Research</p>
+        <a class="profile-link" href="https://research.google/people/108533/" target="_blank" rel="noopener">Google Research profile</a>
       </div>
     </div>
 
     <!-- TEMPLATE — copy a card below and fill in name / affiliation / role / photo.
          Drop a square photo in img/ and set src; or keep .avatar-ph for an icon placeholder.
-    <div class="person">
+    <div class="person speaker-card">
       <a class="avatar-link" href="HTTPS://HOMEPAGE" target="_blank" rel="noopener" title="NAME — homepage">
         <img class="avatar" src="img/FILENAME.jpg" alt="NAME" loading="lazy"></a>
-      <span class="role-tag talk">Invited Talk</span>      // or  panelist
+      <span class="role-tag speaker">Invited speaker</span>
       <h3>NAME</h3>
       <p class="aff">AFFILIATION</p>
+      <a class="profile-link" href="HTTPS://HOMEPAGE" target="_blank" rel="noopener">Profile</a>
     </div>
     -->
   </div>
