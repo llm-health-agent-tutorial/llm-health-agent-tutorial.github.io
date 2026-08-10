@@ -602,23 +602,21 @@
   .person.speaker-card {
     display: grid;
     grid-template-columns: 76px minmax(0, 1fr);
-    grid-template-rows: auto auto auto 1fr auto;
+    grid-template-rows: auto auto auto 1fr;
     column-gap: 18px;
     align-items: start;
   }
   .person.speaker-card .avatar-link { grid-row: 1 / 4; margin-bottom: 0; }
   .person.speaker-card .role-tag,
   .person.speaker-card h3,
-  .person.speaker-card .aff,
-  .person.speaker-card .profile-link { grid-column: 2; }
+  .person.speaker-card .aff { grid-column: 2; }
   .person.speaker-card .speaker-bio {
     grid-column: 1 / -1;
-    margin: 14px 0 12px;
+    margin: 14px 0 0;
     color: var(--ink-soft);
     font-size: 13.8px;
     line-height: 1.55;
   }
-  .person.speaker-card .profile-link { align-self: end; }
   .person .avatar-ph {
     width: 76px;
     height: 76px;
@@ -974,44 +972,40 @@
 
     <div class="people">
       <div class="person speaker-card">
-        <a class="avatar-link" href="https://people.ucas.ac.cn/~tenghan" target="_blank" rel="noopener" title="Teng Han — homepage">
+        <a class="avatar-link" href="https://people.ucas.ac.cn/~tenghan" target="_blank" rel="noopener" title="Teng Han — homepage" aria-label="Visit Teng Han's homepage">
           <img class="avatar" src="img/teng-han.png" alt="Teng Han" loading="lazy"></a>
         <span class="role-tag speaker">Invited speaker</span>
         <h3>Teng Han</h3>
         <p class="aff">Institute of Software, Chinese Academy of Sciences</p>
         <p class="speaker-bio">Teng Han’s research focuses on human–computer interaction, intelligent perception, haptic interfaces, and virtual reality. His current work explores multisensory interaction and human–machine collaboration for embodied intelligence and teleoperation.</p>
-        <a class="profile-link" href="https://people.ucas.ac.cn/~tenghan" target="_blank" rel="noopener">Homepage</a>
       </div>
       <div class="person speaker-card">
-        <a class="avatar-link" href="https://xliucs.github.io/" target="_blank" rel="noopener" title="Xin Liu — homepage">
+        <a class="avatar-link" href="https://xliucs.github.io/" target="_blank" rel="noopener" title="Xin Liu — homepage" aria-label="Visit Xin Liu's homepage">
           <img class="avatar" src="img/xin-liu.jpg" alt="Xin Liu" loading="lazy"></a>
         <span class="role-tag speaker">Invited speaker</span>
         <h3>Xin Liu</h3>
         <p class="aff">Google Research</p>
         <p class="speaker-bio">Xin Liu’s research spans ubiquitous and mobile computing, machine learning, and health, with a focus on foundation models for wearable and consumer health data. His recent work includes personal health agents that reason over multimodal data.</p>
-        <a class="profile-link" href="https://xliucs.github.io/" target="_blank" rel="noopener">Homepage</a>
       </div>
       <div class="person speaker-card">
-        <a class="avatar-link" href="https://cswu.me/" target="_blank" rel="noopener" title="Chenshu Wu — homepage">
+        <a class="avatar-link" href="https://cswu.me/" target="_blank" rel="noopener" title="Chenshu Wu — homepage" aria-label="Visit Chenshu Wu's homepage">
           <img class="avatar" src="img/chenshu-wu.jpg" alt="Chenshu Wu" loading="lazy"></a>
         <span class="role-tag speaker">Invited speaker</span>
         <h3>Chenshu Wu</h3>
         <p class="aff">The University of Hong Kong</p>
         <p class="speaker-bio">Chenshu Wu directs the HKU AIoT Lab. His research focuses on wireless sensing, Artificial Intelligence of Things, and ubiquitous computing, with applications in healthcare, eldercare, homecare, and edge systems.</p>
-        <a class="profile-link" href="https://cswu.me/" target="_blank" rel="noopener">Homepage</a>
       </div>
     </div>
 
     <!-- TEMPLATE — copy a card below and fill in name / affiliation / role / photo.
          Drop a square photo in img/ and set src; or keep .avatar-ph for an icon placeholder.
     <div class="person speaker-card">
-      <a class="avatar-link" href="HTTPS://HOMEPAGE" target="_blank" rel="noopener" title="NAME — homepage">
+      <a class="avatar-link" href="HTTPS://HOMEPAGE" target="_blank" rel="noopener" title="NAME — homepage" aria-label="Visit NAME's homepage">
         <img class="avatar" src="img/FILENAME.jpg" alt="NAME" loading="lazy"></a>
       <span class="role-tag speaker">Invited speaker</span>
       <h3>NAME</h3>
       <p class="aff">AFFILIATION</p>
       <p class="speaker-bio">SHORT BIO</p>
-      <a class="profile-link" href="HTTPS://HOMEPAGE" target="_blank" rel="noopener">Profile</a>
     </div>
     -->
   </div>
