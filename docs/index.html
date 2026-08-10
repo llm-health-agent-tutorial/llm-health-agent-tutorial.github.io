@@ -530,10 +530,10 @@
 
   /* Invited speakers */
   #speakers .people {
-    grid-column: 2;
+    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
     margin: 0 0 6px;
   }
   .role-tag {
@@ -749,6 +749,7 @@
     }
     section .sub,
     .dataset-note { margin-top: 0; }
+    #speakers .people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     #organizers .people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 720px) {
@@ -798,6 +799,7 @@
     .slot { grid-template-columns: 1fr; gap: 8px; }
     .slot .time { justify-self: start; }
     .people,
+    #speakers .people,
     #organizers .people { grid-template-columns: 1fr; }
     .person.tba { display: block; }
     .person.tba .avatar-ph { margin-bottom: 14px; }
@@ -963,12 +965,12 @@
 
     <div class="people">
       <div class="person speaker-card">
-        <a class="avatar-link" href="https://people.ucas.ac.cn/~tenghan" target="_blank" rel="noopener" title="Teng Han — UCAS profile">
+        <a class="avatar-link" href="https://people.ucas.ac.cn/~tenghan" target="_blank" rel="noopener" title="Teng Han — homepage">
           <img class="avatar" src="img/teng-han.png" alt="Teng Han" loading="lazy"></a>
         <span class="role-tag speaker">Invited speaker</span>
         <h3>Teng Han</h3>
         <p class="aff">Institute of Software, Chinese Academy of Sciences</p>
-        <a class="profile-link" href="https://people.ucas.ac.cn/~tenghan" target="_blank" rel="noopener">UCAS profile</a>
+        <a class="profile-link" href="https://people.ucas.ac.cn/~tenghan" target="_blank" rel="noopener">Homepage</a>
       </div>
       <div class="person speaker-card">
         <a class="avatar-link" href="https://xliucs.github.io/" target="_blank" rel="noopener" title="Xin Liu — homepage">
