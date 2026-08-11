@@ -9,7 +9,7 @@ multimodal sensing dataset (sleep, heart rate, activity, GPS, screen time, EMA),
 its answers should and should not be trusted. The central question is still:
 *“Why have I been sleeping poorly this week?”*
 
-Ground every claim. Catch confounds. Refuse medical advice. Run fully offline.
+Ground every claim. Catch confounds. Refuse medical advice. Stress-test the agent.
 
 🌐 **Tutorial website:** https://llm-health-agent-tutorial.github.io/
 📅 **When:** UbiComp/ISWC 2026, Shanghai · Half-day (3.5h), hands-on
@@ -46,9 +46,11 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 > Detailed setup instructions, including a one-command install script, will be sent to
 > registered participants two weeks before the tutorial.
 
-**Prerequisites:** Python ≥ 3.10 and Jupyter. **No API key is required**: the full tutorial runs on a
-deterministic offline scripted backend. OpenAI, Gemini, and local Ollama are optional comparison
-paths after the core tutorial works.
+**Prerequisites:** Python ≥ 3.10 and Jupyter. For the full LLM-based experience, bring either an API
+key for OpenAI or Gemini or a compatible local Ollama model. A key or local model is recommended,
+not required: an interface-compatible deterministic scripted fallback supports the guided
+tool-building and agent-wiring exercises if neither is available or setup fails, but it does not
+reproduce open-ended LLM reasoning.
 
 ## Publishing the website (GitHub Pages)
 
