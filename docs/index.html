@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tutorial: Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026</title>
+<meta name="description" content="A half-day, hands-on UbiComp/ISWC 2026 tutorial: build a personal LLM health agent over a synthetic multimodal sensing dataset — ground every claim, catch confounds, evaluate faithfulness and safety.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0f2342">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://llm-health-agent-tutorial.github.io/">
+<meta property="og:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
+<meta property="og:description" content="A half-day, hands-on tutorial: build a personal LLM health agent over a synthetic multimodal sensing dataset — ground every claim, catch confounds, evaluate faithfulness and safety.">
+<meta property="og:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
+<meta name="twitter:description" content="Build a personal LLM health agent over multimodal sensing data — ground every claim, catch confounds, evaluate faithfulness and safety.">
+<meta name="twitter:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --surface: #ffffff;
+    --ink: #1c2b2d;
+    --ink-soft: #4a5b5d;
+    --ink-faint: #5f7274;
+    --line: #e6e3db;
+    --primary: #1a365e;
+    --primary-ink: #0f2342;
+    --primary-soft: #e6ecf5;
+    --accent: #e07a5f;
+    --accent-ink: #a8462f;
+    --accent-soft: #fbeae4;
+    --hero-blue: #1b4682;
+    --radius: 8px;
+    --maxw: 1080px;
+    --shadow: 0 1px 2px rgba(15,35,66,.05), 0 12px 28px rgba(15,35,66,.08);
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", sans-serif;
+    --font-display: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--primary); }
+  a:focus-visible, .btn:focus-visible, .avatar-link:focus-visible, .brand:focus-visible, .nav-burger:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+  }
+  h1, h2, h3, h4, .quote {
+    font-family: var(--font-display);
+    line-height: 1.12;
+    letter-spacing: 0;
+  }
+  h1, h2, h3, h4, p { text-wrap: pretty; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Nav ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(251,250,247,.9);
+    backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid rgba(230,227,219,.86);
+  }
+  nav .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+    gap: 24px;
+  }
+  nav .brand {
+    flex: 0 0 auto;
+    font-weight: 700;
+    color: var(--primary-ink);
+    text-decoration: none;
+    font-size: 15px;
+  }
+  nav .brand span { color: var(--accent-ink); }
+  nav ul {
+    display: flex;
+    gap: 18px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav ul a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  nav ul a:hover { color: var(--primary); }
+  .nav-links { display: flex; }
+  .nav-burger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--primary-ink);
+  }
+  .nav-burger:hover { background: var(--primary-soft); }
+  .nav-burger svg { width: 22px; height: 22px; }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    position: relative;
+    overflow: hidden;
+    color: #eef2f6;
+    background:
+      radial-gradient(900px 520px at 92% -18%, rgba(42,95,166,.62), transparent 64%),
+      linear-gradient(135deg, var(--primary-ink) 0%, var(--hero-blue) 100%);
+  }
+  header.hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: rgba(255,255,255,.16);
+  }
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
+    gap: clamp(36px, 6vw, 72px);
+    align-items: center;
+    padding-top: 54px;
+    padding-bottom: 50px;
+  }
+  .hero-copy { min-width: 0; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    max-width: 100%;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.25);
+    color: #f4f7fb;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    box-shadow: 0 14px 36px rgba(0,0,0,.15);
+  }
+  .badge .dot {
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .badge-text { min-width: 0; }
+  .kicker {
+    margin: 24px 0 12px;
+    color: #ccd6e0;
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2vw, 23px);
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  header.hero h1 {
+    max-width: 22ch;
+    margin: 0 0 20px;
+    color: #fff;
+    font-size: clamp(40px, 5vw, 60px);
+    font-weight: 700;
+    line-height: 1.02;
+  }
+  header.hero .lede {
+    max-width: 62ch;
+    margin: 0 0 26px;
+    color: #dbe4ee;
+    font-size: clamp(17px, 1.6vw, 19px);
+    line-height: 1.55;
+  }
+  header.hero .lede strong { color: #fff; font-weight: 700; }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 28px;
+  }
+  .fact {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.09);
+    color: #edf4fb;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+  .fact b { color: #fff; }
+  .fact svg {
+    width: 17px;
+    height: 17px;
+    color: #ffd9cb;
+    flex-shrink: 0;
+  }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 46px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: transform .12s ease, background-color .16s ease, border-color .16s ease, box-shadow .16s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 12px 24px rgba(0,0,0,.18);
+  }
+  .btn-primary:hover { background: var(--accent-ink); }
+  .btn-ghost {
+    background: rgba(255,255,255,.1);
+    color: #fff;
+    border-color: rgba(255,255,255,.3);
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,.58); background: rgba(255,255,255,.16); }
+  .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+  .btn .tba {
+    font-size: 11px;
+    font-weight: 800;
+    background: rgba(15,35,66,.28);
+    color: #ffe0d4;
+    padding: 2px 7px;
+    border-radius: 6px;
+  }
+  .hero-visual { min-width: 0; }
+  .agent-panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 8px;
+    background: rgba(255,255,255,.1);
+    box-shadow: 0 24px 60px rgba(0,0,0,.24);
+    padding: 20px;
+  }
+  .agent-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(150deg, rgba(255,255,255,.14), transparent 44%);
+    pointer-events: none;
+  }
+  .agent-panel > * { position: relative; }
+  .panel-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,.16);
+    color: #e7eef7;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .panel-top span:last-child { color: #ffd9cb; }
+  .signal-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .signal {
+    min-height: 64px;
+    padding: 11px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(15,35,66,.24);
+  }
+  .signal b {
+    display: block;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.2;
+  }
+  .signal span {
+    display: block;
+    margin-top: 5px;
+    color: #cbd8e6;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  .sparkline {
+    height: 28px;
+    margin: 6px 0 0;
+    color: #ffd9cb;
+  }
+  .sparkline svg { width: 100%; height: 100%; display: block; }
+  .pipeline {
+    display: grid;
+    gap: 10px;
+  }
+  .pipe-step {
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.14);
+  }
+  .pipe-step b { color: #fff; font-size: 14px; }
+  .pipe-step span { color: #cfdae8; font-size: 13px; line-height: 1.45; }
+  .mini-answer {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: rgba(251,234,228,.13);
+    border: 1px solid rgba(224,122,95,.45);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.18;
+  }
+
+  /* ---------- Sections ---------- */
+  section {
+    padding: 68px 0;
+    border-top: 1px solid var(--line);
+  }
+  section:nth-of-type(even) { background: rgba(255,255,255,.42); }
+  section .wrap {
+    display: grid;
+    grid-template-columns: minmax(190px, .34fr) minmax(0, .66fr);
+    column-gap: clamp(28px, 5vw, 64px);
+    row-gap: 28px;
+    align-items: start;
+  }
+  section h2 {
+    grid-column: 1;
+    margin: 0;
+    color: var(--primary-ink);
+    font-size: clamp(29px, 3.6vw, 40px);
+    font-weight: 700;
+  }
+  section .sub,
+  .dataset-note {
+    grid-column: 2;
+    align-self: end;
+    max-width: 66ch;
+    margin: 4px 0 0;
+    color: var(--ink-soft);
+    font-size: 16.5px;
+    line-height: 1.65;
+  }
+  .cols,
+  .timeline,
+  .prereq,
+  .tag-row,
+  .reg-box,
+  #organizers .people {
+    grid-column: 1 / -1;
+  }
+
+  /* Hook / quote */
+  .hook { background: var(--surface); }
+  .hook .wrap {
+    display: grid;
+    grid-template-columns: minmax(240px, .42fr) minmax(0, .58fr);
+    column-gap: clamp(32px, 6vw, 72px);
+    row-gap: 28px;
+    align-items: center;
+  }
+  .quote {
+    margin: 0;
+    color: var(--primary-ink);
+    font-size: clamp(31px, 4.2vw, 48px);
+    font-weight: 700;
+    line-height: 1.08;
+  }
+  .quote .q { color: var(--accent); }
+  .hook p:not(.quote) {
+    max-width: 66ch;
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.72;
+  }
+
+  /* Figure */
+  figure.teaser {
+    grid-column: 1 / -1;
+    margin: 12px 0 0;
+  }
+  figure.teaser .teaser-image-link {
+    display: block;
+    border-radius: 8px;
+  }
+  figure.teaser img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: #fff;
+    box-shadow: var(--shadow);
+  }
+  figure.teaser figcaption {
+    color: var(--ink-faint);
+    font-size: 13.5px;
+    margin-top: 12px;
+  }
+
+  /* SACI learning model */
+  .saci-feature {
+    grid-column: 1 / -1;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .saci-toggle {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 20px;
+    padding: 20px clamp(22px, 3.5vw, 38px);
+    cursor: pointer;
+    list-style: none;
+  }
+  .saci-toggle::-webkit-details-marker { display: none; }
+  .saci-toggle::marker { content: ""; }
+  .saci-toggle:focus-visible { outline-offset: -4px; }
+  .saci-toggle-copy { min-width: 0; }
+  .saci-toggle .saci-badge { margin: 0 0 9px; }
+  .saci-toggle-deck {
+    display: block;
+    max-width: 70ch;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .saci-toggle-action {
+    display: inline-flex;
+    align-items: center;
+    justify-self: end;
+    gap: 10px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .saci-toggle-icon {
+    color: var(--accent-ink);
+    font-size: 20px;
+    line-height: 1;
+    transition: transform .16s ease;
+  }
+  .saci-feature[open] .saci-toggle { border-bottom: 1px solid var(--line); }
+  .saci-feature .when-open { display: none; }
+  .saci-feature[open] .when-closed { display: none; }
+  .saci-feature[open] .when-open { display: inline; }
+  .saci-feature[open] .saci-toggle-icon { transform: rotate(180deg); }
+  #framework {
+    margin-top: 18px;
+    scroll-margin-top: 92px;
+  }
+  .saci-main {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .saci-copy {
+    display: grid;
+    align-content: center;
+    padding: clamp(26px, 3.5vw, 38px);
+  }
+  .saci-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 8px;
+    margin-bottom: 18px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: .02em;
+  }
+  .saci-badge::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .saci-copy h3 {
+    margin: 0 0 15px;
+    color: var(--primary-ink);
+    font-family: var(--font-display);
+    font-size: clamp(25px, 3vw, 34px);
+    line-height: 1.12;
+  }
+  .saci-copy h3 span {
+    display: block;
+    margin-top: 5px;
+    color: var(--accent-ink);
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+  .saci-copy p {
+    margin: 0 0 14px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.67;
+  }
+  .saci-copy p:last-of-type { margin-bottom: 0; }
+  .saci-citation { margin: 0; }
+  .saci-citation b,
+  .saci-citation cite,
+  .saci-citation span {
+    display: block;
+  }
+  .saci-citation b {
+    margin-bottom: 6px;
+    color: var(--primary);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .saci-citation cite {
+    color: var(--primary-ink);
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+  .saci-citation span {
+    margin-top: 7px;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+  }
+  .saci-paper-inline {
+    color: var(--primary);
+    font-weight: 750;
+    text-underline-offset: 3px;
+  }
+  .saci-paper-inline:hover { color: var(--accent-ink); }
+  .saci-paper-figure {
+    margin: 0;
+    padding: 0 clamp(22px, 3.5vw, 38px) 28px;
+  }
+  .saci-paper-figure a {
+    display: block;
+    border-radius: 8px;
+  }
+  .saci-paper-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .saci-paper-figure figcaption {
+    margin-top: 10px;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .saci-footer {
+    padding: 24px clamp(22px, 3.5vw, 38px) 28px;
+    border-top: 1px solid var(--line);
+    background: #f8fafc;
+  }
+
+  /* Cards and lists */
+  .cols,
+  .prereq,
+  .reg-box {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+  .card h3 {
+    margin: 0 0 15px;
+    color: var(--primary-ink);
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .list li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 12px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.58;
+  }
+  .list li:last-child { margin-bottom: 0; }
+  .list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+    background: var(--primary-soft);
+    border: 2px solid var(--primary);
+  }
+  .list.leave li::before { background: var(--accent-soft); border-color: var(--accent); }
+
+  /* Schedule */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .slot {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .slot:first-child { padding-top: 0; }
+  .slot:last-child { border-bottom: none; padding-bottom: 0; }
+  .slot .time {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .slot .time.break-t { color: var(--accent-ink); background: var(--accent-soft); }
+  .slot h4 {
+    margin: 0 0 4px;
+    color: var(--primary-ink);
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .slot p { margin: 0; color: var(--ink-soft); font-size: 14.8px; line-height: 1.55; }
+  .slot.break h4 { color: var(--accent-ink); }
+
+  /* Invited speakers */
+  #speakers .people {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin: 0 0 6px;
+  }
+  .role-tag {
+    display: inline-block;
+    justify-self: start;
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .role-tag.speaker { background: var(--accent-soft); color: var(--accent-ink); }
+
+  /* Organizers */
+  .people {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  #organizers .people { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+  .person {
+    min-width: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+  }
+  .person.tba {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    column-gap: 18px;
+    align-items: center;
+    border-style: dashed;
+    background: rgba(255,255,255,.38);
+    box-shadow: none;
+  }
+  .person.tba .role-tag,
+  .person.tba h3,
+  .person.tba .aff { grid-column: 2; }
+  .person.tba .avatar-ph { grid-row: 1 / 4; }
+  .person.tba h3 { color: var(--ink-soft); }
+  .person .avatar-link {
+    display: inline-block;
+    line-height: 0;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    transition: transform .12s ease;
+  }
+  .person .avatar-link:hover { transform: translateY(-2px); }
+  .person .avatar {
+    display: block;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: 2px solid var(--surface);
+    box-shadow: 0 0 0 1px var(--line);
+    transition: box-shadow .15s ease;
+  }
+  .person .avatar-link:hover .avatar {
+    box-shadow: 0 0 0 2px var(--primary), 0 6px 16px rgba(20,40,40,.18);
+  }
+  .person.speaker-card {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 18px;
+    align-items: start;
+  }
+  .person.speaker-card .avatar-link { grid-row: 1 / 4; margin-bottom: 0; }
+  .person.speaker-card .role-tag,
+  .person.speaker-card h3,
+  .person.speaker-card .aff { grid-column: 2; }
+  .person.speaker-card .speaker-bio {
+    grid-column: 1 / -1;
+    margin: 14px 0 0;
+    color: var(--ink-soft);
+    font-size: 13.8px;
+    line-height: 1.55;
+  }
+  .person .avatar-ph {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    margin-bottom: 14px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .person h3 {
+    margin: 0 0 3px;
+    color: var(--primary-ink);
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .person .aff { color: var(--ink-faint); font-size: 13.5px; margin: 0 0 10px; line-height: 1.4; }
+  .person a { font-size: 13px; text-decoration: none; overflow-wrap: anywhere; }
+  #organizers .person a { font-size: 11px; line-height: 1.45; white-space: nowrap; overflow-wrap: normal; letter-spacing: -.2px; }
+  .person a:hover { text-decoration: underline; }
+
+  /* Dataset */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: -4px;
+  }
+  .tag {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 14px;
+    color: var(--primary-ink);
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(15,35,66,.04);
+  }
+
+  /* FAQ */
+  #faq .faq { grid-column: 2; max-width: none; }
+  .faq details {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+  .faq summary {
+    cursor: pointer;
+    list-style: none;
+    min-height: 58px;
+    padding: 17px 20px;
+    font-weight: 700;
+    color: var(--primary-ink);
+    font-size: 16.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "+";
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .faq details[open] summary::after { content: "\2013"; }
+  .faq summary:hover { color: var(--primary); }
+  .faq .answer {
+    max-width: 70ch;
+    padding: 0 20px 20px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.65;
+  }
+
+  /* Register / contact */
+  .register { background: var(--surface); }
+  .reg-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-height: 108px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+  }
+  .reg-item .lbl {
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    font-weight: 800;
+  }
+  .reg-item .val { color: var(--primary-ink); font-size: 16px; font-weight: 700; line-height: 1.45; }
+
+  /* Footer */
+  footer {
+    padding: 38px 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink-faint);
+    font-size: 13.5px;
+  }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+  .anchor { scroll-margin-top: 76px; }
+
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; padding-top: 48px; }
+    .hero-visual { max-width: 720px; }
+    #organizers .people { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 860px) {
+    nav ul { gap: 14px; }
+    nav ul a { font-size: 13.5px; }
+    section .wrap,
+    .hook .wrap {
+      grid-template-columns: 1fr;
+      row-gap: 18px;
+    }
+    section h2,
+    section .sub,
+    .dataset-note,
+    .cols,
+    .timeline,
+    .prereq,
+    .tag-row,
+    .reg-box,
+    #speakers .people,
+    #faq .faq,
+    #organizers .people {
+      grid-column: 1;
+    }
+    section .sub,
+    .dataset-note { margin-top: 0; }
+    #speakers .people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #organizers .people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 720px) {
+    .nav-burger { display: inline-flex; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 6px 0;
+    }
+    .nav-toggle:checked ~ .nav-links { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: flex; padding: 0 24px; font-size: 15px; }
+    .nav-links a:hover { background: var(--primary-soft); }
+    section { padding: 54px 0; }
+    .cols,
+    .prereq,
+    .reg-box { grid-template-columns: 1fr; }
+    .people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .person.tba { grid-template-columns: 64px minmax(0, 1fr); }
+    .person.tba .avatar-ph { width: 64px; height: 64px; }
+    .hero-visual { display: none; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 20px; }
+    .hero-grid { padding-top: 42px; padding-bottom: 48px; }
+    .badge {
+      width: 100%;
+      align-items: flex-start;
+      border-radius: 8px;
+      line-height: 1.35;
+    }
+    .badge .dot { margin-top: 5px; }
+    header.hero h1 { font-size: clamp(36px, 11vw, 48px); }
+    .hero-visual { display: none; }
+    .facts { grid-template-columns: 1fr; }
+    .cta { flex-direction: column; align-items: stretch; }
+    .signal-row { grid-template-columns: 1fr; }
+    .pipe-step { grid-template-columns: 1fr; gap: 4px; }
+    .saci-toggle {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .saci-toggle-action {
+      justify-self: start;
+      white-space: normal;
+    }
+    .slot { grid-template-columns: 1fr; gap: 8px; }
+    .slot .time { justify-self: start; }
+    .people,
+    #speakers .people,
+    #organizers .people { grid-template-columns: 1fr; }
+    .person.tba { display: block; }
+    .person.tba .avatar-ph { margin-bottom: 14px; }
+    footer .wrap { display: block; }
+    footer span { display: block; margin-bottom: 8px; }
+  }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">LLM Health Agent <span>· UbiComp/ISWC '26</span></a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+    <label for="nav-toggle" class="nav-burger" aria-label="Toggle navigation menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </label>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#speakers">Speakers</a></li>
+      <li><a href="#prereq">Prerequisites</a></li>
+      <li><a href="#organizers">Organizers</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#register">Register</a></li>
+      <li><a href="https://multi-agent-tutorial.ubiwell.io" target="_blank" rel="noopener">Related tutorial</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="badge"><span class="dot"></span><span class="badge-text">UbiComp/ISWC 2026 · Half-day Tutorial · Shanghai, China</span></span>
+    <p class="kicker">From Multimodal Sensing Data to Actionable Health Insights</p>
+    <h1>Prototyping Your Personal LLM Health Agent</h1>
+    <p class="lede">Build a working personal LLM health agent over a synthetic multimodal sensing dataset, turning raw sensor streams into personalized, actionable health insights. Then <strong>ground every claim, catch confounds, and evaluate it for faithfulness and safety</strong>.</p>
+
+    <div class="facts">
+      <div class="fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span><b>Oct 11, 2026 (tentative)</b></span></div>
+      <div class="fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Shanghai, China</span></div>
+      <div class="fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span>Half-day (3.5h), hands-on</span></div>
+      <div class="fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>
+        <span>Bring a laptop · Python ≥ 3.10</span></div>
+    </div>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="#register">Registration <span class="tba">TBA</span></a>
+      <a class="btn btn-ghost" href="#register">Starter repository <span class="tba">TBA</span></a>
+    </div>
+    </div>
+
+    <aside class="hero-visual" aria-hidden="true">
+      <div class="agent-panel">
+        <div class="panel-top"><span>Personal health agent scaffold</span><span>Half-day build</span></div>
+        <div class="signal-row">
+          <div class="signal"><b>Sleep</b><span>duration · timing</span><div class="sparkline"><svg viewBox="0 0 120 34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M3 24 C18 10, 30 10, 44 21 S72 31, 88 12 S107 10, 117 22"/></svg></div></div>
+          <div class="signal"><b>Activity</b><span>steps · routines</span><div class="sparkline"><svg viewBox="0 0 120 34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M4 27 H18 V20 H31 V13 H45 V24 H58 V9 H71 V17 H84 V6 H97 V19 H116"/></svg></div></div>
+          <div class="signal"><b>EMA</b><span>mood · context</span><div class="sparkline"><svg viewBox="0 0 120 34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 18 C22 28, 38 27, 52 16 S83 4, 115 13"/></svg></div></div>
+        </div>
+        <div class="pipeline">
+          <div class="pipe-step"><b>Retrieve</b><span>Call health-specific tools over wearable, phone, and self-report streams.</span></div>
+          <div class="pipe-step"><b>Reason</b><span>Surface patterns, confounds, and limits before generating an answer.</span></div>
+          <div class="pipe-step"><b>Evaluate</b><span>Check grounding, faithfulness, and safety on open-ended questions.</span></div>
+        </div>
+        <div class="mini-answer">“Why have I been sleeping poorly this week?”</div>
+      </div>
+    </aside>
+  </div>
+</header>
+
+<!-- HOOK -->
+<section class="hook anchor" id="about">
+  <div class="wrap">
+    <p class="quote"><span class="q">“</span>Why have I been sleeping poorly this week?<span class="q">”</span></p>
+    <p>Most consumer wearables and health dashboards can show you the data behind that question, but they cannot answer it. LLM agents — language models that call functions, run analyses, and visualize results — offer a path to turn raw multimodal sensing streams into grounded, personalized answers. In this half-day, hands-on tutorial, you will build a working personal LLM health agent from a minimal scaffold, over a synthetic, curated multimodal sensing dataset (sleep, heart rate, activity, GPS, screen time, EMA).</p>
+
+    <figure class="teaser">
+      <a class="teaser-image-link" href="tutorial-teaser.png" target="_blank" rel="noopener" type="image/png">
+        <img src="tutorial-teaser.png" alt="Diagram of the half-day tutorial workflow: a participant asks why they have been sleeping poorly; a health-agent scaffold accesses fully synthetic multimodal data and uses retrieval, analysis, and visualization tools; six modules run from introduction through evaluation, safety, and wrap-up.">
+      </a>
+      <figcaption>The personal LLM health agent stack participants build during this half-day tutorial, across six modules from introduction to wrap-up. Open the figure to view it at full size.</figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<!-- WHAT YOU'LL DO / LEAVE WITH -->
+<section class="anchor">
+  <div class="wrap">
+    <h2>What you'll do — and leave with</h2>
+    <p class="sub">No prior LLM or agent experience required. We open with a concise primer, then build, evaluate, and stress-test an agent together.</p>
+    <div class="cols">
+      <div class="card">
+        <h3>What you will do</h3>
+        <ul class="list">
+          <li>Build health-specific tools (data retrieval, analysis, visualization) and register them with an LLM agent.</li>
+          <li>Wire up an agent loop and iterate it on real questions over wearable, smartphone, and self-report data.</li>
+          <li>Examine grounding, confounds, safety handling, and ethical considerations in a moderated panel with invited guests.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What you will leave with</h3>
+        <ul class="list leave">
+          <li>A working LLM health agent running locally on the provided dataset.</li>
+          <li>A runnable codebase and design template you can adapt to your own research.</li>
+          <li>A practical checklist for evaluating LLM agents — minimal faithfulness checks, confounds and causal humility, and deterministic safety handling (refusal, emergency escalation, crisis support).</li>
+          <li>A roadmap for extending the scaffold in your own work.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="anchor" id="framework">The learning model behind the tutorial</h2>
+    <p class="sub">A short-format, hands-on instantiation of Student–AI Collaborative Inquiry (SACI). <a class="saci-paper-inline" href="papers/saci-ubicomp-companion-2026.pdf" target="_blank" rel="noopener" type="application/pdf">Read the accepted paper (PDF).</a></p>
+
+    <details class="saci-feature">
+      <summary class="saci-toggle">
+        <span class="saci-toggle-copy">
+          <span class="saci-badge">Accepted · UbiComp/ISWC 2026 Education Forum</span>
+          <span class="saci-toggle-deck">Students and AI agents co-investigate multimodal sensing data through mutual interrogation, under instructor scaffolding.</span>
+        </span>
+        <span class="saci-toggle-action">
+          <span class="when-closed">Explore the SACI learning model</span>
+          <span class="when-open">Hide the SACI learning model</span>
+          <span class="saci-toggle-icon" aria-hidden="true">⌄</span>
+        </span>
+      </summary>
+      <div class="saci-main">
+        <div class="saci-copy">
+          <h3>Student–AI Collaborative Inquiry <span>SACI</span></h3>
+          <p>SACI pairs a student and AI agent as co-investigators. The student contextualizes, interrogates, and reflects on claims; the agent retrieves and computes evidence, forms hypotheses, and surfaces counter-evidence. Responsibility remains with the student and instructor. This tutorial applies the model to synthetic multimodal sensing data, with instructor-led scaffolds for refusal, red-teaming, and research governance.</p>
+        </div>
+
+        <figure class="saci-paper-figure">
+          <a href="saci-teaser.png" target="_blank" rel="noopener" type="image/png">
+            <img src="saci-teaser.png" alt="The broader Student–AI Collaborative Inquiry model: instructor scaffolding and ethical safeguards around mutual interrogation between a student and AI agent over the student's multimodal sensor data, followed by five learning phases.">
+          </a>
+          <figcaption>The SACI paper’s model figure. This tutorial uses a synthetic teaching dataset rather than participants’ personal data. Open the figure to view it at full size.</figcaption>
+        </figure>
+      </div>
+
+      <div class="saci-footer">
+        <div class="saci-citation">
+          <b>Paper</b>
+          <cite>From AI-as-Shortcut to AI-as-Partner: Student-AI Collaborative Inquiry for Health-Agent Education</cite>
+          <span>Zhihan Jiang &amp; Xuhai Xu · UbiComp Companion ’26</span>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="anchor" id="schedule">
+  <div class="wrap">
+    <h2>Schedule</h2>
+    <p class="sub">A half-day session of 3.5 hours, alternating short conceptual lectures, guided coding, and a moderated panel. Every module ships with a starter notebook, reference solution, and an optional advanced exercise.</p>
+    <ul class="timeline">
+      <li class="slot">
+        <span class="time">30 min</span>
+        <div><h4>Module 1 · Introduction</h4><p>The sensemaking gap; the anatomy of an LLM agent vs. prompt-only LLM use and classical ML pipelines; recurring design tensions.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">20 min</span>
+        <div><h4>Module 2 · Setting Up</h4><p>Verify your environment (the offline scripted backend needs no API key), load the sample dataset, and run a minimal tool-using LLM call.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">45 min</span>
+        <div><h4>Module 3 · Designing Health Tools</h4><p>Implement and register data-retrieval, analysis, and visualization tools the agent can compose at runtime.</p></div>
+      </li>
+      <li class="slot break">
+        <span class="time break-t">30 min</span>
+        <div><h4>Break</h4><p>Coffee & networking.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">45 min</span>
+        <div><h4>Module 4 · Wiring Up the Agent</h4><p>Planning, tool selection, execution, observation, response. Run the agent against open-ended questions.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">30 min</span>
+        <div><h4>Module 5 · Panel on Evaluation & Safety</h4><p>What makes a “good” answer, failure modes (hallucination, unsafe advice, emergency and crisis handling, longitudinal drift), and ethics — with invited guests.</p></div>
+      </li>
+      <li class="slot">
+        <span class="time">10 min</span>
+        <div><h4>Module 6 · Wrap-up</h4><p>Synthesis, a roadmap of open challenges, and community Q&amp;A.</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- INVITED SPEAKERS -->
+<section class="anchor" id="speakers">
+  <div class="wrap">
+    <h2>Invited Speakers</h2>
+    <p class="sub">Invited speakers will contribute to the tutorial talks and our moderated Module 5 panel on evaluation and safety. Additional speakers will be announced here as they are confirmed. Speakers are listed alphabetically by family name.</p>
+
+    <div class="people">
+      <div class="person speaker-card">
+        <a class="avatar-link" href="https://people.ucas.ac.cn/~tenghan" target="_blank" rel="noopener" title="Teng Han — homepage" aria-label="Visit Teng Han's homepage">
+          <img class="avatar" src="img/teng-han.png" alt="Teng Han" loading="lazy"></a>
+        <span class="role-tag speaker">Invited speaker</span>
+        <h3>Teng Han</h3>
+        <p class="aff">Institute of Software, Chinese Academy of Sciences</p>
+        <p class="speaker-bio">Dr. Teng Han’s recent work includes health-related HCI, such as electrotactile studies of pain modulation and interaction support for people with visual impairments, and VR studies of cognitive fatigue, state mindfulness, and transient physiological discomfort. His broader research spans wearable haptics and multisensory human–machine interaction.</p>
+      </div>
+      <div class="person speaker-card">
+        <a class="avatar-link" href="https://xliucs.github.io/" target="_blank" rel="noopener" title="Xin Liu — homepage" aria-label="Visit Xin Liu's homepage">
+          <img class="avatar" src="img/xin-liu.jpg" alt="Xin Liu" loading="lazy"></a>
+        <span class="role-tag speaker">Invited speaker</span>
+        <h3>Xin Liu</h3>
+        <p class="aff">Google Research</p>
+        <p class="speaker-bio">Dr. Xin Liu’s research spans ubiquitous and mobile computing, machine learning, and health, with a focus on foundation models for wearable and consumer health data. His recent work includes scaling multimodal wearable-sensor models and building personal health agents that reason across consumer-device and health-record data.</p>
+      </div>
+      <div class="person speaker-card">
+        <a class="avatar-link" href="https://cswu.me/" target="_blank" rel="noopener" title="Chenshu Wu — homepage" aria-label="Visit Chenshu Wu's homepage">
+          <img class="avatar" src="img/chenshu-wu.jpg" alt="Chenshu Wu" loading="lazy"></a>
+        <span class="role-tag speaker">Invited speaker</span>
+        <h3>Chenshu Wu</h3>
+        <p class="aff">The University of Hong Kong</p>
+        <p class="speaker-bio">Dr. Chenshu Wu develops sensing AI for healthcare, eldercare, and homecare, including contactless and non-intrusive monitoring. His recent work explores online cardiac monitoring from audio-visual streams, self-supervised prediction of adverse events in type 1 diabetes, and low-cost fall detection for older adults in home settings.</p>
+      </div>
+    </div>
+
+    <!-- TEMPLATE — copy a card below and fill in name / affiliation / role / photo.
+         Drop a square photo in img/ and set src; or keep .avatar-ph for an icon placeholder.
+    <div class="person speaker-card">
+      <a class="avatar-link" href="HTTPS://HOMEPAGE" target="_blank" rel="noopener" title="NAME — homepage" aria-label="Visit NAME's homepage">
+        <img class="avatar" src="img/FILENAME.jpg" alt="NAME" loading="lazy"></a>
+      <span class="role-tag speaker">Invited speaker</span>
+      <h3>NAME</h3>
+      <p class="aff">AFFILIATION</p>
+      <p class="speaker-bio">SHORT BIO</p>
+    </div>
+    -->
+  </div>
+</section>
+
+<!-- PREREQUISITES -->
+<section class="anchor" id="prereq">
+  <div class="wrap">
+    <h2>Prerequisites & what to bring</h2>
+    <p class="sub">The tutorial is built to be accessible to participants from non-LLM backgrounds while staying meaningful for those with prior experience.</p>
+    <div class="prereq">
+      <div class="card">
+        <h3>Prerequisites</h3>
+        <ul class="list">
+          <li>Intermediate Python: comfortable reading and modifying a Jupyter notebook, installing packages, and debugging API calls.</li>
+          <li>No prior LLM or agent experience required — we open with a concise primer.</li>
+          <li>Familiarity with wearable or behavioral data is helpful but not required; cleaned sample datasets are provided.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What to bring</h3>
+        <ul class="list leave">
+          <li>A laptop with Python ≥ 3.10 and Jupyter installed.</li>
+          <li><strong>No API key required</strong> — the full tutorial runs on a deterministic <strong>offline scripted backend</strong>. OpenAI, Gemini, or local Ollama are <em>optional</em> comparison paths once the core tutorial works.</li>
+          <li>Detailed setup instructions, including a one-command install script, are sent two weeks before the tutorial.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATASET -->
+<section class="anchor" id="dataset">
+  <div class="wrap">
+    <h2>The dataset</h2>
+    <p class="dataset-note">You'll work with a <b>fully synthetic</b> teaching dataset whose schema and feature types are inspired by the GLOBEM behavioral dataset, paired with additional synthetic records covering modalities not represented in GLOBEM. No credentialed data access is required during the tutorial, and we provide a data-privacy checklist you can adapt for your own studies.</p>
+    <div class="tag-row">
+      <span class="tag">Sleep</span>
+      <span class="tag">Heart rate</span>
+      <span class="tag">Physical activity</span>
+      <span class="tag">GPS / location</span>
+      <span class="tag">Screen time</span>
+      <span class="tag">EMA self-reports</span>
+      <span class="tag">Context</span>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZERS -->
+<section class="anchor" id="organizers">
+  <div class="wrap">
+    <h2>Organizers</h2>
+    <p class="sub">A team spanning multimodal wearable sensing, LLM-based health intervention, conversational agents and clinical workflow evaluation, and human-centered AI for healthcare.</p>
+    <div class="people">
+      <div class="person">
+        <a class="avatar-link" href="https://zhihanjiang.com/" target="_blank" rel="noopener" title="Zhihan Jiang — homepage">
+          <img class="avatar" src="img/zhihan-jiang.jpg" alt="Zhihan Jiang" loading="lazy"></a>
+        <h3>Zhihan Jiang</h3>
+        <p class="aff">Columbia University</p>
+        <a href="mailto:zj2445@cumc.columbia.edu">zj2445@cumc.columbia.edu</a>
+      </div>
+      <div class="person">
+        <a class="avatar-link" href="https://sea-lab.space/author/will-ke-wang/" target="_blank" rel="noopener" title="Will Ke Wang — homepage">
+          <img class="avatar" src="img/will-wang.jpg" alt="Will Ke Wang" loading="lazy"></a>
+        <h3>Will Ke Wang</h3>
+        <p class="aff">Columbia University</p>
+        <a href="mailto:kw3215@cumc.columbia.edu">kw3215@cumc.columbia.edu</a>
+      </div>
+      <div class="person">
+        <a class="avatar-link" href="https://bluelin.me/" target="_blank" rel="noopener" title="Blue (Georgianna) Lin — homepage">
+          <img class="avatar" src="img/blue-lin.jpg" alt="Blue (Georgianna) Lin" loading="lazy"></a>
+        <h3>Blue (Georgianna) Lin</h3>
+        <p class="aff">Columbia University</p>
+        <a href="mailto:gl2981@cumc.columbia.edu">gl2981@cumc.columbia.edu</a>
+      </div>
+      <div class="person">
+        <a class="avatar-link" href="https://brennal.github.io/" target="_blank" rel="noopener" title="Brenna Li — homepage">
+          <img class="avatar" src="img/brenna-li.jpg" alt="Brenna Li" loading="lazy"></a>
+        <h3>Brenna Li</h3>
+        <p class="aff">Stanford University</p>
+        <a href="mailto:brennali@stanford.edu">brennali@stanford.edu</a>
+      </div>
+      <div class="person">
+        <a class="avatar-link" href="https://orsonxu.com/" target="_blank" rel="noopener" title="Xuhai “Orson” Xu — homepage">
+          <img class="avatar" src="img/orson-xu.jpg" alt="Xuhai “Orson” Xu" loading="lazy"></a>
+        <h3>Xuhai “Orson” Xu</h3>
+        <p class="aff">Columbia University · Google Research</p>
+        <a href="mailto:xx2489@columbia.edu">xx2489@columbia.edu</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="anchor" id="faq">
+  <div class="wrap">
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details>
+        <summary>Do I need prior LLM or agent experience?</summary>
+        <div class="answer">No. We open with a concise primer, and every module ships a starter notebook with fill-in-the-blanks plus a reference solution. Intermediate Python is the only real prerequisite.</div>
+      </details>
+      <details>
+        <summary>Do I need an API key? Will it cost money?</summary>
+        <div class="answer">No API key is required — the full tutorial runs on a deterministic offline scripted backend. OpenAI, Gemini, and local Ollama are optional comparison paths after the core tutorial works.</div>
+      </details>
+      <details>
+        <summary>What do I need on my laptop?</summary>
+        <div class="answer">Python ≥ 3.10 and Jupyter. We send detailed setup instructions, including a one-command install script, two weeks before the tutorial.</div>
+      </details>
+      <details>
+        <summary>Do I get to keep the code and data?</summary>
+        <div class="answer">Yes. The full stack is released as an open-source repository under the MIT License, together with the synthetic teaching dataset, so you can adapt both for your own research.</div>
+      </details>
+      <details>
+        <summary>Is this clinical or medical training?</summary>
+        <div class="answer">No. The tutorial builds research prototypes for sensor-data sensemaking. Outputs are exploratory, not validated medical guidance, and any deployment on humans (including self, family, or research participants) requires appropriate IRB review.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section class="register anchor" id="register">
+  <div class="wrap">
+    <h2>Registration & resources</h2>
+    <p class="sub">Links go live closer to the conference. Check back, or email us to be notified.</p>
+    <div class="reg-box">
+      <div class="reg-item">
+        <span class="lbl">Registration</span>
+        <span class="val">To be announced on the conference website</span>
+      </div>
+      <div class="reg-item">
+        <span class="lbl">Starter repository</span>
+        <span class="val">To be announced</span>
+      </div>
+      <div class="reg-item">
+        <span class="lbl">Conference</span>
+        <span class="val">UbiComp/ISWC 2026 · Oct 11 (tentative) · Shanghai</span>
+      </div>
+      <div class="reg-item">
+        <span class="lbl">Contact</span>
+        <span class="val"><a href="mailto:zj2445@cumc.columbia.edu">zj2445@cumc.columbia.edu</a></span>
+      </div>
+      <div class="reg-item">
+        <span class="lbl">Related tutorial</span>
+        <span class="val"><a href="https://multi-agent-tutorial.ubiwell.io" target="_blank" rel="noopener">Multi-agent AI systems with sensing data</a> — a complementary UbiComp/ISWC 2026 tutorial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Tutorial organizers · UbiComp/ISWC 2026, Shanghai</span>
+    <span>From Multimodal Sensing Data to Actionable Health Insights</span>
+  </div>
+</footer>
+
+<script>
+  // Close the mobile menu after tapping a nav link
+  document.querySelectorAll('.nav-links a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var t = document.getElementById('nav-toggle');
+      if (t) t.checked = false;
+    });
+  });
+</script>
+
+</body>
+</html>

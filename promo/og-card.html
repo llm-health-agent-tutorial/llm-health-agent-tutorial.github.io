@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --teal: #1b4682; --teal-dark: #0f2342; --coral: #e07a5f; --line: rgba(255,255,255,.22);
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    font-family: var(--sans); color: #fff; position: relative; overflow: hidden;
+    background:
+      radial-gradient(900px 520px at 90% -10%, #2a5fa6, transparent 60%),
+      linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
+  }
+  .pulse { position: absolute; right: -40px; top: 250px; width: 680px; opacity: .10; }
+  .wrap { position: relative; padding: 50px 60px; height: 100%; display: flex; flex-direction: column; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 11px; align-self: flex-start;
+    background: rgba(255,255,255,.12); border: 2px solid var(--line); color: #eef2f6;
+    font-size: 21px; font-weight: 600; padding: 9px 20px; border-radius: 999px;
+  }
+  .badge .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: 62px; line-height: 1.04; margin: 22px 0 0; max-width: 21ch; }
+  .subtitle {
+    font-family: var(--serif); font-weight: 600; font-style: italic;
+    color: #ccd6e0; font-size: 32px; margin-top: 8px;
+  }
+  .tags { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag {
+    background: rgba(255,255,255,.10); border: 1.5px solid var(--line); border-radius: 11px;
+    padding: 9px 17px; font-size: 22px; font-weight: 600; color: #eef2f6;
+  }
+  .bottom { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+  .site-lockup { display: flex; align-items: center; gap: 18px; }
+  .qr {
+    width: 104px; height: 104px; border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.20);
+  }
+  .url-label { font-size: 18px; font-weight: 700; color: rgba(234,250,247,.80); margin-bottom: 2px; }
+  .url { font-family: var(--serif); font-weight: 700; font-size: 27px; color: #ffd9cb; }
+  .orgs { display: flex; align-items: center; gap: 12px; }
+  .orgs img {
+    width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+    border: 4px solid rgba(255,255,255,.92);
+    box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  }
+</style></head>
+<body>
+  <svg class="pulse" viewBox="0 0 980 420" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path d="M0 210 H230 L300 60 L420 390 L505 150 L560 250 H980"/></svg>
+  <div class="wrap">
+    <div class="badge"><span class="dot"></span> UbiComp/ISWC 2026 · Shanghai · Hands-on Tutorial</div>
+    <h1>Prototyping Your Personal LLM Health Agent</h1>
+    <div class="subtitle">From multimodal sensing data to actionable health insights.</div>
+    <div class="tags">
+      <span class="tag">Ground every claim</span>
+      <span class="tag">Catch confounds</span>
+      <span class="tag">Evaluate faithfulness &amp; safety</span>
+      <span class="tag">Adapt to your own data</span>
+    </div>
+    <div class="bottom">
+      <div class="site-lockup">
+        <img class="qr" src="qr.svg" alt="">
+        <div>
+          <div class="url-label">Scan or visit</div>
+          <div class="url">llm-health-agent-tutorial.github.io</div>
+        </div>
+      </div>
+      <div class="orgs">
+        <img src="../docs/img/zhihan-jiang.jpg" alt="">
+        <img src="../docs/img/will-wang.jpg" alt="">
+        <img src="../docs/img/blue-lin.jpg" alt="">
+        <img src="../docs/img/brenna-li.jpg" alt="">
+        <img src="../docs/img/orson-xu.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</body></html>
