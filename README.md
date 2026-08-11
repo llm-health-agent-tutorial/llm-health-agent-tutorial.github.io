@@ -1,6 +1,6 @@
 # Prototyping Your Personal LLM Health Agent
 
-**A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 11–15, 2026.**
+**A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 11, 2026 (tentative).**
 
 *From Multimodal Sensing Data to Actionable Health Insights.*
 
@@ -11,7 +11,7 @@ its answers should and should not be trusted. The central question is still:
 
 Ground every claim. Catch confounds. Refuse medical advice. Run fully offline.
 
-🌐 **Tutorial website:** _(GitHub Pages on `/docs` — see "Publishing the website" below)_
+🌐 **Tutorial website:** https://llm-health-agent-tutorial.github.io/
 📅 **When:** UbiComp/ISWC 2026, Shanghai · Half-day (3.5h), hands-on
 ✉️ **Contact:** zj2445@cumc.columbia.edu
 
@@ -24,16 +24,21 @@ Ground every claim. Catch confounds. Refuse medical advice. Run fully offline.
 - A runnable agent that answers open-ended questions over multimodal sensing data.
 - A practical checklist for evaluating LLM agents on minimal faithfulness, confounds, safety handling, and user-alignment.
 
+The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read the
+[accepted UbiComp/ISWC 2026 Education Forum paper](docs/papers/saci-ubicomp-companion-2026.pdf).
+
 ## Repository layout
 
 ```
 .
 ├── docs/          # Tutorial website (GitHub Pages source)
 │   ├── index.html
-│   ├── teaser.png
+│   ├── tutorial-teaser.png
+│   ├── saci-teaser.png
+│   ├── papers/     # Accepted SACI paper
 │   └── img/       # Organizer photos
 ├── code/          # Starter scaffold, notebooks, reference solutions  (coming soon)
-└── data/          # Synthetic, de-identified teaching dataset         (coming soon)
+└── data/          # Fully synthetic teaching dataset                  (coming soon)
 ```
 
 ## Getting started
@@ -58,7 +63,7 @@ paths after the core tutorial works.
 - **Will Ke Wang** — Columbia University
 - **Blue (Georgianna) Lin** — Columbia University
 - **Brenna Li** — Stanford University
-- **Xuhai “Orson” Xu** — Columbia University
+- **Xuhai “Orson” Xu** — Columbia University · Google Research
 
 ## Responsible use
 

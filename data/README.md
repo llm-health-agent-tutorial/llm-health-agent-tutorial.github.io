@@ -1,6 +1,6 @@
 # Teaching dataset
 
-A **synthetic, de-identified** teaching dataset will be provided here. **Coming soon.**
+A **fully synthetic** teaching dataset will be provided here. **Coming soon.**
 
 - Schema and feature types are inspired by the GLOBEM behavioral dataset, paired with additional
   synthetic records covering modalities not represented in GLOBEM
