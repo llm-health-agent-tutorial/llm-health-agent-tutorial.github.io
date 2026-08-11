@@ -434,6 +434,10 @@
     grid-column: 1 / -1;
     margin: 12px 0 0;
   }
+  figure.teaser .teaser-image-link {
+    display: block;
+    border-radius: 8px;
+  }
   figure.teaser img {
     display: block;
     width: 100%;
@@ -447,6 +451,175 @@
     color: var(--ink-faint);
     font-size: 13.5px;
     margin-top: 12px;
+  }
+
+  /* SACI learning model */
+  .saci-feature {
+    grid-column: 1 / -1;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .saci-toggle {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 20px;
+    padding: 20px clamp(22px, 3.5vw, 38px);
+    cursor: pointer;
+    list-style: none;
+  }
+  .saci-toggle::-webkit-details-marker { display: none; }
+  .saci-toggle::marker { content: ""; }
+  .saci-toggle:focus-visible { outline-offset: -4px; }
+  .saci-toggle-copy { min-width: 0; }
+  .saci-toggle .saci-badge { margin: 0 0 9px; }
+  .saci-toggle-deck {
+    display: block;
+    max-width: 70ch;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .saci-toggle-action {
+    display: inline-flex;
+    align-items: center;
+    justify-self: end;
+    gap: 10px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .saci-toggle-icon {
+    color: var(--accent-ink);
+    font-size: 20px;
+    line-height: 1;
+    transition: transform .16s ease;
+  }
+  .saci-feature[open] .saci-toggle { border-bottom: 1px solid var(--line); }
+  .saci-feature .when-open { display: none; }
+  .saci-feature[open] .when-closed { display: none; }
+  .saci-feature[open] .when-open { display: inline; }
+  .saci-feature[open] .saci-toggle-icon { transform: rotate(180deg); }
+  #framework {
+    margin-top: 18px;
+    scroll-margin-top: 92px;
+  }
+  .saci-main {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .saci-copy {
+    display: grid;
+    align-content: center;
+    padding: clamp(26px, 3.5vw, 38px);
+  }
+  .saci-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 8px;
+    margin-bottom: 18px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: .02em;
+  }
+  .saci-badge::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .saci-copy h3 {
+    margin: 0 0 15px;
+    color: var(--primary-ink);
+    font-family: var(--font-display);
+    font-size: clamp(25px, 3vw, 34px);
+    line-height: 1.12;
+  }
+  .saci-copy h3 span {
+    display: block;
+    margin-top: 5px;
+    color: var(--accent-ink);
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+  .saci-copy p {
+    margin: 0 0 14px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.67;
+  }
+  .saci-copy p:last-of-type { margin-bottom: 0; }
+  .saci-citation { margin: 0; }
+  .saci-citation b,
+  .saci-citation cite,
+  .saci-citation span {
+    display: block;
+  }
+  .saci-citation b {
+    margin-bottom: 6px;
+    color: var(--primary);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .saci-citation cite {
+    color: var(--primary-ink);
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+  .saci-citation span {
+    margin-top: 7px;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+  }
+  .saci-paper-inline {
+    color: var(--primary);
+    font-weight: 750;
+    text-underline-offset: 3px;
+  }
+  .saci-paper-inline:hover { color: var(--accent-ink); }
+  .saci-paper-figure {
+    margin: 0;
+    padding: 0 clamp(22px, 3.5vw, 38px) 28px;
+  }
+  .saci-paper-figure a {
+    display: block;
+    border-radius: 8px;
+  }
+  .saci-paper-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .saci-paper-figure figcaption {
+    margin-top: 10px;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .saci-footer {
+    padding: 24px clamp(22px, 3.5vw, 38px) 28px;
+    border-top: 1px solid var(--line);
+    background: #f8fafc;
   }
 
   /* Cards and lists */
@@ -803,6 +976,14 @@
     .cta { flex-direction: column; align-items: stretch; }
     .signal-row { grid-template-columns: 1fr; }
     .pipe-step { grid-template-columns: 1fr; gap: 4px; }
+    .saci-toggle {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .saci-toggle-action {
+      justify-self: start;
+      white-space: normal;
+    }
     .slot { grid-template-columns: 1fr; gap: 8px; }
     .slot .time { justify-self: start; }
     .people,
@@ -893,9 +1074,12 @@
     <p>Most consumer wearables and health dashboards can show you the data behind that question, but they cannot answer it. LLM agents — language models that call functions, run analyses, and visualize results — offer a path to turn raw multimodal sensing streams into grounded, personalized answers. In this half-day, hands-on tutorial, you will build a working personal LLM health agent from a minimal scaffold, over a synthetic, curated multimodal sensing dataset (sleep, heart rate, activity, GPS, screen time, EMA).</p>
 
     <figure class="teaser">
-      <img src="teaser.png" alt="The personal LLM health agent stack participants build during the tutorial, across six modules from introduction to wrap-up.">
-      <figcaption>The personal LLM health agent stack you build across the tutorial's six modules.</figcaption>
+      <a class="teaser-image-link" href="tutorial-teaser.png" target="_blank" rel="noopener" type="image/png">
+        <img src="tutorial-teaser.png" alt="Diagram of the half-day tutorial workflow: a participant asks why they have been sleeping poorly; a health-agent scaffold accesses fully synthetic multimodal data and uses retrieval, analysis, and visualization tools; six modules run from introduction through evaluation, safety, and wrap-up.">
+      </a>
+      <figcaption>The personal LLM health agent stack participants build during this half-day tutorial, across six modules from introduction to wrap-up. Open the figure to view it at full size.</figcaption>
     </figure>
+
   </div>
 </section>
 
@@ -923,6 +1107,44 @@
         </ul>
       </div>
     </div>
+
+    <h2 class="anchor" id="framework">The learning model behind the tutorial</h2>
+    <p class="sub">A short-format, hands-on instantiation of Student–AI Collaborative Inquiry (SACI). <a class="saci-paper-inline" href="papers/saci-ubicomp-companion-2026.pdf" target="_blank" rel="noopener" type="application/pdf">Read the accepted paper (PDF).</a></p>
+
+    <details class="saci-feature">
+      <summary class="saci-toggle">
+        <span class="saci-toggle-copy">
+          <span class="saci-badge">Accepted · UbiComp/ISWC 2026 Education Forum</span>
+          <span class="saci-toggle-deck">Students and AI agents co-investigate multimodal sensing data through mutual interrogation, under instructor scaffolding.</span>
+        </span>
+        <span class="saci-toggle-action">
+          <span class="when-closed">Explore the SACI learning model</span>
+          <span class="when-open">Hide the SACI learning model</span>
+          <span class="saci-toggle-icon" aria-hidden="true">⌄</span>
+        </span>
+      </summary>
+      <div class="saci-main">
+        <div class="saci-copy">
+          <h3>Student–AI Collaborative Inquiry <span>SACI</span></h3>
+          <p>SACI pairs a student and AI agent as co-investigators. The student contextualizes, interrogates, and reflects on claims; the agent retrieves and computes evidence, forms hypotheses, and surfaces counter-evidence. Responsibility remains with the student and instructor. This tutorial applies the model to synthetic multimodal sensing data, with instructor-led scaffolds for refusal, red-teaming, and research governance.</p>
+        </div>
+
+        <figure class="saci-paper-figure">
+          <a href="saci-teaser.png" target="_blank" rel="noopener" type="image/png">
+            <img src="saci-teaser.png" alt="The broader Student–AI Collaborative Inquiry model: instructor scaffolding and ethical safeguards around mutual interrogation between a student and AI agent over the student's multimodal sensor data, followed by five learning phases.">
+          </a>
+          <figcaption>The SACI paper’s model figure. This tutorial uses a synthetic teaching dataset rather than participants’ personal data. Open the figure to view it at full size.</figcaption>
+        </figure>
+      </div>
+
+      <div class="saci-footer">
+        <div class="saci-citation">
+          <b>Paper</b>
+          <cite>From AI-as-Shortcut to AI-as-Partner: Student-AI Collaborative Inquiry for Health-Agent Education</cite>
+          <span>Zhihan Jiang &amp; Xuhai Xu · UbiComp Companion ’26</span>
+        </div>
+      </div>
+    </details>
   </div>
 </section>
 
