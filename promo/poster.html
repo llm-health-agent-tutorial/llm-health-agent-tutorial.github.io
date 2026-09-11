@@ -181,7 +181,10 @@
   .person .name { font-weight: 600; font-size: 24px; color: var(--ink); margin-top: 12px; line-height: 1.18; }
   .person .inst { font-size: 20px; color: var(--ink-soft); margin-top: 3px; }
 
-  .frame { display: flex; flex-direction: column; min-height: 2380px; }
+  /* 3 speakers sit on organizer columns 1, 3 and 5 (250px cards, 1380px content width) */
+  .people.speakers { justify-content: flex-start; gap: 315px; margin-bottom: 34px; }
+
+  .frame { display: flex; flex-direction: column; min-height: 2640px; }
 </style></head>
 <body>
 <div class="frame">
@@ -246,6 +249,12 @@
   </div>
 
   <div class="team">
+    <div class="team-h">Invited Speakers</div>
+    <div class="people speakers">
+      <div class="person"><img src="../docs/img/teng-han.png" alt="Teng Han"><div class="name">Teng Han</div><div class="inst">Institute of Software,<br>Chinese Academy of Sciences</div></div>
+      <div class="person"><img src="../docs/img/xin-liu.jpg" alt="Xin Liu"><div class="name">Xin Liu</div><div class="inst">Google Research</div></div>
+      <div class="person"><img src="../docs/img/chenshu-wu.jpg" alt="Chenshu Wu"><div class="name">Chenshu Wu</div><div class="inst">The University of Hong Kong</div></div>
+    </div>
     <div class="team-h">Organizers</div>
     <div class="people">
       <div class="person"><img src="../docs/img/zhihan-jiang.jpg" alt="Zhihan Jiang"><div class="name">Zhihan Jiang</div><div class="inst">Columbia University</div></div>
