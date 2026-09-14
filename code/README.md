@@ -1,12 +1,7 @@
-# Starter code
+# Starter code and teaching materials
 
-The hands-on scaffold for the tutorial lives here. **Coming soon.**
+The implementation lives in the [starter repository](https://github.com/llm-health-agent-tutorial/llm-health-agent-starter).
 
-Planned contents:
-- `notebooks/` — one starter notebook per module (fill-in-the-blanks + reference solutions).
-- A minimal agent loop with a baseline data-loading and comparison tool already wired in.
-- Health-specific tool stubs (data retrieval, analysis, visualization).
-- A one-command install script and environment file.
+The [complete materials bundle](../docs/resources/tutorial-materials-2026-09-12.zip) includes six module notebooks, reference notebooks, advanced exercises, tool/agent code, backend adapters, tests, installers and instructor materials. [Editable slides](../docs/resources/tutorial-slides.pptx) accompany the exercises.
 
-Core libraries: an LLM client SDK (Gemini / OpenAI / local-model adapter), Pandas, Matplotlib,
-and a lightweight agent framework.
+Prefer a prepared local Ollama model for the full LLM path. OpenAI and Gemini adapters are optional alternatives. The deterministic scripted backend supports fixed guided exercises offline and does not reproduce open-ended LLM reasoning.
