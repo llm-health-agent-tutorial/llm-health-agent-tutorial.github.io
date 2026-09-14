@@ -1,11 +1,10 @@
 # Prototyping Your Personal LLM Health Agent
 
-**A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 11, 2026 (tentative).**
+**A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 12, 2026, afternoon (Shanghai local time; exact hours TBA).**
 
 *From Multimodal Sensing Data to Actionable Health Insights.*
 
-Build a working personal LLM health agent from a minimal scaffold, over a synthetic, curated
-multimodal sensing dataset (sleep, heart rate, activity, GPS, screen time, EMA), then evaluate when
+Build a working personal LLM health agent from a minimal scaffold, using the official public GLOBEM sample with labeled synthetic supplements as the main exercise, plus a separate synthetic confound scenario, then evaluate when
 its answers should and should not be trusted. The central question is still:
 *“Why have I been sleeping poorly this week?”*
 
@@ -37,8 +36,8 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 │   ├── saci-teaser.png
 │   ├── papers/     # Accepted SACI paper
 │   └── img/       # Organizer photos
-├── code/          # Starter scaffold, notebooks, reference solutions  (coming soon)
-└── data/          # Fully synthetic teaching dataset                  (coming soon)
+├── code/          # Starter repository and complete bundle links
+└── data/          # Synthetic scenario + GLOBEM public-sample hybrid
 ```
 
 ## Getting started
@@ -46,8 +45,7 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 > Detailed setup instructions, including a one-command install script, will be sent to
 > registered participants two weeks before the tutorial.
 
-**Prerequisites:** Python ≥ 3.10 and Jupyter. For the full LLM-based experience, bring either an API
-key for OpenAI or Gemini or a compatible local Ollama model. A key or local model is recommended,
+**Prerequisites:** Python 3.10–3.12 and Jupyter. For the full LLM-based experience, prefer a prepared local Ollama model. An OpenAI or Gemini API backend is an optional alternative. A key or local model is recommended,
 not required: an interface-compatible deterministic scripted fallback supports the guided
 tool-building and agent-wiring exercises if neither is available or setup fails, but it does not
 reproduce open-ended LLM reasoning.
@@ -72,8 +70,8 @@ reproduce open-ended LLM reasoning.
 This tutorial builds research prototypes for sensor-data sensemaking; it is **not** training in
 clinical decision support. Outputs are exploratory, not validated medical guidance. Any deployment
 on humans (including self, family, or research participants) requires appropriate IRB review.
-A `RESPONSIBLE_USE.md` will ship alongside the starter code.
+The starter code includes `RESPONSIBLE_USE.md` and a participant privacy checklist.
 
 ## License
 
-Code and materials are released under the **MIT License** (see `LICENSE`).
+Original tutorial code and materials use the **MIT License** (see `LICENSE`). The GLOBEM public sample retains upstream Apache-2.0 notices.

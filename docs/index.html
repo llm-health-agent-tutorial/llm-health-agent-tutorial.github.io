@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tutorial: Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026</title>
-<meta name="description" content="A half-day, hands-on UbiComp/ISWC 2026 tutorial: build a personal LLM health agent over a synthetic multimodal sensing dataset — ground every claim, catch confounds, evaluate faithfulness and safety.">
+<meta name="description" content="A half-day, hands-on UbiComp/ISWC 2026 tutorial: build a personal LLM health agent over the GLOBEM public sample with labeled synthetic supplements — ground every claim, catch confounds, evaluate faithfulness and safety.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0f2342">
 
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://llm-health-agent-tutorial.github.io/">
 <meta property="og:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
-<meta property="og:description" content="A half-day, hands-on tutorial: build a personal LLM health agent over a synthetic multimodal sensing dataset — ground every claim, catch confounds, evaluate faithfulness and safety.">
+<meta property="og:description" content="A half-day, hands-on tutorial: build a personal LLM health agent over the GLOBEM public sample with labeled synthetic supplements — ground every claim, catch confounds, evaluate faithfulness and safety.">
 <meta property="og:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -1026,12 +1026,12 @@
       <span class="badge"><span class="dot"></span><span class="badge-text">UbiComp/ISWC 2026 · Half-day Tutorial · Shanghai, China</span></span>
     <p class="kicker">From Multimodal Sensing Data to Actionable Health Insights</p>
     <h1>Prototyping Your Personal LLM Health Agent</h1>
-    <p class="lede">Build a working personal LLM health agent over a synthetic multimodal sensing dataset, turning raw sensor streams into personalized, actionable health insights. Then <strong>ground every claim, catch confounds, and evaluate it for faithfulness and safety</strong>.</p>
+    <p class="lede">Build a working personal LLM health agent over the GLOBEM public sample with labeled synthetic supplements, examining multimodal sensing features and the limits of health-data interpretation. Then <strong>ground every claim, catch confounds, and evaluate it for faithfulness and safety</strong>.</p>
 
     <div class="facts">
       <div class="fact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <span><b>Oct 11, 2026 (tentative)</b></span></div>
+        <span><b>Oct 12, 2026 · Afternoon</b></span></div>
       <div class="fact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
         <span>Shanghai, China</span></div>
@@ -1040,12 +1040,12 @@
         <span>Half-day (3.5h), hands-on</span></div>
       <div class="fact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>
-        <span>Bring a laptop · Python ≥ 3.10</span></div>
+        <span>Bring a laptop · Python 3.10–3.12</span></div>
     </div>
 
     <div class="cta">
       <a class="btn btn-primary" href="#register">Registration <span class="tba">TBA</span></a>
-      <a class="btn btn-ghost" href="#register">Starter repository <span class="tba">TBA</span></a>
+      <a class="btn btn-ghost" href="https://github.com/llm-health-agent-tutorial/llm-health-agent-starter">Starter code</a>
     </div>
     </div>
 
@@ -1072,13 +1072,13 @@
 <section class="hook anchor" id="about">
   <div class="wrap">
     <p class="quote"><span class="q">“</span>Why have I been sleeping poorly this week?<span class="q">”</span></p>
-    <p>Most consumer wearables and health dashboards can show you the data behind that question, but they cannot answer it. LLM agents — language models that call functions, run analyses, and visualize results — offer a path to turn raw multimodal sensing streams into grounded, personalized answers. In this half-day, hands-on tutorial, you will build a working personal LLM health agent from a minimal scaffold, over a synthetic, curated multimodal sensing dataset (sleep, heart rate, activity, GPS, screen time, EMA).</p>
+    <p>Most consumer wearables and health dashboards can show you the data behind that question, but they cannot answer it. LLM agents — language models that call functions, run analyses, and visualize results — offer a path to connect curated multimodal sensing features with inspectable, data-grounded answers. In this half-day, hands-on tutorial, you will build a working personal LLM health agent from a minimal scaffold, over a GLOBEM public-sample dataset with explicitly labeled synthetic supplements (sleep, activity, phone use, location summaries, heart rate and EMA).</p>
 
     <figure class="teaser">
       <a class="teaser-image-link" href="tutorial-teaser.png" target="_blank" rel="noopener" type="image/png">
         <img src="tutorial-teaser.png" alt="Diagram of the half-day tutorial workflow: a participant asks why they have been sleeping poorly; a health-agent scaffold accesses fully synthetic multimodal data and uses retrieval, analysis, and visualization tools; six modules run from introduction through evaluation, safety, and wrap-up.">
       </a>
-      <figcaption>The personal LLM health agent stack participants build during this half-day tutorial, across six modules from introduction to wrap-up. Open the figure to view it at full size.</figcaption>
+      <figcaption>The agent scaffold across six modules. This illustration uses the synthetic case; the main exercises now use the GLOBEM public-sample hybrid. Open the figure to view it at full size.</figcaption>
     </figure>
 
   </div>
@@ -1127,14 +1127,14 @@
       <div class="saci-main">
         <div class="saci-copy">
           <h3>Student–AI Collaborative Inquiry <span>SACI</span></h3>
-          <p>SACI pairs a student and AI agent as co-investigators. The student contextualizes, interrogates, and reflects on claims; the agent retrieves and computes evidence, forms hypotheses, and surfaces counter-evidence. Responsibility remains with the student and instructor. This tutorial applies the model to synthetic multimodal sensing data, with instructor-led scaffolds for refusal, red-teaming, and research governance.</p>
+          <p>SACI pairs a student and AI agent as co-investigators. The student contextualizes, interrogates, and reflects on claims; the agent retrieves and computes evidence, forms hypotheses, and surfaces counter-evidence. Responsibility remains with the student and instructor. This tutorial applies the model to a public GLOBEM sample with labeled synthetic supplements, with a separate synthetic confound case and instructor-led scaffolds for refusal, red-teaming, and research governance.</p>
         </div>
 
         <figure class="saci-paper-figure">
           <a href="saci-teaser.png" target="_blank" rel="noopener" type="image/png">
             <img src="saci-teaser.png" alt="The broader Student–AI Collaborative Inquiry model: instructor scaffolding and ethical safeguards around mutual interrogation between a student and AI agent over the student's multimodal sensor data, followed by five learning phases.">
           </a>
-          <figcaption>The SACI paper’s model figure. This tutorial uses a synthetic teaching dataset rather than participants’ personal data. Open the figure to view it at full size.</figcaption>
+          <figcaption>The SACI paper’s model figure. The tutorial uses a public-sample GLOBEM teaching profile and a separate synthetic case, without requiring participants’ personal data. Open the figure to view it at full size.</figcaption>
         </figure>
       </div>
 
@@ -1161,7 +1161,7 @@
       </li>
       <li class="slot">
         <span class="time">20 min</span>
-        <div><h4>Module 2 · Setting Up</h4><p>Verify your environment, select a hosted or local LLM backend, load the sample dataset, and run a minimal tool-using agent call. If setup fails, use the interface-compatible scripted fallback for the guided wiring exercise.</p></div>
+        <div><h4>Module 2 · Setting Up</h4><p>Verify your environment, select a local model or hosted LLM backend, load the sample dataset, and run a minimal tool-using agent call. If no model is available or setup fails, use the interface-compatible scripted fallback for the guided wiring exercise.</p></div>
       </li>
       <li class="slot">
         <span class="time">45 min</span>
@@ -1251,8 +1251,8 @@
       <div class="card">
         <h3>What to bring</h3>
         <ul class="list leave">
-          <li>A laptop with Python ≥ 3.10 and Jupyter installed.</li>
-          <li><strong>API key or local model recommended</strong> — for the full LLM-based path, bring either a key for a supported provider or a compatible local model (for example, via Ollama). If neither is available—or setup fails—the deterministic scripted fallback supports the guided tool-building and agent-wiring exercises, but it does not reproduce open-ended LLM reasoning.</li>
+          <li>A laptop with Python 3.10–3.12 and Jupyter installed.</li>
+          <li><strong>Local model preferred; API key optional</strong> — for the full LLM-based path, a compatible local model (for example, via Ollama) is preferred. If you already have a key for a supported provider, you can use it instead. If neither is available—or setup fails—the deterministic scripted fallback supports the guided tool-building and agent-wiring exercises, but it does not reproduce open-ended LLM reasoning.</li>
           <li>Detailed setup instructions, including a one-command install script, are sent two weeks before the tutorial.</li>
         </ul>
       </div>
@@ -1264,7 +1264,7 @@
 <section class="anchor" id="dataset">
   <div class="wrap">
     <h2>The dataset</h2>
-    <p class="dataset-note">You'll work with a <b>fully synthetic</b> teaching dataset whose schema and feature types are inspired by the GLOBEM behavioral dataset, paired with additional synthetic records covering modalities not represented in GLOBEM. No credentialed data access is required during the tutorial, and we provide a data-privacy checklist you can adapt for your own studies.</p>
+    <p class="dataset-note">The <b>main exercises</b> combine official public GLOBEM sample observations with explicitly labeled synthetic supplements. A separate fully synthetic scenario is used in Module 5 to examine confounding and why overlapping changes do not identify a cause. No credentialed data access is required during the tutorial, and we provide a data-privacy checklist you can adapt for your own studies.</p>
     <div class="tag-row">
       <span class="tag">Sleep</span>
       <span class="tag">Heart rate</span>
@@ -1338,15 +1338,15 @@
       </details>
       <details>
         <summary>Do I need an API key? Will it cost money?</summary>
-        <div class="answer">Not necessarily. For the full LLM-based path, bring either an API key for a supported provider or a compatible local model. If neither is available—or setup fails—an interface-compatible scripted fallback supports the guided exercises, but it does not reproduce open-ended LLM reasoning. Any hosted-provider cost depends on the provider and account; the scripted fallback itself has no API cost.</div>
+        <div class="answer">No. A compatible local model, for example through Ollama, is the preferred path for the full LLM-based experience. If you already have an API key for a supported provider, you can use that instead. If you have neither, the interface-compatible scripted fallback still supports the guided exercises, but it does not reproduce open-ended LLM reasoning. The local and scripted paths do not require paid API usage; hosted-provider costs depend on the provider and account.</div>
       </details>
       <details>
         <summary>What do I need on my laptop?</summary>
-        <div class="answer">Python ≥ 3.10 and Jupyter. We send detailed setup instructions, including a one-command install script, two weeks before the tutorial.</div>
+        <div class="answer">Python 3.10–3.12 and Jupyter. We send detailed setup instructions, including a one-command install script, two weeks before the tutorial.</div>
       </details>
       <details>
         <summary>Do I get to keep the code and data?</summary>
-        <div class="answer">Yes. The full stack is released as an open-source repository under the MIT License, together with the synthetic teaching dataset, so you can adapt both for your own research.</div>
+        <div class="answer">Yes. Tutorial code and original synthetic materials use the MIT License. The included public GLOBEM sample retains its upstream Apache-2.0 attribution and notices. The complete bundle contains both profiles, notebooks, reference solutions and slides.</div>
       </details>
       <details>
         <summary>Is this clinical or medical training?</summary>
@@ -1357,10 +1357,17 @@
 </section>
 
 <!-- REGISTER -->
+<section class="anchor" id="materials"><div class="wrap">
+<h2>Tutorial materials</h2>
+<p class="sub">Six module notebooks, reference solutions, optional advanced exercises, setup instructions, data cards, instructor materials and teaching slides.</p>
+<p><a href="resources/tutorial-materials-2026-09-12.zip">Download the complete materials bundle</a> · <a href="resources/tutorial-slides.pptx">Editable teaching slides</a> · <a href="https://github.com/llm-health-agent-tutorial/llm-health-agent-starter">Starter repository</a></p>
+<p class="sub">The GLOBEM hybrid profile uses the official public sample, not the full credentialed PhysioNet release. Observed missing values remain missing. Synthetic supplements are not facts about the source participants.</p>
+</div></section>
+
 <section class="register anchor" id="register">
   <div class="wrap">
     <h2>Registration & resources</h2>
-    <p class="sub">Links go live closer to the conference. Check back, or email us to be notified.</p>
+    <p class="sub">Teaching materials and starter code are linked below. Registration details will follow on the conference website.</p>
     <div class="reg-box">
       <div class="reg-item">
         <span class="lbl">Registration</span>
@@ -1368,11 +1375,11 @@
       </div>
       <div class="reg-item">
         <span class="lbl">Starter repository</span>
-        <span class="val">To be announced</span>
+        <span class="val"><a href="https://github.com/llm-health-agent-tutorial/llm-health-agent-starter">Open starter repository</a></span>
       </div>
       <div class="reg-item">
         <span class="lbl">Conference</span>
-        <span class="val">UbiComp/ISWC 2026 · Oct 11 (tentative) · Shanghai</span>
+        <span class="val">UbiComp/ISWC 2026 · Oct 12 afternoon · Shanghai · Exact times TBA</span>
       </div>
       <div class="reg-item">
         <span class="lbl">Contact</span>
