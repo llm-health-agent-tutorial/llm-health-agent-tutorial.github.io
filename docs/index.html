@@ -670,7 +670,7 @@
   .timeline { list-style: none; margin: 0; padding: 0; }
   .slot {
     display: grid;
-    grid-template-columns: 104px minmax(0, 1fr);
+    grid-template-columns: 144px minmax(0, 1fr);
     gap: 18px;
     padding: 18px 0;
     border-bottom: 1px solid var(--line);
@@ -679,6 +679,7 @@
   .slot:last-child { border-bottom: none; padding-bottom: 0; }
   .slot .time {
     display: inline-flex;
+    align-self: start;
     align-items: center;
     justify-content: center;
     min-height: 36px;
@@ -1043,7 +1044,7 @@
     <div class="facts">
       <div class="fact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <span><b>Oct 12, 2026 · Afternoon</b></span></div>
+        <span><b>Oct 12, 2026 · 14:00–17:30</b><br>Tentative · Shanghai time (UTC+8)</span></div>
       <div class="fact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
         <span>Shanghai, China</span></div>
@@ -1090,7 +1091,7 @@
       <a class="teaser-image-link" href="tutorial-teaser.png" target="_blank" rel="noopener" type="image/png">
         <img src="tutorial-teaser.png" alt="Diagram of the half-day tutorial workflow: a participant asks why they have been sleeping poorly; a health-agent scaffold accesses fully synthetic multimodal data and uses retrieval, analysis, and visualization tools; six modules run from introduction through evaluation, safety, and wrap-up.">
       </a>
-      <figcaption>The agent scaffold across six modules. This illustration uses the synthetic case; the main exercises now use the GLOBEM public-sample hybrid. Open the figure to view it at full size.</figcaption>
+      <figcaption>The conceptual learning workflow, grouped into two teaching blocks and a closing panel in the tentative schedule below. This illustration uses the synthetic case; the main exercises use the GLOBEM public-sample hybrid. Open the figure to view it at full size.</figcaption>
     </figure>
 
   </div>
@@ -1100,7 +1101,7 @@
 <section class="anchor">
   <div class="wrap">
     <h2>What you'll do — and leave with</h2>
-    <p class="sub">No prior LLM or agent experience required. We open with a concise primer, then build, evaluate, and stress-test an agent together.</p>
+    <p class="sub">No prior LLM or agent experience required. The teaching blocks start with a concise primer, then we build, evaluate, and stress-test an agent together.</p>
     <div class="cols">
       <div class="card">
         <h3>What you will do</h3>
@@ -1164,36 +1165,32 @@
 <!-- SCHEDULE -->
 <section class="anchor" id="schedule">
   <div class="wrap">
-    <h2>Schedule</h2>
-    <p class="sub">A half-day session of 3.5 hours, alternating short conceptual lectures, guided coding, and a moderated panel. Every module will include a starter notebook, reference solution, and an optional advanced exercise.</p>
+    <h2>Tentative schedule</h2>
+    <p class="sub"><strong>October 12, 2026 · 14:00–17:30 · Shanghai time (UTC+8).</strong> Invited talks, 90 minutes of hands-on teaching, and a closing panel. Times and speaker order are tentative and subject to change.</p>
     <ul class="timeline">
       <li class="slot">
-        <span class="time">30 min</span>
-        <div><h4>Module 1 · Introduction</h4><p>The sensemaking gap; the anatomy of an LLM agent vs. prompt-only LLM use and classical ML pipelines; recurring design tensions.</p></div>
+        <span class="time">14:00–14:05</span>
+        <div><h4>Welcome &amp; overview</h4><p>Goals for the afternoon and an introduction to the tutorial team and invited speakers.</p></div>
       </li>
       <li class="slot">
-        <span class="time">20 min</span>
-        <div><h4>Module 2 · Setting Up</h4><p>Verify your environment, select a local model or hosted LLM backend, load the sample dataset, and run a minimal tool-using agent call. If no model is available or setup fails, use the interface-compatible scripted fallback for the guided wiring exercise.</p></div>
+        <span class="time">14:05–14:50</span>
+        <div><h4>Invited talks</h4><p>Three invited talks, each with an 8-minute presentation and 5-minute Q&amp;A, plus time for transitions. Speaking order to be confirmed.</p></div>
       </li>
       <li class="slot">
-        <span class="time">45 min</span>
-        <div><h4>Module 3 · Designing Health Tools</h4><p>Implement and register data-retrieval, analysis, and visualization tools the agent can compose at runtime.</p></div>
+        <span class="time">14:50–15:30</span>
+        <div><h4>Hands-on teaching I · Foundations, data &amp; tools</h4><p>A concise primer on tool-using LLM agents, environment checks, and an introduction to the GLOBEM public-sample hybrid. Build data-retrieval and analysis tools. A scripted fallback supports the guided exercises if model setup fails.</p></div>
       </li>
       <li class="slot break">
-        <span class="time break-t">30 min</span>
-        <div><h4>Break</h4><p>Coffee & networking.</p></div>
+        <span class="time break-t">15:30–16:00</span>
+        <div><h4>Coffee break</h4><p>Coffee and networking, aligned with the conference break.</p></div>
       </li>
       <li class="slot">
-        <span class="time">45 min</span>
-        <div><h4>Module 4 · Wiring Up the Agent</h4><p>Planning, tool selection, execution, observation, response. Run the agent against open-ended questions.</p></div>
+        <span class="time">16:00–16:50</span>
+        <div><h4>Hands-on teaching II · Build, visualize &amp; evaluate</h4><p>Assemble the agent loop, add a visualization tool, and run questions over sensing data. Check answers against the underlying observations, examine missing data, and use a synthetic scenario to explore confounding.</p></div>
       </li>
       <li class="slot">
-        <span class="time">30 min</span>
-        <div><h4>Module 5 · Panel on Evaluation & Safety</h4><p>What makes a “good” answer, failure modes (hallucination, unsafe advice, emergency and crisis handling, longitudinal drift), and ethics — with invited guests.</p></div>
-      </li>
-      <li class="slot">
-        <span class="time">10 min</span>
-        <div><h4>Module 6 · Wrap-up</h4><p>Synthesis, a roadmap of open challenges, and community Q&amp;A.</p></div>
+        <span class="time">16:50–17:30</span>
+        <div><h4>Panel discussion · Evaluation, safety &amp; open questions</h4><p>Grounding, unsupported causal claims, safety and research ethics, with invited speakers. Includes audience Q&amp;A and closing remarks.</p></div>
       </li>
     </ul>
   </div>
@@ -1203,7 +1200,7 @@
 <section class="anchor" id="speakers">
   <div class="wrap">
     <h2>Invited Speakers</h2>
-    <p class="sub">Invited speakers will contribute to the tutorial talks and our moderated Module 5 panel on evaluation and safety. Additional speakers will be announced here as they are confirmed. Speakers are listed alphabetically by family name.</p>
+    <p class="sub">Invited speakers will contribute to the tutorial talks and our closing panel on evaluation and safety. The speaking order is tentative; speakers below are listed alphabetically by family name.</p>
 
     <div class="people">
       <div class="person speaker-card">
@@ -1256,7 +1253,7 @@
         <h3>Prerequisites</h3>
         <ul class="list">
           <li>Intermediate Python: comfortable reading and modifying a Jupyter notebook, installing packages, and debugging API calls.</li>
-          <li>No prior LLM or agent experience required — we open with a concise primer.</li>
+          <li>No prior LLM or agent experience required — the teaching blocks include a concise primer.</li>
           <li>Familiarity with wearable or behavioral data is helpful but not required; cleaned sample datasets are provided.</li>
         </ul>
       </div>
@@ -1276,7 +1273,7 @@
 <section class="anchor" id="dataset">
   <div class="wrap">
     <h2>The dataset</h2>
-    <p class="dataset-note">The <b>main exercises</b> combine official public GLOBEM sample observations with explicitly labeled synthetic supplements. A separate fully synthetic scenario is used in Module 5 to examine confounding and why overlapping changes do not identify a cause. No credentialed data access is required during the tutorial, and we provide a data-privacy checklist you can adapt for your own studies.</p>
+    <p class="dataset-note">The <b>main exercises</b> combine official public GLOBEM sample observations with explicitly labeled synthetic supplements. A separate fully synthetic scenario is used in the evaluation exercises to examine confounding and why overlapping changes do not identify a cause. No credentialed data access is required during the tutorial, and we provide a data-privacy checklist you can adapt for your own studies.</p>
     <div class="tag-row">
       <span class="tag">Sleep</span>
       <span class="tag">Heart rate</span>
@@ -1346,7 +1343,7 @@
     <div class="faq">
       <details>
         <summary>Do I need prior LLM or agent experience?</summary>
-        <div class="answer">No. We open with a concise primer, and every module will include a starter notebook with fill-in-the-blanks plus a reference solution. Intermediate Python is the only real prerequisite.</div>
+        <div class="answer">No. The teaching blocks include a concise primer, and the guided exercises will include starter notebooks with fill-in-the-blanks plus reference solutions. Intermediate Python is the only real prerequisite.</div>
       </details>
       <details>
         <summary>Do I need an API key? Will it cost money?</summary>
@@ -1373,7 +1370,7 @@
   <div class="wrap">
     <h2 id="rsvp-title">Join the tutorial</h2>
     <div class="rsvp-body">
-      <p><strong>October 12, 2026 · Afternoon · Shanghai</strong></p>
+      <p><strong>October 12, 2026 · 14:00–17:30 (tentative) · Shanghai time (UTC+8)</strong></p>
       <p>Planning to join us? Let us know so we can estimate attendance and send you setup instructions. The form takes about one minute.</p>
 
       <div class="rsvp-actions">
@@ -1413,7 +1410,7 @@
       </div>
       <div class="reg-item">
         <span class="lbl">Conference</span>
-        <span class="val">UbiComp/ISWC 2026 · Oct 12 afternoon · Shanghai · Exact times TBA</span>
+        <span class="val">UbiComp/ISWC 2026 · Oct 12 · 14:00–17:30 (tentative) · Shanghai time (UTC+8)</span>
       </div>
       <div class="reg-item">
         <span class="lbl">Contact</span>

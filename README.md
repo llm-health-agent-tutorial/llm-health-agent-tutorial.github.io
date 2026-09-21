@@ -1,6 +1,6 @@
 # Prototyping Your Personal LLM Health Agent
 
-**A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 12, 2026, afternoon (Shanghai local time; exact hours TBA).**
+**A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 12, 2026, 14:00–17:30 (tentative; Shanghai time, UTC+8).**
 
 *From Multimodal Sensing Data to Actionable Health Insights.*
 
@@ -11,7 +11,7 @@ its answers should and should not be trusted. The central question is still:
 Ground every claim. Catch confounds. Refuse medical advice. Stress-test the agent.
 
 🌐 **Tutorial website:** https://llm-health-agent-tutorial.github.io/
-📅 **When:** UbiComp/ISWC 2026, Shanghai · Half-day (3.5h), hands-on
+📅 **When:** October 12, 2026 · 14:00–17:30 (tentative; Shanghai time, UTC+8)
 ✉️ **Contact:** zj2445@cumc.columbia.edu
 
 ---
@@ -41,6 +41,8 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 ```
 
 ## Getting started
+
+The tentative afternoon schedule includes a 5-minute welcome, three invited talks in a 45-minute block (8-minute talk + 5-minute Q&A each, plus transitions), two teaching blocks totaling 90 minutes, the 15:30–16:00 conference coffee break, and a 16:50–17:30 panel including audience Q&A and closing remarks. Speaker order is to be confirmed; see the [website schedule](https://llm-health-agent-tutorial.github.io/#schedule) for updates.
 
 > Detailed setup instructions, including a one-command install script, will be sent to
 > registered participants two weeks before the tutorial.
