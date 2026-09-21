@@ -52,6 +52,8 @@ reproduce open-ended LLM reasoning.
 
 ## Publishing the website (GitHub Pages)
 
+Starter repository, materials bundle and teaching slides links are temporarily hidden on the website while the materials are finalized. RSVP remains available. The repository, ZIP and PPTX are retained; this only hides the website entry points, not access through existing direct URLs. Restore the hero button, materials links and resource row in `docs/index.html` when the materials are ready.
+
 1. Push this repository to GitHub.
 2. Settings → Pages → Source: **Deploy from a branch** → branch `main`, folder **`/docs`** → Save.
 3. The site goes live at `https://<account>.github.io/<repo>/`.
