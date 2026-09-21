@@ -872,6 +872,18 @@
     line-height: 1.65;
   }
 
+  /* RSVP: an external public form, with an email alternative. */
+  .rsvp-hero-note { margin: 14px 0 0; max-width: 58ch; color: #e6ecf5; font-size: 13px; line-height: 1.5; }
+  #rsvp .rsvp-body { grid-column: 2; min-width: 0; }
+  .rsvp-body p { margin: 0 0 14px; }
+  .rsvp-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin: 24px 0 14px; }
+  .rsvp-form-button { background: var(--primary); color: #fff; box-shadow: none; }
+  .rsvp-form-button:hover { background: var(--primary-ink); }
+  .rsvp-status { font-size: 14px; color: var(--ink-faint); }
+  .rsvp-registration { padding-top: 20px; margin-top: 24px; border-top: 1px solid var(--line); }
+  @media (max-width: 860px) { #rsvp .rsvp-body { grid-column: 1; } }
+  @media (max-width: 560px) { .rsvp-actions { align-items: stretch; flex-direction: column; } }
+
   /* Register / contact */
   .register { background: var(--surface); }
   .reg-item {
@@ -1014,7 +1026,7 @@
       <li><a href="#prereq">Prerequisites</a></li>
       <li><a href="#organizers">Organizers</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#register">Register</a></li>
+      <li><a href="#rsvp">RSVP</a></li>
       <li><a href="https://multi-agent-tutorial.ubiwell.io" target="_blank" rel="noopener">Related tutorial</a></li>
     </ul>
   </div>
@@ -1044,9 +1056,10 @@
     </div>
 
     <div class="cta">
-      <a class="btn btn-primary" href="#register">Registration <span class="tba">TBA</span></a>
+      <a class="btn btn-primary" href="#rsvp">RSVP</a>
       <a class="btn btn-ghost" href="https://github.com/llm-health-agent-tutorial/llm-health-agent-starter">Starter code</a>
     </div>
+    <p class="rsvp-hero-note">RSVP helps us plan the tutorial. Conference registration is separate.</p>
     </div>
 
     <aside class="hero-visual" aria-hidden="true">
@@ -1356,6 +1369,28 @@
   </div>
 </section>
 
+<!-- RSVP -->
+<section class="anchor" id="rsvp" aria-labelledby="rsvp-title">
+  <div class="wrap">
+    <h2 id="rsvp-title">Join the tutorial</h2>
+    <div class="rsvp-body">
+      <p><strong>October 12, 2026 · Afternoon · Shanghai</strong></p>
+      <p>Planning to join us? Let us know so we can estimate attendance and send you setup instructions. The form takes about one minute.</p>
+
+      <div class="rsvp-actions">
+        <a class="btn rsvp-form-button" href="https://docs.google.com/forms/d/e/1FAIpQLSdWzprHOY6Myk8anZ5wM9EUDd5w-I5V7CFPpEUa3vYFiamk_Q/viewform?usp=header" target="_blank" rel="noopener" aria-describedby="rsvp-status">RSVP with Google Forms</a>
+        <a href="mailto:zj2445@cumc.columbia.edu?subject=RSVP%3A%20LLM%20Health%20Agent%20Tutorial%20%E2%80%94%20October%2012%2C%202026&amp;body=Name%3A%0AEmail%3A%0AInstitution%20%28optional%29%3A%0AAttendance%20plans%3A%20Planning%20to%20attend%20%2F%20Interested%2C%20not%20yet%20certain%0A%0AI%20understand%20this%20RSVP%20does%20not%20replace%20paid%20UbiComp%2FISWC%20registration.">RSVP by email</a>
+      </div>
+      <p class="rsvp-status" id="rsvp-status">No Google account is required. If Google Forms is unavailable, email us your name and attendance plans.</p>
+      <div class="rsvp-registration">
+        <p><strong>RSVP is an expression of interest, not conference registration or a reserved seat.</strong> Attending the tutorial requires paid UbiComp/ISWC registration covering the workshop/tutorial days.</p>
+
+        <p><a href="https://www.ubicomp.org/ubicomp-iswc-2026/registration/" target="_blank" rel="noopener">Official conference registration</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- REGISTER -->
 <section class="anchor" id="materials"><div class="wrap">
 <h2>Tutorial materials</h2>
@@ -1367,11 +1402,11 @@
 <section class="register anchor" id="register">
   <div class="wrap">
     <h2>Registration & resources</h2>
-    <p class="sub">Teaching materials and starter code are linked below. Registration details will follow on the conference website.</p>
+    <p class="sub">RSVP and conference registration are separate. Use the official conference website to select a registration category covering workshop/tutorial attendance.</p>
     <div class="reg-box">
       <div class="reg-item">
         <span class="lbl">Registration</span>
-        <span class="val">To be announced on the conference website</span>
+        <span class="val"><a href="https://www.ubicomp.org/ubicomp-iswc-2026/registration/" target="_blank" rel="noopener">Official UbiComp/ISWC registration</a></span>
       </div>
       <div class="reg-item">
         <span class="lbl">Starter repository</span>
