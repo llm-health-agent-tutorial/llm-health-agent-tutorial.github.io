@@ -42,7 +42,7 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 
 ## Getting started
 
-Thomas Plötz (School of Interactive Computing, Georgia Institute of Technology) is confirmed as the opening speaker. His talk title and abstract will be announced. Panel participation is being coordinated separately.
+Thomas Plötz (School of Interactive Computing, Georgia Institute of Technology) will give the opening talk. Panel participation is being coordinated separately.
 
 The tentative afternoon remains October 12, 14:00–17:30, with the conference coffee break at 15:30–16:00. The detailed timetable is being updated to accommodate the opening talk, invited talks, hands-on teaching, and the closing panel on evaluation and safety. Individual session times and speaking order will be announced on the [website](https://llm-health-agent-tutorial.github.io/#schedule).
 
