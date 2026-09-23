@@ -12,6 +12,7 @@ Ground every claim. Catch confounds. Refuse medical advice. Stress-test the agen
 
 🌐 **Tutorial website:** https://llm-health-agent-tutorial.github.io/
 📅 **When:** October 12, 2026 · 14:00–17:30 (tentative; Shanghai time, UTC+8)
+📍 **Where:** Room 5A · Shanghai, China
 ✉️ **Contact:** zj2445@cumc.columbia.edu
 
 ---
