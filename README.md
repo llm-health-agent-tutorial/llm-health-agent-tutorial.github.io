@@ -42,7 +42,9 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 
 ## Getting started
 
-The tentative afternoon schedule includes a 5-minute welcome, three invited talks in a 45-minute block (8-minute talk + 5-minute Q&A each, plus transitions), two teaching blocks totaling 90 minutes, the 15:30–16:00 conference coffee break, and a 16:50–17:30 panel including audience Q&A and closing remarks. Speaker order is to be confirmed; see the [website schedule](https://llm-health-agent-tutorial.github.io/#schedule) for updates.
+Thomas Plötz (School of Interactive Computing, Georgia Institute of Technology) is confirmed as the opening speaker. His talk title and abstract will be announced. Panel participation is being coordinated separately.
+
+The tentative afternoon remains October 12, 14:00–17:30, with the conference coffee break at 15:30–16:00. The detailed timetable is being updated to accommodate the opening talk, invited talks, hands-on teaching, and the closing panel on evaluation and safety. Individual session times and speaking order will be announced on the [website](https://llm-health-agent-tutorial.github.io/#schedule).
 
 > Detailed setup instructions, including a one-command install script, will be sent to
 > registered participants two weeks before the tutorial.

@@ -791,6 +791,12 @@
     font-size: 13.8px;
     line-height: 1.55;
   }
+  #speakers .opening-speaker {
+    grid-column: 1 / -1;
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+  #speakers .opening-speaker .avatar { width: 96px; height: 96px; }
+  #speakers .opening-speaker .speaker-bio { max-width: 85ch; }
   .person .avatar-ph {
     width: 76px;
     height: 76px;
@@ -1166,31 +1172,23 @@
 <section class="anchor" id="schedule">
   <div class="wrap">
     <h2>Tentative schedule</h2>
-    <p class="sub"><strong>October 12, 2026 · 14:00–17:30 · Shanghai time (UTC+8).</strong> Invited talks, 90 minutes of hands-on teaching, and a closing panel. Times and speaker order are tentative and subject to change.</p>
+    <p class="sub"><strong>October 12, 2026 · 14:00–17:30 · Shanghai time (UTC+8), tentative.</strong> The detailed timetable is being updated to include Thomas Plötz’s opening talk. Session times and speaking order will be announced here. The conference coffee break is 15:30–16:00.</p>
     <ul class="timeline">
       <li class="slot">
-        <span class="time">14:00–14:05</span>
-        <div><h4>Welcome &amp; overview</h4><p>Goals for the afternoon and an introduction to the tutorial team and invited speakers.</p></div>
+        <span class="time">Time TBA</span>
+        <div><h4>Opening talk · Thomas Plötz</h4><p>Georgia Institute of Technology. Talk title and abstract to be announced.</p></div>
       </li>
       <li class="slot">
-        <span class="time">14:05–14:50</span>
-        <div><h4>Invited talks</h4><p>Three invited talks, each with an 8-minute presentation and 5-minute Q&amp;A, plus time for transitions. Speaking order to be confirmed.</p></div>
+        <span class="time">Time TBA</span>
+        <div><h4>Invited talks</h4><p>Short talks from our invited speakers. Individual timings and speaking order will be announced with the updated program.</p></div>
       </li>
       <li class="slot">
-        <span class="time">14:50–15:30</span>
-        <div><h4>Hands-on teaching I · Foundations, data &amp; tools</h4><p>A concise primer on tool-using LLM agents, environment checks, and an introduction to the GLOBEM public-sample hybrid. Build data-retrieval and analysis tools. A scripted fallback supports the guided exercises if model setup fails.</p></div>
-      </li>
-      <li class="slot break">
-        <span class="time break-t">15:30–16:00</span>
-        <div><h4>Coffee break</h4><p>Coffee and networking, aligned with the conference break.</p></div>
+        <span class="time">Time TBA</span>
+        <div><h4>Hands-on teaching · Build, visualize &amp; evaluate</h4><p>Guided exercises in retrieving, analyzing and visualizing sensing data with an LLM agent, followed by checks against the underlying evidence. The teaching blocks will be scheduled around the conference coffee break.</p></div>
       </li>
       <li class="slot">
-        <span class="time">16:00–16:50</span>
-        <div><h4>Hands-on teaching II · Build, visualize &amp; evaluate</h4><p>Assemble the agent loop, add a visualization tool, and run questions over sensing data. Check answers against the underlying observations, examine missing data, and use a synthetic scenario to explore confounding.</p></div>
-      </li>
-      <li class="slot">
-        <span class="time">16:50–17:30</span>
-        <div><h4>Panel discussion · Evaluation, safety &amp; open questions</h4><p>Grounding, unsupported causal claims, safety and research ethics, with invited speakers. Includes audience Q&amp;A and closing remarks.</p></div>
+        <span class="time">Time TBA</span>
+        <div><h4>Panel discussion · Evaluation and safety</h4><p>Response quality and alignment with users’ goals, failure modes such as hallucination and overconfidence, and ethical considerations for health and clinical applications. Includes audience Q&amp;A and closing remarks. Panel participation will be announced separately.</p></div>
       </li>
     </ul>
   </div>
@@ -1200,7 +1198,17 @@
 <section class="anchor" id="speakers">
   <div class="wrap">
     <h2>Invited Speakers</h2>
-    <p class="sub">Invited speakers will contribute to the tutorial talks and our closing panel on evaluation and safety. The speaking order is tentative; speakers below are listed alphabetically by family name.</p>
+    <p class="sub">Thomas Plötz is confirmed for the opening talk. His talk title and abstract will follow. Additional invited speakers are listed below in alphabetical order by family name.</p>
+
+    <!-- Biography and portrait: https://www.ic.gatech.edu/people/thomas-ploetz -->
+    <div class="person speaker-card opening-speaker anchor" id="thomas-ploetz">
+      <a class="avatar-link" href="https://www.ic.gatech.edu/people/thomas-ploetz" target="_blank" rel="noopener" title="Thomas Plötz — faculty profile" aria-label="Visit Thomas Plötz's faculty profile">
+        <img class="avatar" src="img/thomas-ploetz.png" alt="Thomas Plötz" loading="lazy"></a>
+      <span class="role-tag speaker">Opening speaker</span>
+      <h3>Thomas Plötz</h3>
+      <p class="aff">School of Interactive Computing, Georgia Institute of Technology</p>
+      <p class="speaker-bio">Thomas Plötz is a Professor in Georgia Tech’s School of Interactive Computing. His research develops machine-learning methods for interpreting wearable and other sensor data to assess human behavior in everyday settings.</p>
+    </div>
 
     <div class="people">
       <div class="person speaker-card">
