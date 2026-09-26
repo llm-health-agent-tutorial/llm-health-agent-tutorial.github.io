@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tutorial: Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026</title>
-<meta name="description" content="A half-day, hands-on UbiComp/ISWC 2026 tutorial: build a personal LLM health agent over the GLOBEM public sample with labeled synthetic supplements — ground every claim, catch confounds, evaluate faithfulness and safety.">
+<meta name="description" content="A half-day, hands-on UbiComp/ISWC 2026 tutorial: build a personal LLM health agent in your browser over a public GLOBEM sensing sample — write tools, check every claim against the data, and test how an agent improves itself.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0f2342">
 
@@ -12,38 +12,35 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://llm-health-agent-tutorial.github.io/">
 <meta property="og:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
-<meta property="og:description" content="A half-day, hands-on tutorial: build a personal LLM health agent over the GLOBEM public sample with labeled synthetic supplements — ground every claim, catch confounds, evaluate faithfulness and safety.">
+<meta property="og:description" content="A half-day, hands-on tutorial: build a personal LLM health agent in your browser over a public GLOBEM sensing sample — write tools, check every claim against the data, and test how an agent improves itself.">
 <meta property="og:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
-<meta name="twitter:description" content="Build a personal LLM health agent over multimodal sensing data — ground every claim, catch confounds, evaluate faithfulness and safety.">
+<meta name="twitter:description" content="Build a personal LLM health agent in your browser over multimodal sensing data — write tools, check every claim against the data, and test how an agent improves itself.">
 <meta name="twitter:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fbfaf7;
+    --bg: #f9fafb;
     --surface: #ffffff;
-    --ink: #1c2b2d;
-    --ink-soft: #4a5b5d;
-    --ink-faint: #5f7274;
-    --line: #e6e3db;
-    --primary: #1a365e;
-    --primary-ink: #0f2342;
-    --primary-soft: #e6ecf5;
-    --accent: #e07a5f;
-    --accent-ink: #a8462f;
-    --accent-soft: #fbeae4;
-    --hero-blue: #1b4682;
+    --ink: #24404b;
+    --ink-soft: #4f6572;
+    --ink-faint: #62707d;
+    --line: #e1e6ea;
+    --primary: #184856;
+    --primary-ink: #0a3d4c;
+    --primary-soft: #e8eef0;
+    --accent: #e07856;
+    --accent-ink: #b4502f;
+    --accent-soft: #fbece6;
+    --hero-blue: #1d5a6a;
     --radius: 8px;
     --maxw: 1080px;
-    --shadow: 0 1px 2px rgba(15,35,66,.05), 0 12px 28px rgba(15,35,66,.08);
-    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", sans-serif;
-    --font-display: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+    --shadow: 0 1px 2px rgba(24,72,86,.05), 0 12px 28px rgba(24,72,86,.08);
+    --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
   * { box-sizing: border-box; }
@@ -73,8 +70,9 @@
   }
   h1, h2, h3, h4, .quote {
     font-family: var(--font-display);
-    line-height: 1.12;
-    letter-spacing: 0;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.01em;
   }
   h1, h2, h3, h4, p { text-wrap: pretty; }
   .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
@@ -84,9 +82,9 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(251,250,247,.9);
+    background: rgba(249,250,251,.9);
     backdrop-filter: saturate(140%) blur(12px);
-    border-bottom: 1px solid rgba(230,227,219,.86);
+    border-bottom: 1px solid rgba(225,230,234,.86);
   }
   nav .wrap {
     display: flex;
@@ -138,7 +136,7 @@
   header.hero {
     position: relative;
     overflow: hidden;
-    color: #eef2f6;
+    color: #edf1f2;
     background:
       radial-gradient(900px 520px at 92% -18%, rgba(42,95,166,.62), transparent 64%),
       linear-gradient(135deg, var(--primary-ink) 0%, var(--hero-blue) 100%);
@@ -169,7 +167,7 @@
     max-width: 100%;
     background: rgba(255,255,255,.12);
     border: 1px solid rgba(255,255,255,.25);
-    color: #f4f7fb;
+    color: #f3f7f7;
     font-weight: 700;
     font-size: 13px;
     padding: 8px 14px;
@@ -186,7 +184,7 @@
   .badge-text { min-width: 0; }
   .kicker {
     margin: 24px 0 12px;
-    color: #ccd6e0;
+    color: #d2dcdf;
     font-family: var(--font-display);
     font-size: clamp(18px, 2vw, 23px);
     font-style: italic;
@@ -204,7 +202,7 @@
   header.hero .lede {
     max-width: 62ch;
     margin: 0 0 26px;
-    color: #dbe4ee;
+    color: #dde6e8;
     font-size: clamp(17px, 1.6vw, 19px);
     line-height: 1.55;
   }
@@ -225,7 +223,7 @@
     border-radius: 8px;
     border: 1px solid rgba(255,255,255,.18);
     background: rgba(255,255,255,.09);
-    color: #edf4fb;
+    color: #ecf3f4;
     font-size: 14px;
     line-height: 1.35;
   }
@@ -269,7 +267,7 @@
   .btn .tba {
     font-size: 11px;
     font-weight: 800;
-    background: rgba(15,35,66,.28);
+    background: rgba(24,72,86,.28);
     color: #ffe0d4;
     padding: 2px 7px;
     border-radius: 6px;
@@ -299,7 +297,7 @@
     gap: 12px;
     padding-bottom: 14px;
     border-bottom: 1px solid rgba(255,255,255,.16);
-    color: #e7eef7;
+    color: #e6eef0;
     font-size: 13px;
     font-weight: 700;
   }
@@ -315,7 +313,7 @@
     padding: 11px;
     border-radius: 8px;
     border: 1px solid rgba(255,255,255,.14);
-    background: rgba(15,35,66,.24);
+    background: rgba(24,72,86,.24);
   }
   .signal b {
     display: block;
@@ -326,7 +324,7 @@
   .signal span {
     display: block;
     margin-top: 5px;
-    color: #cbd8e6;
+    color: #d3dfe2;
     font-size: 12px;
     line-height: 1.35;
   }
@@ -351,13 +349,13 @@
     border: 1px solid rgba(255,255,255,.14);
   }
   .pipe-step b { color: #fff; font-size: 14px; }
-  .pipe-step span { color: #cfdae8; font-size: 13px; line-height: 1.45; }
+  .pipe-step span { color: #d4e0e3; font-size: 13px; line-height: 1.45; }
   .mini-answer {
     margin-top: 12px;
     padding: 12px 14px;
     border-radius: 8px;
-    background: rgba(251,234,228,.13);
-    border: 1px solid rgba(224,122,95,.45);
+    background: rgba(251,236,230,.13);
+    border: 1px solid rgba(224,120,86,.45);
     color: #fff;
     font-family: var(--font-display);
     font-size: 20px;
@@ -619,7 +617,7 @@
   .saci-footer {
     padding: 24px clamp(22px, 3.5vw, 38px) 28px;
     border-top: 1px solid var(--line);
-    background: #f8fafc;
+    background: #f7f9fa;
   }
 
   /* Cards and lists */
@@ -835,7 +833,7 @@
     color: var(--primary-ink);
     font-size: 14px;
     font-weight: 600;
-    box-shadow: 0 1px 2px rgba(15,35,66,.04);
+    box-shadow: 0 1px 2px rgba(24,72,86,.04);
   }
 
   /* FAQ */
@@ -1045,7 +1043,7 @@
       <span class="badge"><span class="dot"></span><span class="badge-text">UbiComp/ISWC 2026 · Half-day Tutorial · Shanghai, China</span></span>
     <p class="kicker">From Multimodal Sensing Data to Actionable Health Insights</p>
     <h1>Prototyping Your Personal LLM Health Agent</h1>
-    <p class="lede">Build a working personal LLM health agent over the GLOBEM public sample with labeled synthetic supplements, examining multimodal sensing features and the limits of health-data interpretation. Then <strong>ground every claim, catch confounds, and evaluate it for faithfulness and safety</strong>.</p>
+    <p class="lede">Build a working personal LLM health agent over a public GLOBEM sensing sample, right in your browser. Learn what a model, a tool, an agent and a skill are, write your own tools, then let the model rewrite its own instructions. Along the way, <strong>check every claim against the data</strong>.</p>
 
     <div class="facts">
       <div class="fact">
@@ -1059,7 +1057,7 @@
         <span>Half-day (3.5h), hands-on</span></div>
       <div class="fact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>
-        <span>Bring a laptop · Python 3.10–3.12</span></div>
+        <span>Bring a laptop · nothing to install</span></div>
     </div>
 
     <div class="cta">
@@ -1091,13 +1089,13 @@
 <section class="hook anchor" id="about">
   <div class="wrap">
     <p class="quote"><span class="q">“</span>Why have I been sleeping poorly this week?<span class="q">”</span></p>
-    <p>Most consumer wearables and health dashboards can show you the data behind that question, but they cannot answer it. LLM agents — language models that call functions, run analyses, and visualize results — offer a path to connect curated multimodal sensing features with inspectable, data-grounded answers. In this half-day, hands-on tutorial, you will build a working personal LLM health agent from a minimal scaffold, over a GLOBEM public-sample dataset with explicitly labeled synthetic supplements (sleep, activity, phone use, location summaries, heart rate and EMA).</p>
+    <p>Most consumer wearables and health dashboards can show you the data behind that question, but they cannot answer it. LLM agents — language models that call functions, run analyses, and visualize results — offer a path to connect curated multimodal sensing features with inspectable, data-grounded answers. In this half-day, hands-on tutorial, you will build a working personal LLM health agent from a minimal scaffold, over the public GLOBEM sample (sleep, steps, phone use and time at home), in your browser with nothing to install.</p>
 
     <figure class="teaser">
-      <a class="teaser-image-link" href="tutorial-teaser.png" target="_blank" rel="noopener" type="image/png">
-        <img src="tutorial-teaser.png" alt="Diagram of the half-day tutorial workflow: a participant asks why they have been sleeping poorly; a health-agent scaffold accesses fully synthetic multimodal data and uses retrieval, analysis, and visualization tools; six modules run from introduction through evaluation, safety, and wrap-up.">
+      <a class="teaser-image-link" href="img/agentlab-preview.png" target="_blank" rel="noopener" type="image/png">
+        <img src="img/agentlab-preview.png" alt="The tutorial page: a slide on the left explains that an agent is a model, tools and a loop; on the right, a code cell runs the agent on 'How did I sleep last week?' and shows its answer and each tool call.">
       </a>
-      <figcaption>The conceptual learning workflow, grouped into two teaching blocks and a closing panel in the tentative schedule below. This illustration uses the synthetic case; the main exercises use the GLOBEM public-sample hybrid. Open the figure to view it at full size.</figcaption>
+      <figcaption>The tutorial page: each step has a slide on the left and code you can run on the right. Here the agent answers “How did I sleep last week?” and shows every tool call it made. Open the figure to view it at full size.</figcaption>
     </figure>
 
   </div>
@@ -1107,23 +1105,23 @@
 <section class="anchor">
   <div class="wrap">
     <h2>What you'll do — and leave with</h2>
-    <p class="sub">No prior LLM or agent experience required. The teaching blocks start with a concise primer, then we build, evaluate, and stress-test an agent together.</p>
+    <p class="sub">No prior LLM or agent experience required. We start with the basics (model, tool, agent and skill), then build an agent, write tools for it, and test how it improves.</p>
     <div class="cols">
       <div class="card">
         <h3>What you will do</h3>
         <ul class="list">
-          <li>Build health-specific tools (data retrieval, analysis, visualization) and register them with an LLM agent.</li>
-          <li>Wire up an agent loop and iterate it on real questions over wearable, smartphone, and self-report data.</li>
-          <li>Examine grounding, confounds, safety handling, and ethical considerations in a moderated panel with invited guests.</li>
+          <li>Build the agent loop yourself, and write health-specific tools the agent can call.</li>
+          <li>Ask real questions over wearable and smartphone data, and check each answer against the data.</li>
+          <li>Let the model rewrite one of its own skills, test the change on a case it never saw, and discuss evaluation and safety in a panel with invited guests.</li>
         </ul>
       </div>
       <div class="card">
         <h3>What you will leave with</h3>
         <ul class="list leave">
-          <li>A working LLM health agent running locally on the provided dataset.</li>
+          <li>A working LLM health agent you build in your browser on public sensing data, with your code saved as a notebook.</li>
           <li>A runnable codebase and design template you can adapt to your own research.</li>
-          <li>A practical checklist for evaluating LLM agents — minimal faithfulness checks, confounds and causal humility, and deterministic safety handling (refusal, emergency escalation, crisis support).</li>
-          <li>A roadmap for extending the scaffold in your own work.</li>
+          <li>Simple checks for an agent’s answers: can every number be traced to the data, and does the answer go along with the user when the data disagree?</li>
+          <li>Advanced pages for self-study: stronger checks, fixes in the harness, and automated improvement.</li>
         </ul>
       </div>
     </div>
@@ -1146,14 +1144,14 @@
       <div class="saci-main">
         <div class="saci-copy">
           <h3>Student–AI Collaborative Inquiry <span>SACI</span></h3>
-          <p>SACI pairs a student and AI agent as co-investigators. The student contextualizes, interrogates, and reflects on claims; the agent retrieves and computes evidence, forms hypotheses, and surfaces counter-evidence. Responsibility remains with the student and instructor. This tutorial applies the model to a public GLOBEM sample with labeled synthetic supplements, with a separate synthetic confound case and instructor-led scaffolds for refusal, red-teaming, and research governance.</p>
+          <p>SACI pairs a student and AI agent as co-investigators. The student contextualizes, interrogates, and reflects on claims; the agent retrieves and computes evidence, forms hypotheses, and surfaces counter-evidence. Responsibility remains with the student and instructor. This tutorial applies the model to a public GLOBEM sample: participants question the agent’s answers against the data, and when the model proposes a change to its own instructions, the participant judges it.</p>
         </div>
 
         <figure class="saci-paper-figure">
           <a href="saci-teaser.png" target="_blank" rel="noopener" type="image/png">
             <img src="saci-teaser.png" alt="The broader Student–AI Collaborative Inquiry model: instructor scaffolding and ethical safeguards around mutual interrogation between a student and AI agent over the student's multimodal sensor data, followed by five learning phases.">
           </a>
-          <figcaption>The SACI paper’s model figure. The tutorial uses a public-sample GLOBEM teaching profile and a separate synthetic case, without requiring participants’ personal data. Open the figure to view it at full size.</figcaption>
+          <figcaption>The SACI paper’s model figure. The tutorial uses the public GLOBEM sample, without requiring participants’ personal data. Open the figure to view it at full size.</figcaption>
         </figure>
       </div>
 
@@ -1184,7 +1182,7 @@
       </li>
       <li class="slot">
         <span class="time">Time TBA</span>
-        <div><h4>Hands-on teaching · Build, visualize &amp; evaluate</h4><p>Guided exercises in retrieving, analyzing and visualizing sensing data with an LLM agent, followed by checks against the underlying evidence.</p></div>
+        <div><h4>Hands-on teaching · Build an agent, write tools, improve it</h4><p>In your browser: what a model, a tool, an agent and a skill are; build the agent loop; write your own tools; then let the model rewrite one of its own skills and check the change against the data.</p></div>
       </li>
       <li class="slot">
         <span class="time">Time TBA</span>
@@ -1260,17 +1258,17 @@
       <div class="card">
         <h3>Prerequisites</h3>
         <ul class="list">
-          <li>Intermediate Python: comfortable reading and modifying a Jupyter notebook, installing packages, and debugging API calls.</li>
+          <li>Basic Python: comfortable reading and editing a few lines of code.</li>
           <li>No prior LLM or agent experience required — the teaching blocks include a concise primer.</li>
-          <li>Familiarity with wearable or behavioral data is helpful but not required; cleaned sample datasets are provided.</li>
+          <li>Familiarity with wearable or behavioral data is helpful but not required; a cleaned public sample is provided.</li>
         </ul>
       </div>
       <div class="card">
         <h3>What to bring</h3>
         <ul class="list leave">
-          <li>A laptop with Python 3.10–3.12 and Jupyter installed.</li>
-          <li><strong>Local model preferred; API key optional</strong> — for the full LLM-based path, a compatible local model (for example, via Ollama) is preferred. If you already have a key for a supported provider, you can use it instead. If neither is available—or setup fails—the deterministic scripted fallback supports the guided tool-building and agent-wiring exercises, but it does not reproduce open-ended LLM reasoning.</li>
-          <li>Detailed setup instructions, including a one-command install script, are sent two weeks before the tutorial.</li>
+          <li>A laptop with an up-to-date web browser (Chrome, Edge, Firefox or Safari). Nothing to install: the hands-on runs on <a href="https://agentlab.zhihanjiang.com">agentlab.zhihanjiang.com</a>.</li>
+          <li><strong>No API key needed</strong> — we provide model access for the session. You get a seat code at the tutorial.</li>
+          <li>If you can, open the page before 15:00, so it has loaded when the hands-on starts.</li>
         </ul>
       </div>
     </div>
@@ -1281,15 +1279,12 @@
 <section class="anchor" id="dataset">
   <div class="wrap">
     <h2>The dataset</h2>
-    <p class="dataset-note">The <b>main exercises</b> combine official public GLOBEM sample observations with explicitly labeled synthetic supplements. A separate fully synthetic scenario is used in the evaluation exercises to examine confounding and why overlapping changes do not identify a cause. No credentialed data access is required during the tutorial, and we provide a data-privacy checklist you can adapt for your own studies.</p>
+    <p class="dataset-note">The hands-on uses the official public sample of the GLOBEM dataset: 10 college students with a Fitbit and a phone-sensing app, about seven weeks each. Observed missing values stay missing, and no credentialed data access is required.</p>
     <div class="tag-row">
       <span class="tag">Sleep</span>
-      <span class="tag">Heart rate</span>
-      <span class="tag">Physical activity</span>
-      <span class="tag">GPS / location</span>
-      <span class="tag">Screen time</span>
-      <span class="tag">EMA self-reports</span>
-      <span class="tag">Context</span>
+      <span class="tag">Steps</span>
+      <span class="tag">Phone unlocks</span>
+      <span class="tag">Time at home (GPS)</span>
     </div>
   </div>
 </section>
@@ -1355,11 +1350,11 @@
       </details>
       <details>
         <summary>Do I need an API key? Will it cost money?</summary>
-        <div class="answer">No. A compatible local model, for example through Ollama, is the preferred path for the full LLM-based experience. If you already have an API key for a supported provider, you can use that instead. If you have neither, the interface-compatible scripted fallback still supports the guided exercises, but it does not reproduce open-ended LLM reasoning. The local and scripted paths do not require paid API usage; hosted-provider costs depend on the provider and account.</div>
+        <div class="answer">No, and no. We provide model access for the session through the tutorial page, at no cost to you.</div>
       </details>
       <details>
         <summary>What do I need on my laptop?</summary>
-        <div class="answer">Python 3.10–3.12 and Jupyter. We send detailed setup instructions, including a one-command install script, two weeks before the tutorial.</div>
+        <div class="answer">Only a web browser. The hands-on runs in your browser at <a href="https://agentlab.zhihanjiang.com">agentlab.zhihanjiang.com</a>, including the Python code, so there is nothing to install.</div>
       </details>
       <details>
         <summary>Do I get to keep the code and data?</summary>
@@ -1401,7 +1396,7 @@
 <h2>Tutorial materials</h2>
 <p><strong>Materials coming soon.</strong></p>
 <p class="sub">Materials will be available here before the tutorial.</p>
-<p class="sub">The GLOBEM hybrid profile uses the official public sample, not the full credentialed PhysioNet release. Observed missing values remain missing. Synthetic supplements are not facts about the source participants.</p>
+<p class="sub">The hands-on uses the official public GLOBEM sample, not the full credentialed PhysioNet release. Observed missing values remain missing.</p>
 </div></section>
 
 <section class="register anchor" id="register">
