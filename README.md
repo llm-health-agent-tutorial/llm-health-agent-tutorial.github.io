@@ -45,7 +45,20 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 
 Dr. Thomas Plötz (School of Interactive Computing, Georgia Institute of Technology) will give the opening talk. Panel participation is being coordinated separately.
 
-The tentative afternoon remains October 12, 14:00–17:30, with the conference coffee break at 15:30–16:00. The detailed timetable is being updated to accommodate the opening talk, invited talks, hands-on teaching, and the closing panel on evaluation and safety. Individual session times and speaking order will be announced on the [website](https://llm-health-agent-tutorial.github.io/#schedule).
+The tentative schedule for October 12 is below (Shanghai time, UTC+8; Room 5A). It includes 70 minutes of guided hands-on practice. See the [website](https://llm-health-agent-tutorial.github.io/#schedule) for updates.
+
+| Time | Session |
+| --- | --- |
+| 14:00–14:05 | Welcome & overview |
+| 14:05–14:30 | Opening talk — Dr. Thomas Plötz (20-minute talk + 5-minute Q&A) |
+| 14:30–14:40 | Invited talk — Dr. Xin Liu |
+| 14:40–14:50 | Invited talk — Dr. Teng Han |
+| 14:50–15:00 | Invited talk — Dr. Chenshu Wu |
+| 15:00–15:10 | Invited talk — Dr. Edith C. H. Ngai |
+| 15:10–15:30 | Hands-on I — Foundations & the agent loop |
+| 15:30–16:00 | Conference coffee break |
+| 16:00–16:50 | Hands-on II — Tools, skills & evaluation |
+| 16:50–17:30 | Panel discussion & closing — Evaluation and safety |
 
 > Detailed setup instructions, including a one-command install script, will be sent to
 > registered participants two weeks before the tutorial.
