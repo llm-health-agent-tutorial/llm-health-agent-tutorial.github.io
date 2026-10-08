@@ -68,7 +68,7 @@ Participants can export their code, edits and completed outputs as a Jupyter not
 
 ## Publishing the website (GitHub Pages)
 
-The public page shows an updated concept teaser and a current interface preview with the AI helper. The tutorial platform URL and material download links are not published yet. RSVP remains available. Legacy ZIP and PPTX assets are retained; hiding entry points does not revoke access through existing direct URLs.
+The public page shows the current interface with the AI helper. The concept teaser files are retained but not displayed on the page. The tutorial platform URL and material download links are not published yet. RSVP remains available. Legacy ZIP and PPTX assets are retained; hiding entry points does not revoke access through existing direct URLs.
 
 1. Push this repository to GitHub.
 2. Settings → Pages → Source: **Deploy from a branch** → branch `main`, folder **`/docs`** → Save.
