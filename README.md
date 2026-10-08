@@ -4,8 +4,7 @@
 
 *From Multimodal Sensing Data to Actionable Health Insights.*
 
-Build a working personal LLM health agent from a minimal scaffold, using the official public GLOBEM sample with labeled synthetic supplements as the main exercise, plus a separate synthetic confound scenario, then evaluate when
-its answers should and should not be trusted. The central question is still:
+Build a personal LLM health agent in your browser using the official public GLOBEM sample. Write tools, inspect the agent loop, and compare answers before and after changing a skill. An AI helper can explain the lesson and help interpret code or errors; participants run and check any suggested changes. The central question is:
 *“Why have I been sleeping poorly this week?”*
 
 Ground every claim. Catch confounds. Refuse medical advice. Stress-test the agent.
@@ -33,10 +32,11 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 .
 ├── docs/          # Tutorial website (GitHub Pages source)
 │   ├── index.html
-│   ├── tutorial-teaser.png
+│   ├── tutorial-overview.png  # Updated concept teaser for the public GLOBEM sample
+│   ├── tutorial-teaser.png    # Retained original concept figure
 │   ├── saci-teaser.png
 │   ├── papers/     # Accepted SACI paper
-│   └── img/       # Organizer photos
+│   └── img/       # Speaker/organizer photos and current helper preview
 ├── code/          # Starter repository and complete bundle links
 └── data/          # Synthetic scenario + GLOBEM public-sample hybrid
 ```
@@ -60,17 +60,15 @@ The tentative schedule for October 12 is below (Shanghai time, UTC+8; Room 5A). 
 | 16:00–16:50 | Hands-on II — Tools, skills & evaluation |
 | 16:50–17:30 | Panel discussion & closing — Evaluation and safety |
 
-> Detailed setup instructions, including a one-command install script, will be sent to
-> registered participants two weeks before the tutorial.
+**Prerequisites:** Basic Python and a laptop with an up-to-date browser. The current hands-on runs Python in the browser, with no installation or personal API key required. Participants receive a seat code for model access at the tutorial; access details will be shared separately.
 
-**Prerequisites:** Python 3.10–3.12 and Jupyter. For the full LLM-based experience, prefer a prepared local Ollama model. An OpenAI or Gemini API backend is an optional alternative. A key or local model is recommended,
-not required: an interface-compatible deterministic scripted fallback supports the guided
-tool-building and agent-wiring exercises if neither is available or setup fails, but it does not
-reproduce open-ended LLM reasoning.
+The interface includes editable exercises, reference solutions, scratch cells, a function/variable browser, and an AI helper that uses the lesson and the participant’s code and recent outputs. The helper offers guidance; it does not execute or verify a fix.
+
+Participants can export their code, edits and completed outputs as a Jupyter notebook and download the public sample and lab package. Local data tools can run independently; live model calls require available service access or adapting the connection to another provider.
 
 ## Publishing the website (GitHub Pages)
 
-Starter repository, materials bundle and teaching slides links are temporarily hidden on the website while the materials are finalized. RSVP remains available. The repository, ZIP and PPTX are retained; this only hides the website entry points, not access through existing direct URLs. Restore the hero button, materials links and resource row in `docs/index.html` when the materials are ready.
+The public page shows an updated concept teaser and a current interface preview with the AI helper. The tutorial platform URL and material download links are not published yet. RSVP remains available. Legacy ZIP and PPTX assets are retained; hiding entry points does not revoke access through existing direct URLs.
 
 1. Push this repository to GitHub.
 2. Settings → Pages → Source: **Deploy from a branch** → branch `main`, folder **`/docs`** → Save.
