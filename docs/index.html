@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tutorial: Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026</title>
-<meta name="description" content="A half-day, hands-on UbiComp/ISWC 2026 tutorial: build a personal LLM health agent in your browser over a public GLOBEM sensing sample — write tools, check every claim against the data, and test how an agent improves itself.">
+<meta name="description" content="A hands-on UbiComp/ISWC 2026 tutorial: build a health agent in your browser using public GLOBEM data, with runnable Python exercises and an AI helper.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0f2342">
 
@@ -12,13 +12,13 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://llm-health-agent-tutorial.github.io/">
 <meta property="og:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
-<meta property="og:description" content="A half-day, hands-on tutorial: build a personal LLM health agent in your browser over a public GLOBEM sensing sample — write tools, check every claim against the data, and test how an agent improves itself.">
+<meta property="og:description" content="A hands-on UbiComp/ISWC 2026 tutorial: build a health agent in your browser using public GLOBEM data, with runnable Python exercises and an AI helper.">
 <meta property="og:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Prototyping Your Personal LLM Health Agent — UbiComp/ISWC 2026 Tutorial">
-<meta name="twitter:description" content="Build a personal LLM health agent in your browser over multimodal sensing data — write tools, check every claim against the data, and test how an agent improves itself.">
+<meta name="twitter:description" content="A hands-on UbiComp/ISWC 2026 tutorial: build a health agent in your browser using public GLOBEM data, with runnable Python exercises and an AI helper.">
 <meta name="twitter:image" content="https://llm-health-agent-tutorial.github.io/og-card.png">
 
 <style>
@@ -1043,7 +1043,7 @@
       <span class="badge"><span class="dot"></span><span class="badge-text">UbiComp/ISWC 2026 · Half-day Tutorial · Shanghai, China</span></span>
     <p class="kicker">From Multimodal Sensing Data to Actionable Health Insights</p>
     <h1>Prototyping Your Personal LLM Health Agent</h1>
-    <p class="lede">Build a working personal LLM health agent over a public GLOBEM sensing sample, right in your browser. Learn what a model, a tool, an agent and a skill are, write your own tools, then let the model rewrite its own instructions. Along the way, <strong>check every claim against the data</strong>.</p>
+    <p class="lede">Build and inspect a personal LLM health agent in your browser using the public GLOBEM sensing sample. Write tools, follow the agent’s tool calls, and test whether a change to its instructions helps. An AI helper supports you as you work; <strong>you check the answers against the data</strong>.</p>
 
     <div class="facts">
       <div class="fact">
@@ -1072,10 +1072,10 @@
         <div class="signal-row">
           <div class="signal"><b>Sleep</b><span>duration · timing</span><div class="sparkline"><svg viewBox="0 0 120 34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M3 24 C18 10, 30 10, 44 21 S72 31, 88 12 S107 10, 117 22"/></svg></div></div>
           <div class="signal"><b>Activity</b><span>steps · routines</span><div class="sparkline"><svg viewBox="0 0 120 34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M4 27 H18 V20 H31 V13 H45 V24 H58 V9 H71 V17 H84 V6 H97 V19 H116"/></svg></div></div>
-          <div class="signal"><b>EMA</b><span>mood · context</span><div class="sparkline"><svg viewBox="0 0 120 34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 18 C22 28, 38 27, 52 16 S83 4, 115 13"/></svg></div></div>
+          <div class="signal"><b>Phone</b><span>unlocks · time at home</span><div class="sparkline"><svg viewBox="0 0 120 34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 18 C22 28, 38 27, 52 16 S83 4, 115 13"/></svg></div></div>
         </div>
         <div class="pipeline">
-          <div class="pipe-step"><b>Retrieve</b><span>Call health-specific tools over wearable, phone, and self-report streams.</span></div>
+          <div class="pipe-step"><b>Retrieve</b><span>Call tools over sleep, steps, phone use, and time at home.</span></div>
           <div class="pipe-step"><b>Reason</b><span>Surface patterns, confounds, and limits before generating an answer.</span></div>
           <div class="pipe-step"><b>Evaluate</b><span>Check grounding, faithfulness, and safety on open-ended questions.</span></div>
         </div>
@@ -1089,13 +1089,13 @@
 <section class="hook anchor" id="about">
   <div class="wrap">
     <p class="quote"><span class="q">“</span>Why have I been sleeping poorly this week?<span class="q">”</span></p>
-    <p>Most consumer wearables and health dashboards can show you the data behind that question, but they cannot answer it. LLM agents — language models that call functions, run analyses, and visualize results — offer a path to connect curated multimodal sensing features with inspectable, data-grounded answers. In this half-day, hands-on tutorial, you will build a working personal LLM health agent from a minimal scaffold, over the public GLOBEM sample (sleep, steps, phone use and time at home), in your browser with nothing to install.</p>
+    <p>Wearable and smartphone records can show when sleep, activity, or phone use changed. An LLM agent can call tools to explore those records, but its explanations still need checking. In this hands-on tutorial, you will build an agent over the public GLOBEM sample, inspect how it reaches an answer, and compare answers before and after changing a tool or skill. The hands-on runs in your browser, with nothing to install.</p>
 
     <figure class="teaser">
-      <a class="teaser-image-link" href="img/agentlab-preview.png" target="_blank" rel="noopener" type="image/png">
-        <img src="img/agentlab-preview.png" alt="The tutorial page: a slide on the left explains that an agent is a model, tools and a loop; on the right, a code cell runs the agent on 'How did I sleep last week?' and shows its answer and each tool call.">
+      <a class="teaser-image-link" href="tutorial-overview.png" target="_blank" rel="noopener" type="image/png">
+        <img src="tutorial-overview.png" alt="Tutorial overview: a sleep question leads to an LLM agent using retrieval, analysis and visualization tools on the public GLOBEM sample. Participants explore data, build the agent loop, write tools, rewrite a skill, check answers and discuss safety. The illustrative answer distinguishes observations from causes.">
       </a>
-      <figcaption>The tutorial page: each step has a slide on the left and code you can run on the right. Here the agent answers “How did I sleep last week?” and shows every tool call it made. Open the figure to view it at full size.</figcaption>
+      <figcaption>Conceptual overview of the tutorial, using the public GLOBEM sample. The answer is illustrative. Open the figure to view it at full size.</figcaption>
     </figure>
 
   </div>
@@ -1105,7 +1105,7 @@
 <section class="anchor">
   <div class="wrap">
     <h2>What you'll do — and leave with</h2>
-    <p class="sub">No prior LLM or agent experience required. We start with the basics (model, tool, agent and skill), then build an agent, write tools for it, and test how it improves.</p>
+    <p class="sub">No prior LLM or agent experience required. We start with the basics (model, tool, agent and skill), then build an agent, write tools for it, and test whether a rewritten skill helps.</p>
     <div class="cols">
       <div class="card">
         <h3>What you will do</h3>
@@ -1118,13 +1118,22 @@
       <div class="card">
         <h3>What you will leave with</h3>
         <ul class="list leave">
-          <li>A working LLM health agent you build in your browser on public sensing data, with your code saved as a notebook.</li>
-          <li>A runnable codebase and design template you can adapt to your own research.</li>
+          <li>Your code, edits and completed outputs downloaded as a Jupyter notebook.</li>
+          <li>The public data sample and lab package, with tools and skills you can adapt to your own research.</li>
           <li>Simple checks for an agent’s answers: can every number be traced to the data, and does the answer go along with the user when the data disagree?</li>
           <li>Advanced pages for self-study: stronger checks, fixes in the harness, and automated improvement.</li>
         </ul>
       </div>
     </div>
+
+    <h2 class="anchor" id="learning-environment">Learn in your browser</h2>
+    <p class="sub">Follow the slides alongside editable Python cells. Ask the AI helper about the lesson, a blank, or an error: it uses the tutorial, your current code and recent outputs to offer explanations and hints. You run and check any suggested changes. You can also add your own cells, inspect variables, and browse examples or function source.</p>
+    <figure class="teaser">
+      <a class="teaser-image-link" href="img/tutorial-helper-preview.jpg" target="_blank" rel="noopener" type="image/jpeg">
+        <img src="img/tutorial-helper-preview.jpg" alt="Current browser tutorial with a lesson and sleep chart on the left, editable Python cells on the right, and the AI helper’s English welcome panel open." loading="lazy">
+      </a>
+      <figcaption>The current tutorial interface, with the AI helper open beside the lesson and Python cells. Participants receive a seat code for model access at the tutorial. Access details will be shared separately.</figcaption>
+    </figure>
 
     <h2 class="anchor" id="framework">The learning model behind the tutorial</h2>
     <p class="sub">A short-format, hands-on instantiation of Student–AI Collaborative Inquiry (SACI). <a class="saci-paper-inline" href="papers/saci-ubicomp-companion-2026.pdf" target="_blank" rel="noopener" type="application/pdf">Read the accepted paper (PDF).</a></p>
@@ -1380,7 +1389,11 @@
     <div class="faq">
       <details>
         <summary>Do I need prior LLM or agent experience?</summary>
-        <div class="answer">No. The teaching blocks include a concise primer, and the guided exercises will include starter notebooks with fill-in-the-blanks plus reference solutions. Intermediate Python is the only real prerequisite.</div>
+        <div class="answer">No. Basic Python is enough: you should be comfortable reading and editing a few lines of code. The browser tutorial includes a concise primer, guided exercises and reference solutions.</div>
+      </details>
+      <details>
+        <summary>What if I get stuck?</summary>
+        <div class="answer">Ask an organizer or the AI helper. The helper can explain a concept, suggest a hint or help interpret an error using the lesson and your code. It does not run or verify a fix for you; try the suggestion and check the result.</div>
       </details>
       <details>
         <summary>Do I need an API key? Will it cost money?</summary>
@@ -1392,7 +1405,7 @@
       </details>
       <details>
         <summary>Do I get to keep the code and data?</summary>
-        <div class="answer">Yes. Tutorial code and original synthetic materials use the MIT License. The included public GLOBEM sample retains its upstream Apache-2.0 attribution and notices. Materials will be available here before the tutorial.</div>
+        <div class="answer">Yes. Export your code and completed outputs as a Jupyter notebook, and download the public GLOBEM sample and lab package. Local data tools can run on your own computer; live model calls require available service access or adapting the connection to your own provider. The code and data retain their respective license notices.</div>
       </details>
       <details>
         <summary>Is this clinical or medical training?</summary>
@@ -1428,8 +1441,8 @@
 <!-- REGISTER -->
 <section class="anchor" id="materials"><div class="wrap">
 <h2>Tutorial materials</h2>
-<p><strong>Materials coming soon.</strong></p>
-<p class="sub">Materials will be available here before the tutorial.</p>
+<p><strong>Access details will be shared separately.</strong></p>
+<p class="sub">The browser tutorial includes slides, editable Python exercises, reference solutions and an AI helper. Participants can export their work as a notebook and download the public sample and lab package.</p>
 <p class="sub">The hands-on uses the official public GLOBEM sample, not the full credentialed PhysioNet release. Observed missing values remain missing.</p>
 </div></section>
 
