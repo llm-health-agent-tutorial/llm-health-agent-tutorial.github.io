@@ -70,6 +70,8 @@ Participants can export their code, edits and completed outputs as a Jupyter not
 
 The public page includes a compact Ask → Build → Check overview and the current interface with the AI helper. The older concept teaser images are retained but not displayed on the page. The tutorial platform URL and material download links are not published yet. RSVP remains available. Legacy ZIP and PPTX assets are retained; hiding entry points does not revoke access through existing direct URLs.
 
+The 1200 × 630 sharing image is `docs/og-card-20261010.jpg`, rendered from `promo/og-card.html`. Open Graph and Twitter metadata reference this dated filename so newly fetched previews use the five-speaker card. Existing platform caches may refresh separately.
+
 1. Push this repository to GitHub.
 2. Settings → Pages → Source: **Deploy from a branch** → branch `main`, folder **`/docs`** → Save.
 3. The site goes live at `https://<account>.github.io/<repo>/`.
