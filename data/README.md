@@ -1,5 +1,11 @@
 # Teaching data
 
+The current [AgentLab tutorial](https://agentlab.zhihanjiang.com/) uses the official public GLOBEM sample: 10 participants and 481 feature-day rows per sensing table. The package includes the source notices and codebook; it does not include credentialed GLOBEM records. Download the current lab package and data from AgentLab’s Take home page.
+
+## Archived notebook data profiles
+
+The profiles and download below describe the earlier notebook edition. Its course, speaker and schedule documents are superseded; use AgentLab for the current exercises.
+
 Two explicit profiles ship in the complete bundle:
 
 - `starter/data/processed/`: 12 fully synthetic users over 112 days. This separate Module-5 scenario supports the reproducible sleep, screen-use and deadline-confound exercise.

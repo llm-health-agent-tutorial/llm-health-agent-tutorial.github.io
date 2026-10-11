@@ -1,4 +1,12 @@
-# Starter code and teaching materials
+# Tutorial code and teaching materials
+
+Use [AgentLab](https://agentlab.zhihanjiang.com/) for the October 12 tutorial: the current slides, editable Python exercises, AI helper and downloads are available there. No installation or personal API key is required; participants receive a seat code for model access at the tutorial.
+
+Use **Export** in AgentLab to save your work as a Jupyter notebook. The Take home page links to the lab package and public sample data. See the [tutorial website](https://llm-health-agent-tutorial.github.io/) for the current schedule.
+
+## Archived notebook edition
+
+The materials below belong to the earlier notebook-based course. Their speaker lists, schedules and setup instructions are superseded by AgentLab; do not use them for the current session.
 
 The implementation lives in the [starter repository](https://github.com/llm-health-agent-tutorial/llm-health-agent-starter).
 
