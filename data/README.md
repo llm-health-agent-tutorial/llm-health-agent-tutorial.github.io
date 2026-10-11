@@ -1,6 +1,6 @@
 # Teaching data
 
-The current [AgentLab tutorial](https://agentlab.zhihanjiang.com/) uses the official public GLOBEM sample: 10 participants and 481 feature-day rows per sensing table, with sparse EMA observations. The package includes the source notices and codebook; it does not include credentialed GLOBEM records. Download the current lab package and data from AgentLab’s Take home page.
+The current [AgentLab tutorial](https://agentlab.zhihanjiang.com/) uses the official public GLOBEM sample: 10 participants and 481 feature-day rows per sensing table. The package includes the source notices and codebook; it does not include credentialed GLOBEM records. Download the current lab package and data from AgentLab’s Take home page.
 
 ## Archived notebook data profiles
 
