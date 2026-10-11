@@ -45,22 +45,21 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 
 Dr. Thomas Plötz (School of Interactive Computing, Georgia Institute of Technology) will give the opening talk. Panel participation is being coordinated separately.
 
-The tentative schedule for October 12 is below (Shanghai time, UTC+8; Room 5A). It includes 70 minutes of guided hands-on practice. See the [website](https://llm-health-agent-tutorial.github.io/#schedule) for updates.
+The tentative schedule for October 12 is below (Shanghai time, UTC+8; Room 5A). It includes 80 minutes of guided hands-on practice. See the [website](https://llm-health-agent-tutorial.github.io/#schedule) for updates.
 
 | Time | Session |
 | --- | --- |
 | 14:00–14:05 | Welcome & overview |
 | 14:05–14:30 | Opening talk — Dr. Thomas Plötz (20-minute talk + 5-minute Q&A) |
-| 14:30–14:40 | Invited talk — Dr. Xin Liu |
-| 14:40–14:50 | Invited talk — Dr. Teng Han |
-| 14:50–15:00 | Invited talk — Dr. Chenshu Wu |
-| 15:00–15:10 | Invited talk — Dr. Edith C. H. Ngai |
-| 15:10–15:30 | Hands-on I — Foundations & the agent loop |
+| 14:30–14:40 | Invited talk — Dr. Teng Han |
+| 14:40–14:50 | Invited talk — Dr. Chenshu Wu |
+| 14:50–15:00 | Invited talk — Dr. Edith C. H. Ngai |
+| 15:00–15:30 | Hands-on I — Foundations & the agent loop |
 | 15:30–16:00 | Conference coffee break |
 | 16:00–16:50 | Hands-on II — Tools, skills & evaluation |
 | 16:50–17:30 | Panel discussion & closing — Evaluation and safety |
 
-**Prerequisites:** Basic Python and a laptop with an up-to-date browser. The current hands-on runs Python in the browser, with no installation or personal API key required. Participants receive a seat code for model access at the tutorial; access details will be shared separately.
+**Prerequisites:** Basic Python; a laptop is recommended for coding, and phone participation is welcome. The hands-on runs in the browser, with no installation or personal API key required. Open https://agentlab.zhihanjiang.com/; participants receive a seat code for model access at the tutorial.
 
 The interface includes editable exercises, reference solutions, scratch cells, a function/variable browser, and an AI helper that uses the lesson and the participant’s code and recent outputs. The helper offers guidance; it does not execute or verify a fix.
 
@@ -68,9 +67,9 @@ Participants can export their code, edits and completed outputs as a Jupyter not
 
 ## Publishing the website (GitHub Pages)
 
-The public page includes a compact Ask → Build → Check overview and the current interface with the AI helper. The older concept teaser images are retained but not displayed on the page. The tutorial platform URL and material download links are not published yet. RSVP remains available. Legacy ZIP and PPTX assets are retained; hiding entry points does not revoke access through existing direct URLs.
+The public page includes a compact Ask → Build → Check overview and the current interface with the AI helper. The older concept teaser images are retained but not displayed on the page. AgentLab is publicly linked from the page; its materials can be accessed through the platform. RSVP remains available. Legacy ZIP and PPTX assets are retained; hiding entry points does not revoke access through existing direct URLs.
 
-The 1200 × 630 sharing image is `docs/og-card-20261010.jpg`, rendered from `promo/og-card.html`. Open Graph and Twitter metadata reference this dated filename so newly fetched previews use the five-speaker card. Existing platform caches may refresh separately.
+The 1200 × 630 sharing image is `docs/og-card-20261011.jpg`, rendered from `promo/og-card.html`. Open Graph and Twitter metadata reference this dated filename so newly fetched previews use the four-speaker card. Existing platform caches may refresh separately.
 
 1. Push this repository to GitHub.
 2. Settings → Pages → Source: **Deploy from a branch** → branch `main`, folder **`/docs`** → Save.
