@@ -37,13 +37,13 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 │   ├── saci-teaser.png
 │   ├── papers/     # Accepted SACI paper
 │   └── img/       # Speaker/organizer photos and current helper preview
-├── code/          # Starter repository and complete bundle links
-└── data/          # Synthetic scenario + GLOBEM public-sample hybrid
+├── code/          # Current AgentLab entry and archived starter links
+└── data/          # Current public GLOBEM sample and archived data profiles
 ```
 
 ## Getting started
 
-Dr. Thomas Plötz (School of Interactive Computing, Georgia Institute of Technology) will give the opening talk. Panel participation is being coordinated separately.
+Dr. Thomas Plötz (School of Interactive Computing, Georgia Institute of Technology) will give the opening talk. The panel will feature Dr. Thomas Plötz, Dr. Teng Han, Dr. Chenshu Wu, and Dr. Edith C. H. Ngai.
 
 The tentative schedule for October 12 is below (Shanghai time, UTC+8; Room 5A). It includes 80 minutes of guided hands-on practice. See the [website](https://llm-health-agent-tutorial.github.io/#schedule) for updates.
 
