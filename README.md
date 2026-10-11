@@ -36,9 +36,9 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 │   ├── tutorial-teaser.png    # Retained original concept figure
 │   ├── saci-teaser.png
 │   ├── papers/     # Accepted SACI paper
-│   └── img/       # Speaker/organizer photos and current helper preview
-├── code/          # Current AgentLab entry and archived starter links
-└── data/          # Current public GLOBEM sample and archived data profiles
+│   └── img/       # Speaker/organizer photos and retained preview assets
+├── code/          # Teaching-material availability
+└── data/          # Public GLOBEM sample provenance and archived data profiles
 ```
 
 ## Getting started
@@ -59,7 +59,7 @@ The tentative schedule for October 12 is below (Shanghai time, UTC+8; Room 5A). 
 | 16:00–16:50 | Hands-on II — Tools, skills & evaluation |
 | 16:50–17:30 | Panel discussion & closing — Evaluation and safety |
 
-**Prerequisites:** Basic Python; a laptop is recommended for coding, and phone participation is welcome. The hands-on runs in the browser, with no installation or personal API key required. Open https://agentlab.zhihanjiang.com/; participants receive a seat code for model access at the tutorial.
+**Prerequisites:** Basic Python; a laptop is recommended for coding, and phone participation is welcome. The hands-on runs in the browser, with no installation or personal API key required. The hands-on link and tutorial materials will be shared during the session, along with a seat code for model access.
 
 The interface includes editable exercises, reference solutions, scratch cells, a function/variable browser, and an AI helper that uses the lesson and the participant’s code and recent outputs. The helper offers guidance; it does not execute or verify a fix.
 
@@ -67,7 +67,7 @@ Participants can export their code, edits and completed outputs as a Jupyter not
 
 ## Publishing the website (GitHub Pages)
 
-The public page includes a compact Ask → Build → Check overview and the current interface with the AI helper. The older concept teaser images are retained but not displayed on the page. AgentLab is publicly linked from the page; its materials can be accessed through the platform. RSVP remains available. Legacy ZIP and PPTX assets are retained; hiding entry points does not revoke access through existing direct URLs.
+The public page includes a compact Ask → Build → Check overview. The AgentLab entry, lesson screenshot and teaching-material download links are temporarily withdrawn; the hands-on link will be shared during the session. Event information and RSVP remain available. Existing assets and the lab service are retained; removing entry points does not revoke access through previously shared URLs or repository history.
 
 The 1200 × 630 sharing image is `docs/og-card-20261011.jpg`, rendered from `promo/og-card.html`. Open Graph and Twitter metadata reference this dated filename so newly fetched previews use the four-speaker card. Existing platform caches may refresh separately.
 
