@@ -1,6 +1,6 @@
 # Teaching data
 
-The tutorial uses the official public GLOBEM sample: 10 participants and 481 feature-day rows per sensing table. The package includes the source notices and codebook; it does not include credentialed GLOBEM records. The lab package and sample data will be shared during the session.
+The tutorial uses the official public GLOBEM sample: 10 participants and 481 feature-day rows per sensing table. The package includes the source notices and codebook; it does not include credentialed GLOBEM records. Download the current lab package and sample data from the Take home page in [AgentLab](https://agentlab.zhihanjiang.com/).
 
 ## Archived notebook data profiles
 
