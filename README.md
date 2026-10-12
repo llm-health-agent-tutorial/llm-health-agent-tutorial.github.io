@@ -1,6 +1,6 @@
 # Prototyping Your Personal LLM Health Agent
 
-**A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 12, 2026, 14:00–17:30 (tentative; Shanghai time, UTC+8).**
+**A half-day, hands-on tutorial at UbiComp/ISWC 2026 — Shanghai, China, October 12, 2026, 14:00–17:30 (Shanghai time, UTC+8).**
 
 *From Multimodal Sensing Data to Actionable Health Insights.*
 
@@ -10,7 +10,7 @@ Build a personal LLM health agent in your browser using the official public GLOB
 Ground every claim. Catch confounds. Refuse medical advice. Stress-test the agent.
 
 🌐 **Tutorial website:** https://llm-health-agent-tutorial.github.io/
-📅 **When:** October 12, 2026 · 14:00–17:30 (tentative; Shanghai time, UTC+8)
+📅 **When:** October 12, 2026 · 14:00–17:30 (Shanghai time, UTC+8)
 📍 **Where:** Room 5A · Shanghai, China
 ✉️ **Contact:** zj2445@cumc.columbia.edu
 
@@ -45,7 +45,7 @@ The hands-on format instantiates Student–AI Collaborative Inquiry (SACI); read
 
 Dr. Thomas Plötz (School of Interactive Computing, Georgia Institute of Technology) will give the opening talk. The panel will feature Dr. Thomas Plötz, Dr. Teng Han, Dr. Chenshu Wu, and Dr. Edith C. H. Ngai.
 
-The tentative schedule for October 12 is below (Shanghai time, UTC+8; Room 5A). It includes 80 minutes of guided hands-on practice. See the [website](https://llm-health-agent-tutorial.github.io/#schedule) for updates.
+The schedule for October 12 is below (Shanghai time, UTC+8; Room 5A). It includes 80 minutes of guided hands-on practice. See the [website](https://llm-health-agent-tutorial.github.io/#schedule) for updates.
 
 | Time | Session |
 | --- | --- |
