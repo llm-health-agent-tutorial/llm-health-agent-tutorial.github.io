@@ -486,6 +486,69 @@
     margin-top: 12px;
   }
 
+  /* Recap */
+  .recap {
+    padding: 68px 0;
+    border-top: 1px solid var(--line);
+    background: var(--accent-soft);
+  }
+  .recap .wrap {
+    display: grid;
+    grid-template-columns: minmax(190px, .34fr) minmax(0, .66fr);
+    column-gap: clamp(28px, 5vw, 64px);
+    row-gap: 28px;
+    align-items: start;
+  }
+  .recap h2 {
+    grid-column: 1;
+    margin: 0;
+    color: var(--primary-ink);
+    font-size: clamp(29px, 3.6vw, 40px);
+    font-weight: 700;
+  }
+  .recap .sub {
+    grid-column: 2;
+    align-self: end;
+    max-width: 66ch;
+    margin: 4px 0 0;
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.72;
+  }
+  .recap-hero,
+  .recap-grid {
+    grid-column: 1 / -1;
+    display: block;
+    margin: 0;
+  }
+  .recap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .recap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+  @media (max-width: 980px) {
+    .recap .wrap { grid-template-columns: 1fr; row-gap: 18px; }
+    .recap h2,
+    .recap .sub { grid-column: 1; margin-top: 0; }
+  }
+  @media (max-width: 720px) {
+    .recap { padding: 54px 0; }
+    .recap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 480px) {
+    .recap-grid { grid-template-columns: 1fr; }
+  }
+
   /* SACI learning model */
   .saci-feature {
     grid-column: 1 / -1;
@@ -1067,6 +1130,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </label>
     <ul class="nav-links">
+      <li><a href="#recap">Recap</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#schedule">Schedule</a></li>
       <li><a href="#speakers">Speakers</a></li>
@@ -1127,6 +1191,31 @@
     </aside>
   </div>
 </header>
+
+<!-- RECAP -->
+<div class="recap anchor" id="recap">
+  <div class="wrap">
+    <h2>Recap</h2>
+    <p class="sub">Thank you to the 50+ participants who joined us on October 12, 2026 at the Shanghai International Convention Center! The afternoon brought together an opening talk, invited talks, hands-on agent building in the browser, and a panel on evaluation and safety.</p>
+
+    <a class="recap-hero" href="img/recap/3242.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3242.jpg" alt="Group photo of tutorial participants, speakers and organizers in Room 5A"></a>
+
+    <div class="recap-grid">
+      <a href="img/recap/3256.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3256.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3264.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3264.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3266.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3266.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3267.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3267.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3273.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3273.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3277.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3277.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3259.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3259.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3260.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3260.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3261.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3261.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3249.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3249.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3254.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3254.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+      <a href="img/recap/3240.jpg" target="_blank" rel="noopener" type="image/jpeg"><img src="img/recap/3240.jpg" alt="Photo from the tutorial" loading="lazy"></a>
+    </div>
+  </div>
+</div>
 
 <!-- HOOK -->
 <section class="hook anchor" id="about">
