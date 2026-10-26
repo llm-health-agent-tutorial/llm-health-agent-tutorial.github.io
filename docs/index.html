@@ -254,6 +254,7 @@
   }
   .btn:hover { transform: translateY(-1px); }
   .btn:active { transform: translateY(0); }
+  .btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; pointer-events: none; transform: none; box-shadow: none; }
   .btn-primary {
     background: var(--accent);
     color: #fff;
@@ -1167,9 +1168,9 @@
 
     <div class="cta">
       <a class="btn btn-primary" href="#recap">See the recap</a>
-      <a class="btn btn-ghost" href="https://agentlab.zhihanjiang.com/" target="_blank" rel="noopener">Open AgentLab</a>
+      <a class="btn btn-ghost" role="link" aria-disabled="true" title="AgentLab closed after the tutorial">Open AgentLab</a>
     </div>
-    <p class="rsvp-hero-note">This tutorial took place on October 12, 2026. Slides and exercises remain open in AgentLab.</p>
+    <p class="rsvp-hero-note">This tutorial took place on October 12, 2026. AgentLab, the hands-on lab, has closed, and all seat codes have expired.</p>
     </div>
 
     <aside class="hero-visual" aria-hidden="true">
@@ -1268,7 +1269,7 @@
 
     <h2 class="anchor" id="learning-environment">Learn in your browser</h2>
     <p class="sub">Follow the slides alongside editable Python cells. Ask the AI helper about the lesson, a blank, or an error: it uses the tutorial, your current code and recent outputs to offer explanations and hints. You run and check any suggested changes. You can also add your own cells, inspect variables, and browse examples or function source.</p>
-    <p class="sub">Open <a href="https://agentlab.zhihanjiang.com/" target="_blank" rel="noopener">AgentLab</a> for the slides, Python exercises and AI helper. Model calls and the AI helper require a seat code provided at the tutorial.</p>
+    <p class="sub">During the tutorial, AgentLab hosted the slides, Python exercises and AI helper. It closed after the tutorial, and the seat codes have expired.</p>
 
     <h2 class="anchor" id="framework">How we teach</h2>
     <p class="sub">A short-format, hands-on instantiation of Student–AI Collaborative Inquiry (SACI). <a class="saci-paper-inline" href="papers/saci-ubicomp-companion-2026.pdf" target="_blank" rel="noopener" type="application/pdf">Read the accepted paper (PDF).</a></p>
@@ -1546,9 +1547,9 @@
 <!-- MATERIALS -->
 <section class="anchor" id="materials"><div class="wrap">
 <h2>Tutorial materials</h2>
-<p><a class="btn btn-primary" href="https://agentlab.zhihanjiang.com/" target="_blank" rel="noopener">Open AgentLab</a></p>
-<p class="sub">Slides and exercises are available now. Model calls and the AI helper require the seat code provided at the tutorial.</p>
-<p class="sub">The browser tutorial includes slides, editable Python exercises, reference solutions and an AI helper. Participants can export their work as a notebook and download the public sample and lab package.</p>
+<p><a class="btn btn-primary" role="link" aria-disabled="true" title="AgentLab closed after the tutorial">Open AgentLab</a></p>
+<p class="sub">AgentLab closed after the tutorial, and all seat codes have expired. Notebooks participants exported during the session remain theirs.</p>
+<p class="sub">The browser tutorial included slides, editable Python exercises, reference solutions and an AI helper. Participants could export their work as a notebook and download the public sample and lab package.</p>
 <p class="sub">The hands-on uses the official public GLOBEM sample, not the full credentialed PhysioNet release. Observed missing values remain missing.</p>
 </div></section>
 
@@ -1558,7 +1559,7 @@
     <div class="reg-box">
       <div class="reg-item">
         <span class="lbl">Hands-on platform</span>
-        <span class="val"><a href="https://agentlab.zhihanjiang.com/" target="_blank" rel="noopener">AgentLab</a></span>
+        <span class="val">AgentLab (closed)</span>
       </div>
       <div class="reg-item">
         <span class="lbl">Conference</span>
